@@ -53,11 +53,17 @@ namespace IranRiskTracker.Application.Services
         /// </summary>
         public LiveEventDto AcceptLiveEvent(LiveEventCreateRequest request)
         {
+            var errors = IranRiskTracker.Application.Validation.LiveEventRequestValidator.Validate(request);
+            if (errors != null && errors.Count > 0)
+            {
+                throw new ArgumentException(string.Join("; ", errors));
+            }
+
             var live = new LiveEventDto
             {
                 Id = Guid.NewGuid(),
-                Title = request.Title?.Trim() ?? string.Empty,
-                RawContent = request.RawContent,
+                Title = request.Title!.Trim(),
+                RawContent = request.RawContent ?? string.Empty,
                 OccurredAt = request.OccurredAt,
                 IngestedAt = DateTime.UtcNow,
                 Category = request.Category,

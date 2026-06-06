@@ -39,9 +39,15 @@ namespace IranRiskTracker.Api.Controllers
         [HttpPost("live")]
         public IActionResult PostLive([FromBody] LiveEventCreateRequest dto)
         {
-            var liveEvent = _eventQueryService.AcceptLiveEvent(dto);
-
-            return Created($"/api/events/live/{liveEvent.Id}", liveEvent);
+            try
+            {
+                var liveEvent = _eventQueryService.AcceptLiveEvent(dto);
+                return Created($"/api/events/live/{liveEvent.Id}", liveEvent);
+            }
+            catch (ArgumentException ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
     }
 }
