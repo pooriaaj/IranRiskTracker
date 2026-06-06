@@ -1,5 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
-using IranRiskTracker.Infrastructure.Seed;
+using IranRiskTracker.Infrastructure.Seeding;
 using IranRiskTracker.Application.DTOs;
 using System.Linq;
 
@@ -19,8 +19,7 @@ namespace IranRiskTracker.Api.Controllers
         [HttpGet("historical")]
         public IActionResult GetHistorical()
         {
-            var path = Path.Combine(AppContext.BaseDirectory, "Seeding/Data/historical_events.json");
-            var events = IranRiskTracker.Infrastructure.Seeding.JsonSeeder.LoadHistoricalEvents(Path.Combine(AppContext.BaseDirectory, "Seeding/Data"))
+            var events = JsonSeeder.LoadHistoricalEvents(Path.Combine(AppContext.BaseDirectory, "IranRiskTracker.Infrastructure", "Seeding", "Data"))
                 .Select(e => new HistoricalEventDto
                 {
                     Id = e.Id,
