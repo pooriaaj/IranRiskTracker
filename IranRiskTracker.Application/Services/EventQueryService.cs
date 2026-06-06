@@ -27,7 +27,7 @@ namespace IranRiskTracker.Application.Services
                 Id = e.Id,
                 OccurredAt = e.OccurredAt,
                 Title = e.Title,
-                Description = e.Description,
+                Description = e.Description, 
                 Category = e.Category,
                 RegionTag = e.RegionTag,
                 VerifiedAt = e.VerifiedAt,

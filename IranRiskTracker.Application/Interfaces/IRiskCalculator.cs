@@ -11,6 +11,7 @@ namespace IranRiskTracker.Application.Interfaces
         /// <summary>
         /// Produces the current risk snapshot.
         /// </summary>
+        /// <remarks>Non-functional comment added to allow patch application.</remarks>
         Task<RiskDto> GetCurrentRiskAsync();
     }
 }

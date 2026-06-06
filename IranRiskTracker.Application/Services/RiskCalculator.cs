@@ -25,27 +25,45 @@ namespace IranRiskTracker.Application.Services
             var historicalEvents = _seedDataProvider.GetHistoricalEvents().ToList();
             var indicators = _seedDataProvider.GetIndicators().ToList();
 
-            var baselineEventCount = historicalEvents.Count(e => e.IsBaseline);
-            var categoryBreadth = historicalEvents.Select(e => e.Category).Distinct().Count();
-            var indicatorWeight = indicators.Sum(i => Math.Max(0m, i.Weight));
-            var directionalCoverage = indicators.Count(i => i.DirectionMultiplier != 0);
-            var coverageRatio = indicators.Count == 0 ? 0.0 : (double)directionalCoverage / indicators.Count;
-            var rawScore =
-                baselineEventCount * 6.0 +
-                categoryBreadth * 3.0 +
-                (double)indicatorWeight * 18.0 +
-                coverageRatio * 8.0;
-            var score = Math.Clamp(Math.Round(rawScore, 1), 1.0, 100.0);
+            var contributions = new System.Collections.Generic.List<IndicatorRiskContributionDto>();
 
-            var dto = new RiskDto
+            double total = 0.0;
+
+            foreach (var ind in indicators)
+            {
+                var matching = historicalEvents.Count(e => e.Category == ind.Category);
+                var baseScore = Math.Clamp(matching * 20.0, 0.0, 100.0);
+                var weighted = baseScore * (double)ind.Weight * ind.DirectionMultiplier;
+                if (weighted < 0) weighted = 0; // clamp negatives for Phase 1
+
+                var dto = new IndicatorRiskContributionDto
+                {
+                    IndicatorKey = ind.Key,
+                    IndicatorName = ind.Name,
+                    Category = ind.Category,
+                    Weight = ind.Weight,
+                    MatchingHistoricalEventCount = matching,
+                    BaseScore = baseScore,
+                    WeightedContribution = weighted,
+                    Explanation = $"Base={baseScore}, Weight={ind.Weight}, Direction={ind.DirectionMultiplier}, Weighted={weighted}"
+                };
+
+                contributions.Add(dto);
+                total += weighted;
+            }
+
+            var final = Math.Clamp(Math.Round(total, 2), 1.0, 100.0);
+
+            var result = new RiskDto
             {
                 Timestamp = DateTime.UtcNow,
-                Level = MapRiskLevel(score),
-                Score = score,
-                Summary = $"Seed baseline from {baselineEventCount} historical events and {indicators.Count} indicators."
+                Level = MapRiskLevel(final),
+                Score = final,
+                Summary = $"Deterministic seed-based scoring using {indicators.Count} indicators and {historicalEvents.Count} historical events.",
+                Contributions = contributions
             };
 
-            return Task.FromResult(dto);
+            return Task.FromResult(result);
         }
 
         private static RiskLevel MapRiskLevel(double score)
@@ -60,3 +78,4 @@ namespace IranRiskTracker.Application.Services
         }
     }
 }
+// End of file
