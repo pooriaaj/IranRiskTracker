@@ -3,9 +3,6 @@ using System;
 
 namespace IranRiskTracker.Application.DTOs
 {
-    /// <summary>
-    /// Describes how a single indicator contributed to the overall risk score.
-    /// </summary>
     public class IndicatorRiskContributionDto
     {
         public string IndicatorKey { get; set; } = string.Empty;

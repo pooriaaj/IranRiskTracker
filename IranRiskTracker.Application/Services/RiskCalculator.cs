@@ -83,14 +83,7 @@ namespace IranRiskTracker.Application.Services
                         Title = e.Title,
                         Category = e.Category,
                         Urgency = e.Urgency,
-                        UrgencyScore = e.Urgency switch
-                        {
-                            UrgencyLevel.Low => LiveUrgencyLow,
-                            UrgencyLevel.Medium => LiveUrgencyMedium,
-                            UrgencyLevel.High => LiveUrgencyHigh,
-                            UrgencyLevel.Critical => LiveUrgencyCritical,
-                            _ => 0.0
-                        },
+                        UrgencyScore = GetUrgencyScore(e.Urgency),
                         SourceName = e.SourceName,
                         SourceUrl = e.SourceUrl,
                         SourceHandle = e.SourceHandle,
@@ -119,11 +112,6 @@ namespace IranRiskTracker.Application.Services
             return Task.FromResult(result);
         }
 
-        private static double CalculateBaseScore(int matchingEventCount)
-        {
-            return Math.Clamp(matchingEventCount * ScorePerMatchingHistoricalEvent, 0.0, MaximumRiskScore);
-        }
-
         private static double CalculateHistoricalBaseScore(int matchingEventCount)
         {
             return Math.Clamp(matchingEventCount * ScorePerMatchingHistoricalEvent, 0.0, MaximumRiskScore);
@@ -134,17 +122,22 @@ namespace IranRiskTracker.Application.Services
             double sum = 0.0;
             foreach (var e in events)
             {
-                sum += e.Urgency switch
-                {
-                    UrgencyLevel.Low => LiveUrgencyLow,
-                    UrgencyLevel.Medium => LiveUrgencyMedium,
-                    UrgencyLevel.High => LiveUrgencyHigh,
-                    UrgencyLevel.Critical => LiveUrgencyCritical,
-                    _ => 0.0
-                };
+                sum += GetUrgencyScore(e.Urgency);
             }
 
             return Math.Clamp(sum, 0.0, MaximumRiskScore);
+        }
+
+        private static double GetUrgencyScore(UrgencyLevel urgency)
+        {
+            return urgency switch
+            {
+                UrgencyLevel.Low => LiveUrgencyLow,
+                UrgencyLevel.Medium => LiveUrgencyMedium,
+                UrgencyLevel.High => LiveUrgencyHigh,
+                UrgencyLevel.Critical => LiveUrgencyCritical,
+                _ => 0.0
+            };
         }
 
         private static double CalculateWeightedContribution(double baseScore, decimal indicatorWeight, int directionMultiplier)
