@@ -79,7 +79,8 @@ namespace IranRiskTracker.Tests.Phase1
             var basePath = FindSeedDataPath();
             var seed = new JsonSeedDataProvider(basePath);
             var liveStore = new IranRiskTracker.Infrastructure.Storage.InMemoryLiveEventStore();
-            var calc = new RiskCalculator(seed, liveStore);
+            var overrideStore = new IranRiskTracker.Infrastructure.Storage.InMemoryOwnerOverrideStore();
+            var calc = new RiskCalculator(seed, liveStore, overrideStore);
 
             // Act
             var result = calc.GetCurrentRiskAsync().GetAwaiter().GetResult();
@@ -114,7 +115,8 @@ namespace IranRiskTracker.Tests.Phase1
             var basePath = FindSeedDataPath();
             var seed = new JsonSeedDataProvider(basePath);
             var liveStore = new IranRiskTracker.Infrastructure.Storage.InMemoryLiveEventStore();
-            var calc = new RiskCalculator(seed, liveStore);
+            var overrideStore = new IranRiskTracker.Infrastructure.Storage.InMemoryOwnerOverrideStore();
+            var calc = new RiskCalculator(seed, liveStore, overrideStore);
             var controller = new IranRiskTracker.Api.Controllers.RiskController(calc);
 
             // Act
@@ -131,7 +133,8 @@ namespace IranRiskTracker.Tests.Phase1
             var basePath = FindSeedDataPath();
             var seed = new JsonSeedDataProvider(basePath);
             var liveStore = new IranRiskTracker.Infrastructure.Storage.InMemoryLiveEventStore();
-            var calc = new RiskCalculator(seed, liveStore);
+            var overrideStore = new IranRiskTracker.Infrastructure.Storage.InMemoryOwnerOverrideStore();
+            var calc = new RiskCalculator(seed, liveStore, overrideStore);
             var controller = new IranRiskTracker.Api.Controllers.SnapshotsController(calc);
 
             // Act

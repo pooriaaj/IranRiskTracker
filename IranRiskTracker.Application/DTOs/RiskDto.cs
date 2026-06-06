@@ -12,6 +12,9 @@ namespace IranRiskTracker.Application.DTOs
         public DateTime Timestamp { get; set; }
         public RiskLevel Level { get; set; }
         public double Score { get; set; }
+        public double BaseScoreBeforeOverrides { get; set; }
+        public double OwnerOverrideTotalAdjustment { get; set; }
+        public IReadOnlyCollection<OwnerOverrideDto> AppliedOwnerOverrides { get; set; } = Array.Empty<OwnerOverrideDto>();
         public string Summary { get; set; } = string.Empty;
         public IReadOnlyCollection<IndicatorRiskContributionDto> Contributions { get; set; } = Array.Empty<IndicatorRiskContributionDto>();
     }

@@ -17,6 +17,7 @@ namespace IranRiskTracker.Application.Services
     {
         private readonly ISeedDataProvider _seedDataProvider;
         private readonly ILiveEventStore _liveStore;
+        private readonly IOwnerOverrideStore _overrideStore;
 
         // Scoring constants
         private const double ScorePerMatchingHistoricalEvent = 20.0;
@@ -28,10 +29,11 @@ namespace IranRiskTracker.Application.Services
         private const double MaximumRiskScore = 100.0;
         private const int ScoreRoundingDigits = 2;
 
-        public RiskCalculator(ISeedDataProvider seedDataProvider, ILiveEventStore liveStore)
+        public RiskCalculator(ISeedDataProvider seedDataProvider, ILiveEventStore liveStore, IOwnerOverrideStore overrideStore)
         {
             _seedDataProvider = seedDataProvider;
             _liveStore = liveStore;
+            _overrideStore = overrideStore;
         }
 
         /// <summary>
@@ -57,8 +59,8 @@ namespace IranRiskTracker.Application.Services
 
                 var historicalBaseScore = CalculateHistoricalBaseScore(matching);
                 var liveBaseScore = CalculateLiveBaseScore(liveEvents.Where(e => e.Category == ind.Category));
-                var baseScore = Math.Clamp(historicalBaseScore + liveBaseScore, 0.0, MaximumRiskScore);
-                var weighted = CalculateWeightedContribution(baseScore, ind.Weight, ind.DirectionMultiplier);
+                var indicatorBaseScore = Math.Clamp(historicalBaseScore + liveBaseScore, 0.0, MaximumRiskScore);
+                var weighted = CalculateWeightedContribution(indicatorBaseScore, ind.Weight, ind.DirectionMultiplier);
 
                 var dto = new IndicatorRiskContributionDto
                 {
@@ -70,7 +72,7 @@ namespace IranRiskTracker.Application.Services
                     MatchingLiveEventCount = matchingLive,
                     HistoricalBaseScore = historicalBaseScore,
                     LiveBaseScore = liveBaseScore,
-                    BaseScore = baseScore,
+                    BaseScore = indicatorBaseScore,
                     WeightedContribution = weighted,
                     Explanation = BuildExplanation(historicalBaseScore, liveBaseScore, ind.Weight, ind.DirectionMultiplier, weighted, matching, matchingLive)
                 };
@@ -98,14 +100,23 @@ namespace IranRiskTracker.Application.Services
                 total += weighted;
             }
 
-            var final = Math.Clamp(Math.Round(total, ScoreRoundingDigits), MinimumRiskScore, MaximumRiskScore);
+            var baseScore = Math.Clamp(Math.Round(total, ScoreRoundingDigits), MinimumRiskScore, MaximumRiskScore);
+
+            // Load owner overrides but do not alter indicator contributions
+            var overrides = _overrideStore.GetAll().ToList();
+            var overrideTotal = overrides.Sum(o => o.ScoreAdjustment);
+
+            var final = Math.Clamp(baseScore + overrideTotal, MinimumRiskScore, MaximumRiskScore);
 
             var result = new RiskDto
             {
                 Timestamp = DateTime.UtcNow,
                 Level = MapRiskLevel(final),
                 Score = final,
-                Summary = $"Deterministic scoring using {indicators.Count} indicators, {historicalEvents.Count} historical events and {liveEvents.Count} live events.",
+                BaseScoreBeforeOverrides = baseScore,
+                OwnerOverrideTotalAdjustment = overrideTotal,
+                AppliedOwnerOverrides = overrides,
+                Summary = $"Deterministic scoring using {indicators.Count} indicators, {historicalEvents.Count} historical events, {liveEvents.Count} live events and {overrides.Count} owner overrides.",
                 Contributions = contributions
             };
 
