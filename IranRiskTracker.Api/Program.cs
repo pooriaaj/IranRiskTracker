@@ -4,8 +4,14 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 // Register application services
 builder.Services.AddScoped<IranRiskTracker.Application.Interfaces.IRiskCalculator, IranRiskTracker.Application.Services.RiskCalculator>();
-// Allow minimal JSON seeding access via configuration if desired
-builder.Services.AddSingleton(builder.Configuration);
+
+// Seed data provider for JSON-first approach
+var seedBase = Path.Combine(builder.Environment.ContentRootPath, "Seeding", "Data");
+builder.Services.AddSingleton<IranRiskTracker.Application.Interfaces.ISeedDataProvider>(sp =>
+    new IranRiskTracker.Infrastructure.Seeding.JsonSeedDataProvider(seedBase));
+
+// Event query service
+builder.Services.AddScoped<IranRiskTracker.Application.Interfaces.IEventQueryService, IranRiskTracker.Application.Services.EventQueryService>();
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
 

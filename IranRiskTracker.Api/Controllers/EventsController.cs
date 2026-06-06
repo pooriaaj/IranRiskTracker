@@ -12,7 +12,6 @@ namespace IranRiskTracker.Api.Controllers
     public class EventsController : ControllerBase
     {
         private readonly IWebHostEnvironment _env;
-        // No-op patch: record change
 
         public EventsController(IWebHostEnvironment env)
         {

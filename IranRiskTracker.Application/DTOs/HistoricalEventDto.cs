@@ -13,5 +13,11 @@ namespace IranRiskTracker.Application.DTOs
         public string Title { get; set; } = string.Empty;
         public string? Details { get; set; }
         public RiskLevel Severity { get; set; }
+        public EventCategory Category { get; set; }
+        public string? RegionTag { get; set; }
+        public DateTime? VerifiedAt { get; set; }
+        public bool IsBaseline { get; set; }
+        public int SourceCount { get; set; }
+        public int ImpactCount { get; set; }
     }
 }
