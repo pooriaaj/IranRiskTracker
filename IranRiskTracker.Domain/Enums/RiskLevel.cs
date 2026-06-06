@@ -1,5 +1,3 @@
-using System;
-
 namespace IranRiskTracker.Domain.Enums
 {
     /// <summary>

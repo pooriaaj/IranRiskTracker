@@ -8,6 +8,8 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\IranRiskTracker.Api\IranRiskTracker.Api.csproj" />
+    <ProjectReference Include="..\IranRiskTracker.Infrastructure\IranRiskTracker.Infrastructure.csproj" />
     <ProjectReference Include="..\IranRiskTracker.Application\IranRiskTracker.Application.csproj" />
     <ProjectReference Include="..\IranRiskTracker.Domain\IranRiskTracker.Domain.csproj" />
   </ItemGroup>

@@ -4,8 +4,7 @@ using IranRiskTracker.Application.DTOs;
 namespace IranRiskTracker.Application.Interfaces
 {
     /// <summary>
-    /// Service abstraction for computing risk snapshots.
-    /// Phase 1/2: skeleton only, scoring not implemented.
+    /// Computes current risk snapshots for API consumers.
     /// </summary>
     public interface IRiskCalculator
     {

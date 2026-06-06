@@ -12,7 +12,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Seed\data\" />
+    <Content Include="Seeding\Data\*.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <TargetPath>Seeding\Data\%(Filename)%(Extension)</TargetPath>
+    </Content>
   </ItemGroup>
 
 </Project>

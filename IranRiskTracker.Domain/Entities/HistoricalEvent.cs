@@ -19,7 +19,6 @@ namespace IranRiskTracker.Domain.Entities
         public DateTime? VerifiedAt { get; init; }
         public bool IsBaseline { get; init; } = true;
 
-        // Navigation
         public ICollection<EventSource> Sources { get; init; } = new List<EventSource>();
         public ICollection<EventImpact> Impacts { get; init; } = new List<EventImpact>();
     }

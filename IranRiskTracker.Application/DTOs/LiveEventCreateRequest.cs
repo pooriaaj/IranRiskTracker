@@ -4,8 +4,7 @@ using IranRiskTracker.Domain.Enums;
 namespace IranRiskTracker.Application.DTOs
 {
     /// <summary>
-    /// Small DTO representing the minimal payload for ingesting a live event.
-    /// Phase 1: simple mutable POCO for controller model binding.
+    /// Minimal request body for accepting an incoming live event.
     /// </summary>
     public class LiveEventCreateRequest
     {

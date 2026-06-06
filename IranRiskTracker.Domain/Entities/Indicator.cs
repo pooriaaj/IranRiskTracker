@@ -5,7 +5,7 @@ using IranRiskTracker.Domain.Enums;
 namespace IranRiskTracker.Domain.Entities
 {
     /// <summary>
-    /// A tracked risk dimension. Weight (0–1) determines proportional contribution to RiskPercent.
+    /// A tracked risk dimension. Weight from 0 to 1 determines proportional contribution to RiskPercent.
     /// DirectionMultiplier is +1 or -1 to handle indicators where higher values reduce overall risk.
     /// </summary>
     public class Indicator

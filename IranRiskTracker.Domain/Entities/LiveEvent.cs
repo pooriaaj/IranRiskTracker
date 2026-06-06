@@ -15,7 +15,7 @@ namespace IranRiskTracker.Domain.Entities
         public DateTime OccurredAt { get; init; }
         public DateTime IngestedAt { get; init; }
         public EventCategory Category { get; init; }
-        public IranRiskTracker.Domain.Enums.UrgencyLevel Urgency { get; init; }
+        public UrgencyLevel Urgency { get; init; }
         public bool IsProcessed { get; set; }
 
         public ICollection<EventSource> Sources { get; init; } = new List<EventSource>();

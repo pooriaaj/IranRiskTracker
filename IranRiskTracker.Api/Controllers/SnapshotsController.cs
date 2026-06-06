@@ -1,5 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
-using IranRiskTracker.Application.DTOs;
+using IranRiskTracker.Application.Interfaces;
 
 namespace IranRiskTracker.Api.Controllers
 {
@@ -7,23 +7,21 @@ namespace IranRiskTracker.Api.Controllers
     [Route("api/snapshots")]
     public class SnapshotsController : ControllerBase
     {
-        public SnapshotsController()
+        private readonly IRiskCalculator _riskCalculator;
+
+        public SnapshotsController(IRiskCalculator riskCalculator)
         {
+            _riskCalculator = riskCalculator;
         }
 
+        /// <summary>
+        /// Returns the current seed-backed risk snapshot.
+        /// </summary>
         [HttpGet("latest")]
-        public IActionResult GetLatest()
+        public async Task<IActionResult> GetLatest()
         {
-            // Phase 1: Return a placeholder snapshot. Real snapshot generation will be implemented in later phases.
-            var dto = new RiskDto
-            {
-                Timestamp = DateTime.UtcNow,
-                Level = IranRiskTracker.Domain.Enums.RiskLevel.Unknown,
-                Score = 0.0,
-                Summary = "Placeholder snapshot - scoring not implemented"
-            };
-
-            return Ok(dto);
+            var result = await _riskCalculator.GetCurrentRiskAsync();
+            return Ok(result);
         }
     }
 }

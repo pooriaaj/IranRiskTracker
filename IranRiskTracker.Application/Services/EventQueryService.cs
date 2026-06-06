@@ -1,35 +1,33 @@
 using System.Collections.Generic;
 using System.Linq;
-using IranRiskTracker.Application.Interfaces;
 using IranRiskTracker.Application.DTOs;
-using IranRiskTracker.Domain.Entities;
+using IranRiskTracker.Application.Interfaces;
 
 namespace IranRiskTracker.Application.Services
 {
     /// <summary>
-    /// Application-level service that maps seeded domain entities into DTOs
-    /// for consumption by API controllers.
+    /// Maps event seed data into API DTOs and keeps controllers independent from storage details.
     /// </summary>
     public class EventQueryService : IEventQueryService
     {
-        private readonly ISeedDataProvider _seed;
+        private readonly ISeedDataProvider _seedDataProvider;
 
-        public EventQueryService(ISeedDataProvider seed)
+        public EventQueryService(ISeedDataProvider seedDataProvider)
         {
-            _seed = seed;
+            _seedDataProvider = seedDataProvider;
         }
 
+        /// <summary>
+        /// Returns historical seed events with only API-safe summary metadata.
+        /// </summary>
         public IEnumerable<HistoricalEventDto> GetHistoricalEvents()
         {
-            var items = _seed.GetHistoricalEvents();
-
-            return items.Select(e => new HistoricalEventDto
+            return _seedDataProvider.GetHistoricalEvents().Select(e => new HistoricalEventDto
             {
                 Id = e.Id,
                 OccurredAt = e.OccurredAt,
                 Title = e.Title,
-                Details = e.Description,
-                Severity = IranRiskTracker.Domain.Enums.RiskLevel.Unknown,
+                Description = e.Description,
                 Category = e.Category,
                 RegionTag = e.RegionTag,
                 VerifiedAt = e.VerifiedAt,
@@ -39,10 +37,30 @@ namespace IranRiskTracker.Application.Services
             });
         }
 
+        /// <summary>
+        /// Returns live events when ingestion is introduced; Phase 1 has no live store.
+        /// </summary>
         public IEnumerable<LiveEventDto> GetLiveEvents()
         {
-            // Phase 1: No live events persisted; return empty.
             return Enumerable.Empty<LiveEventDto>();
+        }
+
+        /// <summary>
+        /// Creates the transient live-event response used before persistence exists.
+        /// </summary>
+        public LiveEventDto AcceptLiveEvent(LiveEventCreateRequest request)
+        {
+            return new LiveEventDto
+            {
+                Id = Guid.NewGuid(),
+                Title = request.Title?.Trim() ?? string.Empty,
+                RawContent = request.RawContent,
+                OccurredAt = request.OccurredAt,
+                IngestedAt = DateTime.UtcNow,
+                Category = request.Category,
+                Urgency = request.Urgency,
+                IsProcessed = false
+            };
         }
     }
 }

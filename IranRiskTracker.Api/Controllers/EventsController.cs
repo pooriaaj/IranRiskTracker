@@ -1,9 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
-using IranRiskTracker.Infrastructure.Seeding;
 using IranRiskTracker.Application.DTOs;
-using Microsoft.AspNetCore.Hosting;
-using IranRiskTracker.Application.DTOs;
-using System.Linq;
+using IranRiskTracker.Application.Interfaces;
 
 namespace IranRiskTracker.Api.Controllers
 {
@@ -11,58 +8,40 @@ namespace IranRiskTracker.Api.Controllers
     [Route("api/events")]
     public class EventsController : ControllerBase
     {
-        private readonly IWebHostEnvironment _env;
+        private readonly IEventQueryService _eventQueryService;
 
-        public EventsController(IWebHostEnvironment env)
+        public EventsController(IEventQueryService eventQueryService)
         {
-            _env = env;
+            _eventQueryService = eventQueryService;
         }
 
+        /// <summary>
+        /// Returns historical seed events used to calibrate the Phase 1 baseline.
+        /// </summary>
         [HttpGet("historical")]
         public IActionResult GetHistorical()
         {
-            // TODO Phase 3: replace with IEventRepository call
-            var events = JsonSeeder.LoadHistoricalEvents(Path.Combine(_env.ContentRootPath, "Seeding", "Data"))
-                .Select(e => new HistoricalEventDto
-                {
-                    Id = e.Id,
-                    OccurredAt = e.OccurredAt,
-                    Title = e.Title,
-                    Details = e.Description,
-                    Severity = 0
-                })
-                .ToList();
-
-            return Ok(events);
+            return Ok(_eventQueryService.GetHistoricalEvents());
         }
 
+        /// <summary>
+        /// Returns live events once a live store is available.
+        /// </summary>
         [HttpGet("live")]
         public IActionResult GetLive()
         {
-            // Phase 1: No live ingest yet. Return an empty collection placeholder.
-            return Ok(Enumerable.Empty<object>());
+            return Ok(_eventQueryService.GetLiveEvents());
         }
 
+        /// <summary>
+        /// Accepts a live event payload and returns the transient event representation.
+        /// </summary>
         [HttpPost("live")]
         public IActionResult PostLive([FromBody] LiveEventCreateRequest dto)
         {
-            // Phase 1: accept minimal live event payload and return a stubbed LiveEvent with generated Id.
-            var live = new IranRiskTracker.Domain.Entities.LiveEvent
-            {
-                Id = Guid.NewGuid(),
-                Title = dto.Title ?? string.Empty,
-                RawContent = dto.RawContent,
-                OccurredAt = dto.OccurredAt,
-                IngestedAt = DateTime.UtcNow,
-                Category = dto.Category,
-                Urgency = dto.Urgency,
-                IsProcessed = false
-            };
+            var liveEvent = _eventQueryService.AcceptLiveEvent(dto);
 
-            // In Phase 1 we do not persist; return 201 Created with resource location header.
-            return CreatedAtAction(nameof(GetLive), new { id = live.Id }, new { id = live.Id, status = "ingested" });
+            return Created($"/api/events/live/{liveEvent.Id}", liveEvent);
         }
     }
-
-    // removed nested record - using application DTO LiveEventCreateRequest
 }
