@@ -16,7 +16,7 @@ builder.Services.AddSingleton<IranRiskTracker.Application.Interfaces.IOwnerOverr
 builder.Services.AddScoped<IranRiskTracker.Application.Interfaces.IOwnerOverrideService, IranRiskTracker.Application.Services.OwnerOverrideService>();
 builder.Services.AddScoped<IEventQueryService, EventQueryService>();
 builder.Services.AddScoped<IRiskCalculator, RiskCalculator>();
-// Owner override store is already registered; ensure RiskCalculator gets override store via DI
+// RiskCalculator will receive the owner override store via constructor injection.
 
 var app = builder.Build();
 

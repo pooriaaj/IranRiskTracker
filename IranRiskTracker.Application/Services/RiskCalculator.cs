@@ -116,7 +116,7 @@ namespace IranRiskTracker.Application.Services
                 BaseScoreBeforeOverrides = baseScore,
                 OwnerOverrideTotalAdjustment = overrideTotal,
                 AppliedOwnerOverrides = overrides,
-                Summary = $"Deterministic scoring using {indicators.Count} indicators, {historicalEvents.Count} historical events, {liveEvents.Count} live events and {overrides.Count} owner overrides.",
+                Summary = $"Deterministic scoring using {indicators.Count} indicators, {historicalEvents.Count} historical events, {liveEvents.Count} live events and {overrides.Count} owner overrides. BaseScore={baseScore}, OverrideTotal={overrideTotal}, FinalScore={final}",
                 Contributions = contributions
             };
 

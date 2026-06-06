@@ -83,6 +83,29 @@ namespace IranRiskTracker.Tests.Phase2
         }
 
         [Fact]
+        public void RiskSummary_IncludesBaseAndOverrideTotals()
+        {
+            var seedPath = new System.IO.DirectoryInfo(System.IO.Directory.GetCurrentDirectory());
+            while (seedPath != null)
+            {
+                var candidate = System.IO.Path.Combine(seedPath.FullName, "IranRiskTracker.Infrastructure", "Seeding", "Data");
+                if (System.IO.Directory.Exists(candidate)) { seedPath = new System.IO.DirectoryInfo(candidate); break; }
+                seedPath = seedPath.Parent;
+            }
+
+            var seed = new IranRiskTracker.Infrastructure.Seeding.JsonSeedDataProvider(seedPath.FullName);
+            var liveStore = new InMemoryLiveEventStore();
+            var overrideStore = new InMemoryOwnerOverrideStore();
+            var calc = new RiskCalculator(seed, liveStore, overrideStore);
+
+            // no overrides -> summary should contain BaseScore and OverrideTotal
+            var res = calc.GetCurrentRiskAsync().GetAwaiter().GetResult();
+            res.Summary.Should().Contain("BaseScore=");
+            res.Summary.Should().Contain("OverrideTotal=");
+            res.Summary.Should().Contain("FinalScore=");
+        }
+
+        [Fact]
         public void Controller_ReturnsBadRequest_ForInvalid()
         {
             var store = new InMemoryOwnerOverrideStore();
