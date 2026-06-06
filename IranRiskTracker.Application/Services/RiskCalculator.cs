@@ -16,16 +16,22 @@ namespace IranRiskTracker.Application.Services
     public class RiskCalculator : IRiskCalculator
     {
         private readonly ISeedDataProvider _seedDataProvider;
+        private readonly ILiveEventStore _liveStore;
 
-        // Scoring constants for Phase 1 deterministic algorithm
+        // Scoring constants
         private const double ScorePerMatchingHistoricalEvent = 20.0;
+        private const double LiveUrgencyLow = 5.0;
+        private const double LiveUrgencyMedium = 10.0;
+        private const double LiveUrgencyHigh = 20.0;
+        private const double LiveUrgencyCritical = 35.0;
         private const double MinimumRiskScore = 1.0;
         private const double MaximumRiskScore = 100.0;
         private const int ScoreRoundingDigits = 2;
 
-        public RiskCalculator(ISeedDataProvider seedDataProvider)
+        public RiskCalculator(ISeedDataProvider seedDataProvider, ILiveEventStore liveStore)
         {
             _seedDataProvider = seedDataProvider;
+            _liveStore = liveStore;
         }
 
         /// <summary>
@@ -42,10 +48,16 @@ namespace IranRiskTracker.Application.Services
             var contributions = new List<IndicatorRiskContributionDto>();
             double total = 0.0;
 
+            var liveEvents = _liveStore.GetAll().ToList();
+
             foreach (var ind in indicators)
             {
                 var matching = historicalEvents.Count(e => e.Category == ind.Category);
-                var baseScore = CalculateBaseScore(matching);
+                var matchingLive = liveEvents.Count(e => e.Category == ind.Category);
+
+                var historicalBaseScore = CalculateHistoricalBaseScore(matching);
+                var liveBaseScore = CalculateLiveBaseScore(liveEvents.Where(e => e.Category == ind.Category));
+                var baseScore = Math.Clamp(historicalBaseScore + liveBaseScore, 0.0, MaximumRiskScore);
                 var weighted = CalculateWeightedContribution(baseScore, ind.Weight, ind.DirectionMultiplier);
 
                 var dto = new IndicatorRiskContributionDto
@@ -55,9 +67,12 @@ namespace IranRiskTracker.Application.Services
                     Category = ind.Category,
                     Weight = ind.Weight,
                     MatchingHistoricalEventCount = matching,
+                    MatchingLiveEventCount = matchingLive,
+                    HistoricalBaseScore = historicalBaseScore,
+                    LiveBaseScore = liveBaseScore,
                     BaseScore = baseScore,
                     WeightedContribution = weighted,
-                    Explanation = BuildExplanation(baseScore, ind.Weight, ind.DirectionMultiplier, weighted)
+                    Explanation = BuildExplanation(historicalBaseScore, liveBaseScore, ind.Weight, ind.DirectionMultiplier, weighted, matching, matchingLive)
                 };
 
                 contributions.Add(dto);
@@ -71,7 +86,7 @@ namespace IranRiskTracker.Application.Services
                 Timestamp = DateTime.UtcNow,
                 Level = MapRiskLevel(final),
                 Score = final,
-                Summary = $"Deterministic seed-based scoring using {indicators.Count} indicators and {historicalEvents.Count} historical events.",
+                Summary = $"Deterministic scoring using {indicators.Count} indicators, {historicalEvents.Count} historical events and {liveEvents.Count} live events.",
                 Contributions = contributions
             };
 
@@ -83,15 +98,38 @@ namespace IranRiskTracker.Application.Services
             return Math.Clamp(matchingEventCount * ScorePerMatchingHistoricalEvent, 0.0, MaximumRiskScore);
         }
 
+        private static double CalculateHistoricalBaseScore(int matchingEventCount)
+        {
+            return Math.Clamp(matchingEventCount * ScorePerMatchingHistoricalEvent, 0.0, MaximumRiskScore);
+        }
+
+        private static double CalculateLiveBaseScore(IEnumerable<LiveEventDto> events)
+        {
+            double sum = 0.0;
+            foreach (var e in events)
+            {
+                sum += e.Urgency switch
+                {
+                    UrgencyLevel.Low => LiveUrgencyLow,
+                    UrgencyLevel.Medium => LiveUrgencyMedium,
+                    UrgencyLevel.High => LiveUrgencyHigh,
+                    UrgencyLevel.Critical => LiveUrgencyCritical,
+                    _ => 0.0
+                };
+            }
+
+            return Math.Clamp(sum, 0.0, MaximumRiskScore);
+        }
+
         private static double CalculateWeightedContribution(double baseScore, decimal indicatorWeight, int directionMultiplier)
         {
             var weighted = baseScore * (double)indicatorWeight * directionMultiplier;
             return weighted < 0 ? 0.0 : weighted;
         }
 
-        private static string BuildExplanation(double baseScore, decimal weight, int direction, double weighted)
+        private static string BuildExplanation(double historicalBase, double liveBase, decimal weight, int direction, double weighted, int historicalCount, int liveCount)
         {
-            return $"Base={baseScore}, Weight={weight}, Direction={direction}, Weighted={weighted}";
+            return $"HistCount={historicalCount}, LiveCount={liveCount}, HistBase={historicalBase}, LiveBase={liveBase}, Weight={weight}, Direction={direction}, Weighted={weighted}";
         }
 
         private static RiskLevel MapRiskLevel(double score)

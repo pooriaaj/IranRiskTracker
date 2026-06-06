@@ -13,7 +13,10 @@ namespace IranRiskTracker.Application.DTOs
         public EventCategory Category { get; set; }
         public decimal Weight { get; set; }
         public int MatchingHistoricalEventCount { get; set; }
+        public int MatchingLiveEventCount { get; set; }
         public double BaseScore { get; set; }
+        public double HistoricalBaseScore { get; set; }
+        public double LiveBaseScore { get; set; }
         public double WeightedContribution { get; set; }
         public string Explanation { get; set; } = string.Empty;
     }

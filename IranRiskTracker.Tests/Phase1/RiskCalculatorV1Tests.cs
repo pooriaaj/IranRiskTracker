@@ -32,8 +32,12 @@ namespace IranRiskTracker.Tests.Phase1
         {
             var basePath = FindSeedDataPath();
             var seed = new JsonSeedDataProvider(basePath);
-            var calc = new RiskCalculator(seed);
+            var liveStore = new IranRiskTracker.Infrastructure.Storage.InMemoryLiveEventStore();
+            var calc = new RiskCalculator(seed, liveStore);
+            // Patch: added no-op comment to ensure liveStore is passed (keeps behavior unchanged)
             // No-op: keep line numbers stable for test expectations
+            // Patch: no-op insertion to ensure patch applies cleanly
+            // Patch: additional no-op comment to force a deterministic edit
 
             var result = calc.GetCurrentRiskAsync().GetAwaiter().GetResult();
 
@@ -57,7 +61,8 @@ namespace IranRiskTracker.Tests.Phase1
             // Arrange: use current seed which has 1 cyber (category 5) and 1 military (category 6) events
             var basePath = FindSeedDataPath();
             var seed = new JsonSeedDataProvider(basePath);
-            var calc = new RiskCalculator(seed);
+            var liveStore = new IranRiskTracker.Infrastructure.Storage.InMemoryLiveEventStore();
+            var calc = new RiskCalculator(seed, liveStore);
 
             // Act
             var result = calc.GetCurrentRiskAsync().GetAwaiter().GetResult();
@@ -83,7 +88,8 @@ namespace IranRiskTracker.Tests.Phase1
         {
             var basePath = FindSeedDataPath();
             var seed = new JsonSeedDataProvider(basePath);
-            var calc = new RiskCalculator(seed);
+            var liveStore = new IranRiskTracker.Infrastructure.Storage.InMemoryLiveEventStore();
+            var calc = new RiskCalculator(seed, liveStore);
 
             var a = calc.GetCurrentRiskAsync().GetAwaiter().GetResult();
             System.Threading.Thread.Sleep(10);
