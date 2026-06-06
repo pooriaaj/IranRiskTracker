@@ -5,21 +5,19 @@ using IranRiskTracker.Domain.Enums;
 namespace IranRiskTracker.Domain.Entities
 {
     /// <summary>
-    /// Represents a verified past event used to calibrate the baseline risk model.
-    /// HistoricalEvents are immutable baseline records.
+    /// Represents a newly ingested event after the system goes live.
     /// </summary>
-    public class HistoricalEvent
+    public class LiveEvent
     {
         public Guid Id { get; init; }
         public string Title { get; init; } = string.Empty;
-        public string Description { get; init; } = string.Empty;
+        public string? RawContent { get; init; }
         public DateTime OccurredAt { get; init; }
+        public DateTime IngestedAt { get; init; }
         public EventCategory Category { get; init; }
-        public string? RegionTag { get; init; }
-        public DateTime? VerifiedAt { get; init; }
-        public bool IsBaseline { get; init; } = true;
+        public int Urgency { get; init; }
+        public bool IsProcessed { get; set; }
 
-        // Navigation
         public ICollection<EventSource> Sources { get; init; } = new List<EventSource>();
         public ICollection<EventImpact> Impacts { get; init; } = new List<EventImpact>();
     }

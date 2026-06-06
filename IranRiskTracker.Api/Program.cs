@@ -4,7 +4,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 // Register application services
 builder.Services.AddScoped<IranRiskTracker.Application.Interfaces.IRiskCalculator, IranRiskTracker.Application.Services.RiskCalculator>();
-// Allow configuration for seed paths if desired
+// Allow minimal JSON seeding access via configuration if desired
 builder.Services.AddSingleton(builder.Configuration);
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();

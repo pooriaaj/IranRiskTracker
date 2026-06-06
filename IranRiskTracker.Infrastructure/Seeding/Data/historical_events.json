@@ -1,0 +1,22 @@
+[
+  {
+    "id": "2f1a8b6c-0000-4f3b-9b6f-111111111111",
+    "title": "Significant Cyber Attack",
+    "description": "A coordinated cyber intrusion impacted government services.",
+    "occurredAt": "2022-11-15T00:00:00Z",
+    "category": 5,
+    "regionTag": "Tehran",
+    "verifiedAt": "2022-11-16T00:00:00Z",
+    "isBaseline": true
+  },
+  {
+    "id": "3e2b7c5d-0000-4b3d-8a6f-222222222222",
+    "title": "Border Incident",
+    "description": "Military skirmish near border region.",
+    "occurredAt": "2021-06-01T00:00:00Z",
+    "category": 6,
+    "regionTag": "Northern Border",
+    "verifiedAt": "2021-06-02T00:00:00Z",
+    "isBaseline": true
+  }
+]
