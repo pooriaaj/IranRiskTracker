@@ -86,6 +86,10 @@ namespace IranRiskTracker.Tests.Phase2
             sig.SourceHandle.Should().Be("@h");
             sig.OwnerNotes.Should().Be("n");
             sig.UrgencyScore.Should().Be(20.0);
+            // Default src is not in seed data so should be unmatched and use default credibility 0.5
+            sig.SourceMatchedFromSeed.Should().BeFalse();
+            sig.SourceCredibility.Should().Be(0.5);
+            sig.CredibilityAdjustedUrgencyScore.Should().Be(10.0);
         }
 
         [Fact]
@@ -104,7 +108,7 @@ namespace IranRiskTracker.Tests.Phase2
             var res = calc.GetCurrentRiskAsync().GetAwaiter().GetResult();
             var cyber = res.Contributions.Single(c => c.IndicatorKey == "cyber_incidents");
 
-            var expected = cyber.LiveSignals.Sum(s => s.UrgencyScore);
+            var expected = cyber.LiveSignals.Sum(s => s.CredibilityAdjustedUrgencyScore);
             cyber.LiveBaseScore.Should().BeApproximately(expected, 0.0001);
         }
     }

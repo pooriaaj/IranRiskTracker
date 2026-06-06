@@ -10,6 +10,9 @@ namespace IranRiskTracker.Application.DTOs
         public EventCategory Category { get; set; }
         public UrgencyLevel Urgency { get; set; }
         public double UrgencyScore { get; set; }
+        public double SourceCredibility { get; set; }
+        public double CredibilityAdjustedUrgencyScore { get; set; }
+        public bool SourceMatchedFromSeed { get; set; }
         public string SourceName { get; set; } = string.Empty;
         public string? SourceUrl { get; set; }
         public string? SourceHandle { get; set; }

@@ -51,6 +51,8 @@ namespace IranRiskTracker.Application.Services
             double total = 0.0;
 
             var liveEvents = _liveStore.GetAll().ToList();
+            // Load seeded sources to allow matching live event sources to their credibility.
+            var sources = _seedDataProvider.GetSources().ToList();
 
             foreach (var ind in indicators)
             {
@@ -58,7 +60,7 @@ namespace IranRiskTracker.Application.Services
                 var matchingLive = liveEvents.Count(e => e.Category == ind.Category);
 
                 var historicalBaseScore = CalculateHistoricalBaseScore(matching);
-                var liveBaseScore = CalculateLiveBaseScore(liveEvents.Where(e => e.Category == ind.Category));
+                var liveBaseScore = CalculateLiveBaseScore(liveEvents.Where(e => e.Category == ind.Category), sources);
                 var indicatorBaseScore = Math.Clamp(historicalBaseScore + liveBaseScore, 0.0, MaximumRiskScore);
                 var weighted = CalculateWeightedContribution(indicatorBaseScore, ind.Weight, ind.DirectionMultiplier);
 
@@ -79,19 +81,31 @@ namespace IranRiskTracker.Application.Services
 
                 // Build live signal DTOs
                 var liveSignals = liveEvents.Where(e => e.Category == ind.Category)
-                    .Select(e => new LiveSignalContributionDto
+                    .Select(e =>
                     {
-                        LiveEventId = e.Id,
-                        Title = e.Title,
-                        Category = e.Category,
-                        Urgency = e.Urgency,
-                        UrgencyScore = GetUrgencyScore(e.Urgency),
-                        SourceName = e.SourceName,
-                        SourceUrl = e.SourceUrl,
-                        SourceHandle = e.SourceHandle,
-                        OwnerNotes = e.OwnerNotes,
-                        OccurredAt = e.OccurredAt,
-                        IngestedAt = e.IngestedAt
+                        // Match source by name case-insensitively to the seeded sources
+                        var match = sources.FirstOrDefault(s => string.Equals(s.Name?.Trim(), e.SourceName?.Trim() ?? string.Empty, StringComparison.OrdinalIgnoreCase));
+                        var credibility = match?.Credibility.Value ?? 0.5m;
+                        var urgencyScore = GetUrgencyScore(e.Urgency);
+                        var adjusted = (double)credibility * urgencyScore;
+
+                        return new LiveSignalContributionDto
+                        {
+                            LiveEventId = e.Id,
+                            Title = e.Title,
+                            Category = e.Category,
+                            Urgency = e.Urgency,
+                            UrgencyScore = urgencyScore,
+                            SourceCredibility = (double)credibility,
+                            CredibilityAdjustedUrgencyScore = adjusted,
+                            SourceMatchedFromSeed = match != null,
+                            SourceName = e.SourceName,
+                            SourceUrl = e.SourceUrl,
+                            SourceHandle = e.SourceHandle,
+                            OwnerNotes = e.OwnerNotes,
+                            OccurredAt = e.OccurredAt,
+                            IngestedAt = e.IngestedAt
+                        };
                     }).ToList();
 
                 dto.LiveSignals = liveSignals;
@@ -128,12 +142,15 @@ namespace IranRiskTracker.Application.Services
             return Math.Clamp(matchingEventCount * ScorePerMatchingHistoricalEvent, 0.0, MaximumRiskScore);
         }
 
-        private static double CalculateLiveBaseScore(IEnumerable<LiveEventDto> events)
+        private static double CalculateLiveBaseScore(IEnumerable<LiveEventDto> events, List<Domain.Entities.Source> sources)
         {
             double sum = 0.0;
             foreach (var e in events)
             {
-                sum += GetUrgencyScore(e.Urgency);
+                var match = sources.FirstOrDefault(s => string.Equals(s.Name?.Trim(), e.SourceName?.Trim() ?? string.Empty, StringComparison.OrdinalIgnoreCase));
+                var credibility = match?.Credibility.Value ?? 0.5m;
+                var urgency = GetUrgencyScore(e.Urgency);
+                sum += (double)credibility * urgency;
             }
 
             return Math.Clamp(sum, 0.0, MaximumRiskScore);
@@ -159,7 +176,7 @@ namespace IranRiskTracker.Application.Services
 
         private static string BuildExplanation(double historicalBase, double liveBase, decimal weight, int direction, double weighted, int historicalCount, int liveCount)
         {
-            return $"HistCount={historicalCount}, LiveCount={liveCount}, HistBase={historicalBase}, LiveBase={liveBase}, Weight={weight}, Direction={direction}, Weighted={weighted}";
+            return $"HistCount={historicalCount}, LiveCount={liveCount}, HistBase={historicalBase}, LiveBase={liveBase} (credibility-adjusted), Weight={weight}, Direction={direction}, Weighted={weighted}";
         }
 
         private static RiskLevel MapRiskLevel(double score)
