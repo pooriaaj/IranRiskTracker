@@ -59,6 +59,9 @@ namespace IranRiskTracker.Tests.Phase3
             sig.SourceMatchedFromSeed.Should().BeTrue();
             sig.SourceCredibility.Should().Be((double)seedSource.Credibility.Value);
             sig.CredibilityAdjustedUrgencyScore.Should().BeApproximately(sig.UrgencyScore * (double)seedSource.Credibility.Value, 0.0001);
+            // Recent event recency multiplier should be 1.0
+            sig.RecencyMultiplier.Should().Be(1.0);
+            sig.RecencyAdjustedUrgencyScore.Should().BeApproximately(sig.CredibilityAdjustedUrgencyScore * sig.RecencyMultiplier, 0.0001);
         }
 
         [Fact]
@@ -99,6 +102,8 @@ namespace IranRiskTracker.Tests.Phase3
             sig.SourceMatchedFromSeed.Should().BeTrue();
             sig.SourceCredibility.Should().Be((double)seedSource.Credibility.Value);
             sig.CredibilityAdjustedUrgencyScore.Should().BeApproximately(sig.UrgencyScore * (double)seedSource.Credibility.Value, 0.0001);
+            sig.RecencyMultiplier.Should().Be(1.0);
+            sig.RecencyAdjustedUrgencyScore.Should().BeApproximately(sig.CredibilityAdjustedUrgencyScore * sig.RecencyMultiplier, 0.0001);
         }
     }
 }

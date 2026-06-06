@@ -51,6 +51,8 @@ namespace IranRiskTracker.Application.Services
             double total = 0.0;
 
             var liveEvents = _liveStore.GetAll().ToList();
+            // Use single calculation time for deterministic recency buckets
+            var calculationTime = DateTime.UtcNow;
             // Load seeded sources to allow matching live event sources to their credibility.
             var sources = _seedDataProvider.GetSources().ToList();
 
@@ -60,7 +62,7 @@ namespace IranRiskTracker.Application.Services
                 var matchingLive = liveEvents.Count(e => e.Category == ind.Category);
 
                 var historicalBaseScore = CalculateHistoricalBaseScore(matching);
-                var liveBaseScore = CalculateLiveBaseScore(liveEvents.Where(e => e.Category == ind.Category), sources);
+                var liveBaseScore = CalculateLiveBaseScore(liveEvents.Where(e => e.Category == ind.Category), sources, calculationTime);
                 var indicatorBaseScore = Math.Clamp(historicalBaseScore + liveBaseScore, 0.0, MaximumRiskScore);
                 var weighted = CalculateWeightedContribution(indicatorBaseScore, ind.Weight, ind.DirectionMultiplier);
 
@@ -81,7 +83,7 @@ namespace IranRiskTracker.Application.Services
 
                 // Build live signal DTOs using centralized helper
                 var liveSignals = liveEvents.Where(e => e.Category == ind.Category)
-                    .Select(e => BuildLiveSignalContribution(e, sources)).ToList();
+                    .Select(e => BuildLiveSignalContribution(e, sources, calculationTime)).ToList();
 
                 dto.LiveSignals = liveSignals;
 
@@ -117,14 +119,14 @@ namespace IranRiskTracker.Application.Services
             return Math.Clamp(matchingEventCount * ScorePerMatchingHistoricalEvent, 0.0, MaximumRiskScore);
         }
 
-        private static double CalculateLiveBaseScore(IEnumerable<LiveEventDto> events, List<Domain.Entities.Source> sources)
+        private static double CalculateLiveBaseScore(IEnumerable<LiveEventDto> events, List<Domain.Entities.Source> sources, DateTime calculationTime)
         {
             // Reuse live signal construction to ensure identical matching and adjusted score calculation
             double sum = 0.0;
             foreach (var e in events)
             {
-                var sig = BuildLiveSignalContribution(e, sources);
-                sum += sig.CredibilityAdjustedUrgencyScore;
+                var sig = BuildLiveSignalContribution(e, sources, calculationTime);
+                sum += sig.RecencyAdjustedUrgencyScore;
             }
 
             return Math.Clamp(sum, 0.0, MaximumRiskScore);
@@ -142,12 +144,24 @@ namespace IranRiskTracker.Application.Services
             return (double)credibility;
         }
 
-        private static LiveSignalContributionDto BuildLiveSignalContribution(LiveEventDto liveEvent, IReadOnlyCollection<Domain.Entities.Source> sources)
+        private static LiveSignalContributionDto BuildLiveSignalContribution(LiveEventDto liveEvent, IReadOnlyCollection<Domain.Entities.Source> sources, DateTime? calculationTime = null)
         {
             var match = FindMatchingSource(liveEvent, sources);
             var credibility = match?.Credibility.Value ?? 0.5m;
             var urgencyScore = GetUrgencyScore(liveEvent.Urgency);
             var adjusted = (double)credibility * urgencyScore;
+
+            // Determine recency multiplier using deterministic buckets based on calculationTime
+            var now = calculationTime ?? DateTime.UtcNow;
+            var age = now - liveEvent.OccurredAt;
+            double recencyMultiplier;
+            var ageHours = age.TotalHours;
+            if (ageHours <= 6.0) recencyMultiplier = 1.0;
+            else if (ageHours <= 24.0) recencyMultiplier = 0.75;
+            else if (ageHours <= 72.0) recencyMultiplier = 0.50;
+            else recencyMultiplier = 0.25;
+
+            var recencyAdjusted = adjusted * recencyMultiplier;
 
             return new LiveSignalContributionDto
             {
@@ -158,6 +172,8 @@ namespace IranRiskTracker.Application.Services
                 UrgencyScore = urgencyScore,
                 SourceCredibility = (double)credibility,
                 CredibilityAdjustedUrgencyScore = adjusted,
+                RecencyMultiplier = recencyMultiplier,
+                RecencyAdjustedUrgencyScore = recencyAdjusted,
                 SourceMatchedFromSeed = match != null,
                 SourceName = liveEvent.SourceName,
                 SourceUrl = liveEvent.SourceUrl,
@@ -188,7 +204,7 @@ namespace IranRiskTracker.Application.Services
 
         private static string BuildExplanation(double historicalBase, double liveBase, decimal weight, int direction, double weighted, int historicalCount, int liveCount)
         {
-            return $"HistCount={historicalCount}, LiveCount={liveCount}, HistBase={historicalBase}, LiveBase={liveBase} (credibility-adjusted), Weight={weight}, Direction={direction}, Weighted={weighted}";
+            return $"HistCount={historicalCount}, LiveCount={liveCount}, HistBase={historicalBase}, LiveBase={liveBase} (credibility+recency-adjusted), Weight={weight}, Direction={direction}, Weighted={weighted}";
         }
 
         private static RiskLevel MapRiskLevel(double score)

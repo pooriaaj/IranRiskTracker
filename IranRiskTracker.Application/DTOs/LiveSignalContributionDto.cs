@@ -12,6 +12,8 @@ namespace IranRiskTracker.Application.DTOs
         public double UrgencyScore { get; set; }
         public double SourceCredibility { get; set; }
         public double CredibilityAdjustedUrgencyScore { get; set; }
+        public double RecencyMultiplier { get; set; }
+        public double RecencyAdjustedUrgencyScore { get; set; }
         public bool SourceMatchedFromSeed { get; set; }
         public string SourceName { get; set; } = string.Empty;
         public string? SourceUrl { get; set; }

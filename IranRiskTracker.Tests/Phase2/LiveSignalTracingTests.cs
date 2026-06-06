@@ -90,6 +90,9 @@ namespace IranRiskTracker.Tests.Phase2
             sig.SourceMatchedFromSeed.Should().BeFalse();
             sig.SourceCredibility.Should().Be(0.5);
             sig.CredibilityAdjustedUrgencyScore.Should().Be(10.0);
+            // Recent event default should use recency multiplier 1.0 and hence same as credibility-adjusted
+            sig.RecencyMultiplier.Should().Be(1.0);
+            sig.RecencyAdjustedUrgencyScore.Should().Be(10.0);
         }
 
         [Fact]
@@ -108,7 +111,7 @@ namespace IranRiskTracker.Tests.Phase2
             var res = calc.GetCurrentRiskAsync().GetAwaiter().GetResult();
             var cyber = res.Contributions.Single(c => c.IndicatorKey == "cyber_incidents");
 
-            var expected = cyber.LiveSignals.Sum(s => s.CredibilityAdjustedUrgencyScore);
+            var expected = cyber.LiveSignals.Sum(s => s.RecencyAdjustedUrgencyScore);
             cyber.LiveBaseScore.Should().BeApproximately(expected, 0.0001);
         }
     }
