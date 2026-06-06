@@ -9,6 +9,8 @@ builder.Services.AddOpenApi();
 
 var seedDataPath = Path.Combine(AppContext.BaseDirectory, "Seeding", "Data");
 builder.Services.AddSingleton<ISeedDataProvider>(_ => new JsonSeedDataProvider(seedDataPath));
+// Register in-memory live store as a singleton to preserve events during app lifetime.
+builder.Services.AddSingleton<IranRiskTracker.Application.Interfaces.ILiveEventStore, IranRiskTracker.Infrastructure.Storage.InMemoryLiveEventStore>();
 builder.Services.AddScoped<IEventQueryService, EventQueryService>();
 builder.Services.AddScoped<IRiskCalculator, RiskCalculator>();
 

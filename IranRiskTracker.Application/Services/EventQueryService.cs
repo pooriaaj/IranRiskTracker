@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using System;
 using IranRiskTracker.Application.DTOs;
 using IranRiskTracker.Application.Interfaces;
 
@@ -11,10 +12,12 @@ namespace IranRiskTracker.Application.Services
     public class EventQueryService : IEventQueryService
     {
         private readonly ISeedDataProvider _seedDataProvider;
+        private readonly ILiveEventStore _liveStore;
 
-        public EventQueryService(ISeedDataProvider seedDataProvider)
+        public EventQueryService(ISeedDataProvider seedDataProvider, ILiveEventStore liveStore)
         {
             _seedDataProvider = seedDataProvider;
+            _liveStore = liveStore;
         }
 
         /// <summary>
@@ -42,7 +45,7 @@ namespace IranRiskTracker.Application.Services
         /// </summary>
         public IEnumerable<LiveEventDto> GetLiveEvents()
         {
-            return Enumerable.Empty<LiveEventDto>();
+            return _liveStore.GetAll();
         }
 
         /// <summary>
@@ -50,7 +53,7 @@ namespace IranRiskTracker.Application.Services
         /// </summary>
         public LiveEventDto AcceptLiveEvent(LiveEventCreateRequest request)
         {
-            return new LiveEventDto
+            var live = new LiveEventDto
             {
                 Id = Guid.NewGuid(),
                 Title = request.Title?.Trim() ?? string.Empty,
@@ -61,6 +64,8 @@ namespace IranRiskTracker.Application.Services
                 Urgency = request.Urgency,
                 IsProcessed = false
             };
+
+            return _liveStore.Add(live);
         }
     }
 }

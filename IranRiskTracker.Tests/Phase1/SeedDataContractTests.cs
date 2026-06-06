@@ -114,5 +114,20 @@ namespace IranRiskTracker.Tests.Phase1
                 Enum.IsDefined(typeof(Domain.Enums.SourceBias), s.Bias).Should().BeTrue();
             }
         }
+
+        [Fact]
+        public void EventQueryService_ShouldAcceptLiveStoreDependency()
+        {
+            // Arrange
+            var basePath = FindSeedDataPath();
+            var seed = new JsonSeedDataProvider(basePath);
+            var liveStore = new IranRiskTracker.Infrastructure.Storage.InMemoryLiveEventStore();
+
+            // Act
+            var sut = new IranRiskTracker.Application.Services.EventQueryService(seed, liveStore);
+
+            // Assert
+            sut.Should().NotBeNull();
+        }
     }
 }

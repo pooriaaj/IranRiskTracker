@@ -33,6 +33,7 @@ namespace IranRiskTracker.Tests.Phase1
             var basePath = FindSeedDataPath();
             var seed = new JsonSeedDataProvider(basePath);
             var calc = new RiskCalculator(seed);
+            // No-op: keep line numbers stable for test expectations
 
             var result = calc.GetCurrentRiskAsync().GetAwaiter().GetResult();
 
@@ -103,6 +104,15 @@ namespace IranRiskTracker.Tests.Phase1
                 ca.WeightedContribution.Should().BeApproximately(cb.WeightedContribution, 0.0001);
                 ca.Explanation.Should().Be(cb.Explanation);
             }
+        }
+        [Fact]
+        public void EventQueryService_CanBeConstructedWithLiveStore()
+        {
+            var basePath = FindSeedDataPath();
+            var seed = new JsonSeedDataProvider(basePath);
+            var liveStore = new IranRiskTracker.Infrastructure.Storage.InMemoryLiveEventStore();
+            var sut = new EventQueryService(seed, liveStore);
+            sut.Should().NotBeNull();
         }
     }
 }

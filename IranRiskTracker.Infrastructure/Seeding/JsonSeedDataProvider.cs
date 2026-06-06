@@ -15,6 +15,11 @@ namespace IranRiskTracker.Infrastructure.Seeding
             PropertyNameCaseInsensitive = true
         };
 
+        static JsonSeedDataProvider()
+        {
+            SerializerOptions.Converters.Add(new CredibilityScoreJsonConverter());
+        }
+
         private readonly string _basePath;
 
         public JsonSeedDataProvider(string basePath)

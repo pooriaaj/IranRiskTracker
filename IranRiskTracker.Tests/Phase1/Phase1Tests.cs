@@ -56,7 +56,8 @@ namespace IranRiskTracker.Tests.Phase1
             // Arrange
             var basePath = FindSeedDataPath();
             var seed = new JsonSeedDataProvider(basePath);
-            var sut = new EventQueryService(seed);
+            var liveStore = new IranRiskTracker.Infrastructure.Storage.InMemoryLiveEventStore();
+            var sut = new EventQueryService(seed, liveStore);
 
             // Act
             var historical = sut.GetHistoricalEvents().ToList();
