@@ -75,6 +75,32 @@ namespace IranRiskTracker.Application.Services
                     Explanation = BuildExplanation(historicalBaseScore, liveBaseScore, ind.Weight, ind.DirectionMultiplier, weighted, matching, matchingLive)
                 };
 
+                // Build live signal DTOs
+                var liveSignals = liveEvents.Where(e => e.Category == ind.Category)
+                    .Select(e => new LiveSignalContributionDto
+                    {
+                        LiveEventId = e.Id,
+                        Title = e.Title,
+                        Category = e.Category,
+                        Urgency = e.Urgency,
+                        UrgencyScore = e.Urgency switch
+                        {
+                            UrgencyLevel.Low => LiveUrgencyLow,
+                            UrgencyLevel.Medium => LiveUrgencyMedium,
+                            UrgencyLevel.High => LiveUrgencyHigh,
+                            UrgencyLevel.Critical => LiveUrgencyCritical,
+                            _ => 0.0
+                        },
+                        SourceName = e.SourceName,
+                        SourceUrl = e.SourceUrl,
+                        SourceHandle = e.SourceHandle,
+                        OwnerNotes = e.OwnerNotes,
+                        OccurredAt = e.OccurredAt,
+                        IngestedAt = e.IngestedAt
+                    }).ToList();
+
+                dto.LiveSignals = liveSignals;
+
                 contributions.Add(dto);
                 total += weighted;
             }
