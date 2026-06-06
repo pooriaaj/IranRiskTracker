@@ -79,34 +79,9 @@ namespace IranRiskTracker.Application.Services
                     Explanation = BuildExplanation(historicalBaseScore, liveBaseScore, ind.Weight, ind.DirectionMultiplier, weighted, matching, matchingLive)
                 };
 
-                // Build live signal DTOs
+                // Build live signal DTOs using centralized helper
                 var liveSignals = liveEvents.Where(e => e.Category == ind.Category)
-                    .Select(e =>
-                    {
-                        // Match source by name case-insensitively to the seeded sources
-                        var match = sources.FirstOrDefault(s => string.Equals(s.Name?.Trim(), e.SourceName?.Trim() ?? string.Empty, StringComparison.OrdinalIgnoreCase));
-                        var credibility = match?.Credibility.Value ?? 0.5m;
-                        var urgencyScore = GetUrgencyScore(e.Urgency);
-                        var adjusted = (double)credibility * urgencyScore;
-
-                        return new LiveSignalContributionDto
-                        {
-                            LiveEventId = e.Id,
-                            Title = e.Title,
-                            Category = e.Category,
-                            Urgency = e.Urgency,
-                            UrgencyScore = urgencyScore,
-                            SourceCredibility = (double)credibility,
-                            CredibilityAdjustedUrgencyScore = adjusted,
-                            SourceMatchedFromSeed = match != null,
-                            SourceName = e.SourceName,
-                            SourceUrl = e.SourceUrl,
-                            SourceHandle = e.SourceHandle,
-                            OwnerNotes = e.OwnerNotes,
-                            OccurredAt = e.OccurredAt,
-                            IngestedAt = e.IngestedAt
-                        };
-                    }).ToList();
+                    .Select(e => BuildLiveSignalContribution(e, sources)).ToList();
 
                 dto.LiveSignals = liveSignals;
 
@@ -144,16 +119,53 @@ namespace IranRiskTracker.Application.Services
 
         private static double CalculateLiveBaseScore(IEnumerable<LiveEventDto> events, List<Domain.Entities.Source> sources)
         {
+            // Reuse live signal construction to ensure identical matching and adjusted score calculation
             double sum = 0.0;
             foreach (var e in events)
             {
-                var match = sources.FirstOrDefault(s => string.Equals(s.Name?.Trim(), e.SourceName?.Trim() ?? string.Empty, StringComparison.OrdinalIgnoreCase));
-                var credibility = match?.Credibility.Value ?? 0.5m;
-                var urgency = GetUrgencyScore(e.Urgency);
-                sum += (double)credibility * urgency;
+                var sig = BuildLiveSignalContribution(e, sources);
+                sum += sig.CredibilityAdjustedUrgencyScore;
             }
 
             return Math.Clamp(sum, 0.0, MaximumRiskScore);
+        }
+
+        private static Domain.Entities.Source? FindMatchingSource(LiveEventDto liveEvent, IReadOnlyCollection<Domain.Entities.Source> sources)
+        {
+            return sources.FirstOrDefault(s => string.Equals(s.Name?.Trim(), liveEvent.SourceName?.Trim() ?? string.Empty, StringComparison.OrdinalIgnoreCase));
+        }
+
+        private static double GetSourceCredibility(LiveEventDto liveEvent, IReadOnlyCollection<Domain.Entities.Source> sources)
+        {
+            var match = FindMatchingSource(liveEvent, sources);
+            var credibility = match?.Credibility.Value ?? 0.5m;
+            return (double)credibility;
+        }
+
+        private static LiveSignalContributionDto BuildLiveSignalContribution(LiveEventDto liveEvent, IReadOnlyCollection<Domain.Entities.Source> sources)
+        {
+            var match = FindMatchingSource(liveEvent, sources);
+            var credibility = match?.Credibility.Value ?? 0.5m;
+            var urgencyScore = GetUrgencyScore(liveEvent.Urgency);
+            var adjusted = (double)credibility * urgencyScore;
+
+            return new LiveSignalContributionDto
+            {
+                LiveEventId = liveEvent.Id,
+                Title = liveEvent.Title,
+                Category = liveEvent.Category,
+                Urgency = liveEvent.Urgency,
+                UrgencyScore = urgencyScore,
+                SourceCredibility = (double)credibility,
+                CredibilityAdjustedUrgencyScore = adjusted,
+                SourceMatchedFromSeed = match != null,
+                SourceName = liveEvent.SourceName,
+                SourceUrl = liveEvent.SourceUrl,
+                SourceHandle = liveEvent.SourceHandle,
+                OwnerNotes = liveEvent.OwnerNotes,
+                OccurredAt = liveEvent.OccurredAt,
+                IngestedAt = liveEvent.IngestedAt
+            };
         }
 
         private static double GetUrgencyScore(UrgencyLevel urgency)
