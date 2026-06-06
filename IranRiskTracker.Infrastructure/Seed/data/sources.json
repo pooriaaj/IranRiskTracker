@@ -1,0 +1,12 @@
+[
+  {
+    "id": "2c7f1f22-9b8d-4f3b-a2a6-111111111111",
+    "name": "Official Government Feed",
+    "description": "Primary government press releases"
+  },
+  {
+    "id": "3d8f2e33-8c7e-5g4c-b3b7-222222222222",
+    "name": "Open Intelligence",
+    "description": "Aggregated open-source intelligence feeds"
+  }
+]

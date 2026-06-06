@@ -1,0 +1,16 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\IranRiskTracker.Api\IranRiskTracker.Api.csproj" />
+    <ProjectReference Include="..\IranRiskTracker.Application\IranRiskTracker.Application.csproj" />
+    <ProjectReference Include="..\IranRiskTracker.Domain\IranRiskTracker.Domain.csproj" />
+    <ProjectReference Include="..\IranRiskTracker.Infrastructure\IranRiskTracker.Infrastructure.csproj" />
+  </ItemGroup>
+
+</Project>

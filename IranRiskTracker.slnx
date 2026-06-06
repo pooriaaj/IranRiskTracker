@@ -1,0 +1,7 @@
+<Solution>
+  <Project Path="IranRiskTracker.Api/IranRiskTracker.Api.csproj" />
+  <Project Path="IranRiskTracker.Application/IranRiskTracker.Application.csproj" />
+  <Project Path="IranRiskTracker.Domain/IranRiskTracker.Domain.csproj" />
+  <Project Path="IranRiskTracker.Infrastructure/IranRiskTracker.Infrastructure.csproj" />
+  <Project Path="IranRiskTracker.Tests/IranRiskTracker.Tests.csproj" />
+</Solution>
