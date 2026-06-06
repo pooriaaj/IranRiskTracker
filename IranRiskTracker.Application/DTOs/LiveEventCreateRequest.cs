@@ -10,6 +10,10 @@ namespace IranRiskTracker.Application.DTOs
     {
         public string? Title { get; set; }
         public string? RawContent { get; set; }
+        public string? SourceName { get; set; }
+        public string? SourceUrl { get; set; }
+        public string? SourceHandle { get; set; }
+        public string? OwnerNotes { get; set; }
         public DateTime OccurredAt { get; set; }
         public UrgencyLevel Urgency { get; set; }
         public EventCategory Category { get; set; }

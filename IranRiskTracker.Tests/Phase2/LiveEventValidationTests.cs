@@ -32,7 +32,7 @@ namespace IranRiskTracker.Tests.Phase2
             var liveStore = new InMemoryLiveEventStore();
             var sut = new EventQueryService(seed, liveStore);
 
-            var req = new LiveEventCreateRequest { Title = "ok", RawContent = "content", OccurredAt = DateTime.UtcNow, Category = Domain.Enums.EventCategory.Protests, Urgency = Domain.Enums.UrgencyLevel.Low };
+            var req = new LiveEventCreateRequest { Title = "ok", RawContent = "content", SourceName = "s", OccurredAt = DateTime.UtcNow, Category = Domain.Enums.EventCategory.Protests, Urgency = Domain.Enums.UrgencyLevel.Low };
 
             var added = sut.AcceptLiveEvent(req);
             added.Should().NotBeNull();
@@ -46,7 +46,7 @@ namespace IranRiskTracker.Tests.Phase2
             var liveStore = new InMemoryLiveEventStore();
             var sut = new EventQueryService(seed, liveStore);
 
-            var req = new LiveEventCreateRequest { Title = "   ", RawContent = "content", OccurredAt = DateTime.UtcNow, Category = Domain.Enums.EventCategory.Protests, Urgency = Domain.Enums.UrgencyLevel.Low };
+            var req = new LiveEventCreateRequest { Title = "   ", RawContent = "content", SourceName = "s", OccurredAt = DateTime.UtcNow, Category = Domain.Enums.EventCategory.Protests, Urgency = Domain.Enums.UrgencyLevel.Low };
 
             Action act = () => sut.AcceptLiveEvent(req);
             act.Should().Throw<ArgumentException>().WithMessage("*title is required*");
@@ -60,7 +60,7 @@ namespace IranRiskTracker.Tests.Phase2
             var liveStore = new InMemoryLiveEventStore();
             var sut = new EventQueryService(seed, liveStore);
 
-            var req = new LiveEventCreateRequest { Title = "t", RawContent = "   ", OccurredAt = DateTime.UtcNow, Category = Domain.Enums.EventCategory.Protests, Urgency = Domain.Enums.UrgencyLevel.Low };
+            var req = new LiveEventCreateRequest { Title = "t", RawContent = "   ", SourceName = "s", OccurredAt = DateTime.UtcNow, Category = Domain.Enums.EventCategory.Protests, Urgency = Domain.Enums.UrgencyLevel.Low };
 
             Action act = () => sut.AcceptLiveEvent(req);
             act.Should().Throw<ArgumentException>().WithMessage("*rawContent is required*");
@@ -74,7 +74,7 @@ namespace IranRiskTracker.Tests.Phase2
             var liveStore = new InMemoryLiveEventStore();
             var sut = new EventQueryService(seed, liveStore);
 
-            var req = new LiveEventCreateRequest { Title = "t", RawContent = "c", OccurredAt = DateTime.UtcNow, Category = Domain.Enums.EventCategory.Unknown, Urgency = Domain.Enums.UrgencyLevel.Low };
+            var req = new LiveEventCreateRequest { Title = "t", RawContent = "c", SourceName = "s", OccurredAt = DateTime.UtcNow, Category = Domain.Enums.EventCategory.Unknown, Urgency = Domain.Enums.UrgencyLevel.Low };
 
             Action act = () => sut.AcceptLiveEvent(req);
             act.Should().Throw<ArgumentException>().WithMessage("*category must be a defined non-Unknown EventCategory*");
@@ -88,7 +88,7 @@ namespace IranRiskTracker.Tests.Phase2
             var liveStore = new InMemoryLiveEventStore();
             var sut = new EventQueryService(seed, liveStore);
 
-            var req = new LiveEventCreateRequest { Title = "t", RawContent = "c", OccurredAt = DateTime.UtcNow.AddDays(2), Category = Domain.Enums.EventCategory.Protests, Urgency = Domain.Enums.UrgencyLevel.Low };
+            var req = new LiveEventCreateRequest { Title = "t", RawContent = "c", SourceName = "s", OccurredAt = DateTime.UtcNow.AddDays(2), Category = Domain.Enums.EventCategory.Protests, Urgency = Domain.Enums.UrgencyLevel.Low };
 
             Action act = () => sut.AcceptLiveEvent(req);
             act.Should().Throw<ArgumentException>().WithMessage("*occurredAt cannot be more than 1 day in the future*");

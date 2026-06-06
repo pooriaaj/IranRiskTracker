@@ -37,7 +37,7 @@ namespace IranRiskTracker.Tests.Phase1
 
             // Add a High urgency live cyber event
             var now = DateTime.UtcNow;
-            var evt = new IranRiskTracker.Application.DTOs.LiveEventCreateRequest { Title = "x", RawContent = "r", OccurredAt = now, Category = Domain.Enums.EventCategory.Cyber, Urgency = Domain.Enums.UrgencyLevel.High };
+            var evt = new IranRiskTracker.Application.DTOs.LiveEventCreateRequest { Title = "x", RawContent = "r", SourceName = "s", OccurredAt = now, Category = Domain.Enums.EventCategory.Cyber, Urgency = Domain.Enums.UrgencyLevel.High };
             var qsvc = new EventQueryService(seed, liveStore);
             qsvc.AcceptLiveEvent(evt);
 
@@ -60,7 +60,7 @@ namespace IranRiskTracker.Tests.Phase1
             var before = calc.GetCurrentRiskAsync().GetAwaiter().GetResult();
             var military = before.Contributions.Single(c => c.IndicatorKey == "military_activity");
 
-            var evt = new IranRiskTracker.Application.DTOs.LiveEventCreateRequest { Title = "m", RawContent = "r", OccurredAt = DateTime.UtcNow, Category = Domain.Enums.EventCategory.Military, Urgency = Domain.Enums.UrgencyLevel.Critical };
+            var evt = new IranRiskTracker.Application.DTOs.LiveEventCreateRequest { Title = "m", RawContent = "r", SourceName = "s", OccurredAt = DateTime.UtcNow, Category = Domain.Enums.EventCategory.Military, Urgency = Domain.Enums.UrgencyLevel.Critical };
             var qsvc = new EventQueryService(seed, liveStore);
             qsvc.AcceptLiveEvent(evt);
 

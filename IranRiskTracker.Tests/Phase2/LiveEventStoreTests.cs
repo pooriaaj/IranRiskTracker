@@ -32,7 +32,7 @@ namespace IranRiskTracker.Tests.Phase2
             var liveStore = new InMemoryLiveEventStore();
             var sut = new EventQueryService(seed, liveStore);
 
-            var req = new LiveEventCreateRequest { Title = "t1", RawContent = "r", OccurredAt = DateTime.UtcNow, Category = Domain.Enums.EventCategory.Protests, Urgency = Domain.Enums.UrgencyLevel.Low };
+            var req = new LiveEventCreateRequest { Title = "t1", RawContent = "r", SourceName = "s", OccurredAt = DateTime.UtcNow, Category = Domain.Enums.EventCategory.Protests, Urgency = Domain.Enums.UrgencyLevel.Low };
 
             var added = sut.AcceptLiveEvent(req);
 
@@ -49,9 +49,9 @@ namespace IranRiskTracker.Tests.Phase2
             var liveStore = new InMemoryLiveEventStore();
             var sut = new EventQueryService(seed, liveStore);
 
-            var a = sut.AcceptLiveEvent(new LiveEventCreateRequest { Title = "a", RawContent = "r", OccurredAt = DateTime.UtcNow.AddMinutes(-5), Category = Domain.Enums.EventCategory.Protests, Urgency = Domain.Enums.UrgencyLevel.Low });
+            var a = sut.AcceptLiveEvent(new LiveEventCreateRequest { Title = "a", RawContent = "r", SourceName = "s", OccurredAt = DateTime.UtcNow.AddMinutes(-5), Category = Domain.Enums.EventCategory.Protests, Urgency = Domain.Enums.UrgencyLevel.Low });
             System.Threading.Thread.Sleep(5);
-            var b = sut.AcceptLiveEvent(new LiveEventCreateRequest { Title = "b", RawContent = "r", OccurredAt = DateTime.UtcNow, Category = Domain.Enums.EventCategory.Protests, Urgency = Domain.Enums.UrgencyLevel.Low });
+            var b = sut.AcceptLiveEvent(new LiveEventCreateRequest { Title = "b", RawContent = "r", SourceName = "s", OccurredAt = DateTime.UtcNow, Category = Domain.Enums.EventCategory.Protests, Urgency = Domain.Enums.UrgencyLevel.Low });
 
             var all = sut.GetLiveEvents().ToList();
             all.Count.Should().Be(2);
@@ -70,7 +70,7 @@ namespace IranRiskTracker.Tests.Phase2
             var resGet = controller.GetLive();
             calledGet.Should().BeTrue();
 
-            var resPost = controller.PostLive(new LiveEventCreateRequest { Title = "x", RawContent = "r", OccurredAt = DateTime.UtcNow, Category = Domain.Enums.EventCategory.Protests, Urgency = Domain.Enums.UrgencyLevel.Low });
+            var resPost = controller.PostLive(new LiveEventCreateRequest { Title = "x", RawContent = "r", SourceName = "s", OccurredAt = DateTime.UtcNow, Category = Domain.Enums.EventCategory.Protests, Urgency = Domain.Enums.UrgencyLevel.Low });
             calledPost.Should().BeTrue();
         }
 

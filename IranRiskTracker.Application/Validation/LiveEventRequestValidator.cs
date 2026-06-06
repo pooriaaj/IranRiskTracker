@@ -38,6 +38,31 @@ namespace IranRiskTracker.Application.Validation
                 errors.Add("rawContent must be at most 5000 characters");
             }
 
+            var sourceName = request.SourceName?.Trim() ?? string.Empty;
+            if (string.IsNullOrWhiteSpace(sourceName))
+            {
+                errors.Add("sourceName is required");
+            }
+            else if (sourceName.Length > 150)
+            {
+                errors.Add("sourceName must be at most 150 characters");
+            }
+
+            if (!string.IsNullOrEmpty(request.SourceUrl) && request.SourceUrl.Length > 1000)
+            {
+                errors.Add("sourceUrl must be at most 1000 characters");
+            }
+
+            if (!string.IsNullOrEmpty(request.SourceHandle) && request.SourceHandle.Length > 100)
+            {
+                errors.Add("sourceHandle must be at most 100 characters");
+            }
+
+            if (!string.IsNullOrEmpty(request.OwnerNotes) && request.OwnerNotes.Length > 2000)
+            {
+                errors.Add("ownerNotes must be at most 2000 characters");
+            }
+
             if (request.OccurredAt == default(DateTime))
             {
                 errors.Add("occurredAt must be provided");

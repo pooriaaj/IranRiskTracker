@@ -11,6 +11,10 @@ namespace IranRiskTracker.Application.DTOs
         public Guid Id { get; set; }
         public string Title { get; set; } = string.Empty;
         public string? RawContent { get; set; }
+        public string SourceName { get; set; } = string.Empty;
+        public string? SourceUrl { get; set; }
+        public string? SourceHandle { get; set; }
+        public string? OwnerNotes { get; set; }
         public DateTime OccurredAt { get; set; }
         public DateTime IngestedAt { get; set; }
         public EventCategory Category { get; set; }
