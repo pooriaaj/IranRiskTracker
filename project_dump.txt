@@ -1,0 +1,938 @@
+===== E:\Projects\IranRiskTracker\IranRiskTracker\IranRiskTracker.Api\appsettings.Development.json =====
+{
+  "Logging": {
+    "LogLevel": {
+      "Default": "Information",
+      "Microsoft.AspNetCore": "Warning"
+    }
+  }
+}
+
+===== E:\Projects\IranRiskTracker\IranRiskTracker\IranRiskTracker.Api\appsettings.json =====
+{
+  "Logging": {
+    "LogLevel": {
+      "Default": "Information",
+      "Microsoft.AspNetCore": "Warning"
+    }
+  },
+  "AllowedHosts": "*"
+}
+
+===== E:\Projects\IranRiskTracker\IranRiskTracker\IranRiskTracker.Api\Controllers\EventsController.cs =====
+using Microsoft.AspNetCore.Mvc;
+using IranRiskTracker.Infrastructure.Seeding;
+using IranRiskTracker.Application.DTOs;
+using System.Linq;
+
+namespace IranRiskTracker.Api.Controllers
+{
+    [ApiController]
+    [Route("api/events")]
+    public class EventsController : ControllerBase
+    {
+        private readonly IConfiguration _config;
+
+        public EventsController(IConfiguration config)
+        {
+            _config = config;
+        }
+
+        [HttpGet("historical")]
+        public IActionResult GetHistorical()
+        {
+            var events = JsonSeeder.LoadHistoricalEvents(Path.Combine(AppContext.BaseDirectory, "IranRiskTracker.Infrastructure", "Seeding", "Data"))
+                .Select(e => new HistoricalEventDto
+                {
+                    Id = e.Id,
+                    OccurredAt = e.OccurredAt,
+                    Title = e.Title,
+                    Details = e.Description,
+                    Severity = 0
+                })
+                .ToList();
+
+            return Ok(events);
+        }
+
+        [HttpGet("live")]
+        public IActionResult GetLive()
+        {
+            // Phase 1: No live ingest yet. Return an empty collection placeholder.
+            return Ok(Enumerable.Empty<object>());
+        }
+
+        [HttpPost("live")]
+        public IActionResult PostLive([FromBody] LiveEventCreateRequest request)
+        {
+            // Phase 1: accept minimal live event payload and return a stubbed LiveEvent with generated Id.
+            var live = new IranRiskTracker.Domain.Entities.LiveEvent
+            {
+                Id = Guid.NewGuid(),
+                Title = request.Title ?? string.Empty,
+                RawContent = request.RawContent,
+                OccurredAt = request.OccurredAt,
+                IngestedAt = DateTime.UtcNow,
+                Category = request.Category,
+                Urgency = request.Urgency,
+                IsProcessed = false
+            };
+
+            // In Phase 1 we do not persist; return 201 Created with resource location header.
+            return CreatedAtAction(nameof(GetLive), new { id = live.Id }, new { id = live.Id, status = "ingested" });
+        }
+    }
+
+    public record LiveEventCreateRequest(string? Title, string? RawContent, DateTime OccurredAt, int Urgency, IranRiskTracker.Domain.Enums.EventCategory Category);
+}
+
+===== E:\Projects\IranRiskTracker\IranRiskTracker\IranRiskTracker.Api\Controllers\RiskController.cs =====
+using Microsoft.AspNetCore.Mvc;
+using IranRiskTracker.Application.Interfaces;
+using System.Threading.Tasks;
+
+namespace IranRiskTracker.Api.Controllers
+{
+    [ApiController]
+    [Route("api/risk")]
+    public class RiskController : ControllerBase
+    {
+        private readonly IRiskCalculator _riskCalculator;
+
+        public RiskController(IRiskCalculator riskCalculator)
+        {
+            _riskCalculator = riskCalculator;
+        }
+
+        [HttpGet("current")]
+        public async Task<IActionResult> GetCurrent()
+        {
+            var result = await _riskCalculator.GetCurrentRiskAsync();
+            return Ok(result);
+        }
+    }
+}
+
+===== E:\Projects\IranRiskTracker\IranRiskTracker\IranRiskTracker.Api\Controllers\SnapshotsController.cs =====
+using Microsoft.AspNetCore.Mvc;
+using IranRiskTracker.Application.DTOs;
+
+namespace IranRiskTracker.Api.Controllers
+{
+    [ApiController]
+    [Route("api/snapshots")]
+    public class SnapshotsController : ControllerBase
+    {
+        public SnapshotsController()
+        {
+        }
+
+        [HttpGet("latest")]
+        public IActionResult GetLatest()
+        {
+            // Phase 1: Return a placeholder snapshot. Real snapshot generation will be implemented in later phases.
+            var dto = new RiskDto
+            {
+                Timestamp = DateTime.UtcNow,
+                Level = IranRiskTracker.Domain.Enums.RiskLevel.Unknown,
+                Score = 0.0,
+                Summary = "Placeholder snapshot - scoring not implemented"
+            };
+
+            return Ok(dto);
+        }
+    }
+}
+
+===== E:\Projects\IranRiskTracker\IranRiskTracker\IranRiskTracker.Api\IranRiskTracker.Api.csproj =====
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="10.0.8" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\IranRiskTracker.Application\IranRiskTracker.Application.csproj" />
+    <ProjectReference Include="..\IranRiskTracker.Domain\IranRiskTracker.Domain.csproj" />
+    <ProjectReference Include="..\IranRiskTracker.Infrastructure\IranRiskTracker.Infrastructure.csproj" />
+  </ItemGroup>
+
+</Project>
+
+===== E:\Projects\IranRiskTracker\IranRiskTracker\IranRiskTracker.Api\Program.cs =====
+var builder = WebApplication.CreateBuilder(args);
+
+// Add services to the container.
+builder.Services.AddControllers();
+// Register application services
+builder.Services.AddScoped<IranRiskTracker.Application.Interfaces.IRiskCalculator, IranRiskTracker.Application.Services.RiskCalculator>();
+// Allow minimal JSON seeding access via configuration if desired
+builder.Services.AddSingleton(builder.Configuration);
+// Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
+builder.Services.AddOpenApi();
+
+var app = builder.Build();
+
+// Configure the HTTP request pipeline.
+if (app.Environment.IsDevelopment())
+{
+    app.MapOpenApi();
+}
+
+app.UseHttpsRedirection();
+
+app.UseAuthorization();
+
+app.MapControllers();
+
+app.Run();
+
+===== E:\Projects\IranRiskTracker\IranRiskTracker\IranRiskTracker.Api\Properties\launchSettings.json =====
+{
+  "$schema": "https://json.schemastore.org/launchsettings.json",
+  "profiles": {
+    "http": {
+      "commandName": "Project",
+      "dotnetRunMessages": true,
+      "launchBrowser": false,
+      "applicationUrl": "http://localhost:5132",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      }
+    },
+    "https": {
+      "commandName": "Project",
+      "dotnetRunMessages": true,
+      "launchBrowser": false,
+      "applicationUrl": "https://localhost:7090;http://localhost:5132",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      }
+    }
+  }
+}
+
+===== E:\Projects\IranRiskTracker\IranRiskTracker\IranRiskTracker.Application\DTOs\HistoricalEventDto.cs =====
+using System;
+using IranRiskTracker.Domain.Enums;
+
+namespace IranRiskTracker.Application.DTOs
+{
+    /// <summary>
+    /// DTO for exposing historical events via the API.
+    /// </summary>
+    public class HistoricalEventDto
+    {
+        public Guid Id { get; set; }
+        public DateTime OccurredAt { get; set; }
+        public string Title { get; set; } = string.Empty;
+        public string? Details { get; set; }
+        public RiskLevel Severity { get; set; }
+    }
+}
+
+===== E:\Projects\IranRiskTracker\IranRiskTracker\IranRiskTracker.Application\DTOs\RiskDto.cs =====
+using System;
+using IranRiskTracker.Domain.Enums;
+
+namespace IranRiskTracker.Application.DTOs
+{
+    /// <summary>
+    /// DTO representing a risk snapshot returned by the API.
+    /// </summary>
+    public class RiskDto
+    {
+        public DateTime Timestamp { get; set; }
+        public RiskLevel Level { get; set; }
+        public double Score { get; set; }
+        public string Summary { get; set; } = string.Empty;
+    }
+}
+
+===== E:\Projects\IranRiskTracker\IranRiskTracker\IranRiskTracker.Application\Interfaces\IRiskCalculator.cs =====
+using System.Threading.Tasks;
+using IranRiskTracker.Application.DTOs;
+
+namespace IranRiskTracker.Application.Interfaces
+{
+    /// <summary>
+    /// Service abstraction for computing risk snapshots.
+    /// Phase 1/2: skeleton only, scoring not implemented.
+    /// </summary>
+    public interface IRiskCalculator
+    {
+        /// <summary>
+        /// Produces the current risk snapshot.
+        /// </summary>
+        Task<RiskDto> GetCurrentRiskAsync();
+    }
+}
+
+===== E:\Projects\IranRiskTracker\IranRiskTracker\IranRiskTracker.Application\IranRiskTracker.Application.csproj =====
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\IranRiskTracker.Domain\IranRiskTracker.Domain.csproj" />
+  </ItemGroup>
+
+</Project>
+
+===== E:\Projects\IranRiskTracker\IranRiskTracker\IranRiskTracker.Application\Services\RiskCalculator.cs =====
+using System.Threading.Tasks;
+using IranRiskTracker.Application.DTOs;
+using IranRiskTracker.Application.Interfaces;
+using IranRiskTracker.Domain.Enums;
+
+namespace IranRiskTracker.Application.Services
+{
+    /// <summary>
+    /// Basic risk calculation service skeleton. Returns a fixed Unknown/0 score for now.
+    /// Scoring logic will be implemented in later phases.
+    /// </summary>
+    public class RiskCalculator : IRiskCalculator
+    {
+        public Task<RiskDto> GetCurrentRiskAsync()
+        {
+            // Placeholder implementation that returns a default value.
+            var dto = new RiskDto
+            {
+                Timestamp = DateTime.UtcNow,
+                Level = RiskLevel.Unknown,
+                Score = 0.0,
+                Summary = "Phase 1: scoring not implemented"
+            };
+
+            return Task.FromResult(dto);
+        }
+    }
+}
+
+===== E:\Projects\IranRiskTracker\IranRiskTracker\IranRiskTracker.Domain\Class1.cs =====
+// This file is intentionally left minimal. Domain types are organized into subfolders.
+namespace IranRiskTracker.Domain
+{
+    internal static class DomainPlaceholder { }
+}
+
+===== E:\Projects\IranRiskTracker\IranRiskTracker\IranRiskTracker.Domain\Entities\EventImpact.cs =====
+using System;
+using IranRiskTracker.Domain.Enums;
+
+namespace IranRiskTracker.Domain.Entities
+{
+    /// <summary>
+    /// Records how an event moved a specific indicator.
+    /// </summary>
+    public class EventImpact
+    {
+        public Guid Id { get; init; }
+        public Guid EventId { get; init; }
+        public Guid IndicatorId { get; init; }
+        public decimal RawDelta { get; init; }
+        public decimal AdjustedDelta { get; init; }
+        public string Reason { get; init; } = string.Empty;
+        public SignalType SignalType { get; init; }
+    }
+}
+
+===== E:\Projects\IranRiskTracker\IranRiskTracker\IranRiskTracker.Domain\Entities\EventSource.cs =====
+using System;
+
+namespace IranRiskTracker.Domain.Entities
+{
+    /// <summary>
+    /// Joins an event (historical or live) to its sources with a corroboration weight.
+    /// </summary>
+    public class EventSource
+    {
+        public Guid EventId { get; init; }
+        public Guid SourceId { get; init; }
+        public decimal CorroborationWeight { get; init; } = 1m;
+
+        public Source? Source { get; init; }
+    }
+}
+
+===== E:\Projects\IranRiskTracker\IranRiskTracker\IranRiskTracker.Domain\Entities\HistoricalEvent.cs =====
+using System;
+using System.Collections.Generic;
+using IranRiskTracker.Domain.Enums;
+
+namespace IranRiskTracker.Domain.Entities
+{
+    /// <summary>
+    /// Represents a verified past event used to calibrate the baseline risk model.
+    /// HistoricalEvents are immutable baseline records.
+    /// </summary>
+    public class HistoricalEvent
+    {
+        public Guid Id { get; init; }
+        public string Title { get; init; } = string.Empty;
+        public string Description { get; init; } = string.Empty;
+        public DateTime OccurredAt { get; init; }
+        public EventCategory Category { get; init; }
+        public string? RegionTag { get; init; }
+        public DateTime? VerifiedAt { get; init; }
+        public bool IsBaseline { get; init; } = true;
+
+        // Navigation
+        public ICollection<EventSource> Sources { get; init; } = new List<EventSource>();
+        public ICollection<EventImpact> Impacts { get; init; } = new List<EventImpact>();
+    }
+}
+
+===== E:\Projects\IranRiskTracker\IranRiskTracker\IranRiskTracker.Domain\Entities\Indicator.cs =====
+using System;
+using IranRiskTracker.Domain.ValueObjects;
+
+namespace IranRiskTracker.Domain.Entities
+{
+    /// <summary>
+    /// Represents an indicator which can influence risk scoring.
+    /// This is a parent entity for indicator configuration.
+    /// </summary>
+    public class Indicator
+    {
+        public Guid Id { get; set; }
+        public string Key { get; set; } = string.Empty; // unique key
+        public string Name { get; set; } = string.Empty;
+        public string? Description { get; set; }
+        public Source Source { get; set; }
+
+        public Indicator(Guid id, string key, string name, Source source)
+        {
+            Id = id;
+            Key = key;
+            Name = name;
+            Source = source ?? throw new ArgumentNullException(nameof(source));
+        }
+    }
+}
+
+===== E:\Projects\IranRiskTracker\IranRiskTracker\IranRiskTracker.Domain\Entities\IndicatorScore.cs =====
+using System;
+
+namespace IranRiskTracker.Domain.Entities
+{
+    /// <summary>
+    /// The computed value of one indicator at snapshot time.
+    /// </summary>
+    public class IndicatorScore
+    {
+        public Guid Id { get; init; }
+        public Guid SnapshotId { get; init; }
+        public Guid IndicatorId { get; init; }
+        public decimal RawScore { get; init; }
+        public decimal WeightedScore { get; init; }
+        public DateTime ComputedAt { get; init; }
+
+        public Indicator? Indicator { get; init; }
+        public RiskSnapshot? Snapshot { get; init; }
+    }
+}
+
+===== E:\Projects\IranRiskTracker\IranRiskTracker\IranRiskTracker.Domain\Entities\LiveEvent.cs =====
+using System;
+using System.Collections.Generic;
+using IranRiskTracker.Domain.Enums;
+
+namespace IranRiskTracker.Domain.Entities
+{
+    /// <summary>
+    /// Represents a newly ingested event after the system goes live.
+    /// </summary>
+    public class LiveEvent
+    {
+        public Guid Id { get; init; }
+        public string Title { get; init; } = string.Empty;
+        public string? RawContent { get; init; }
+        public DateTime OccurredAt { get; init; }
+        public DateTime IngestedAt { get; init; }
+        public EventCategory Category { get; init; }
+        public int Urgency { get; init; }
+        public bool IsProcessed { get; set; }
+
+        public ICollection<EventSource> Sources { get; init; } = new List<EventSource>();
+        public ICollection<EventImpact> Impacts { get; init; } = new List<EventImpact>();
+    }
+}
+
+===== E:\Projects\IranRiskTracker\IranRiskTracker\IranRiskTracker.Domain\Entities\ModelDecision.cs =====
+using System;
+using IranRiskTracker.Domain.Enums;
+
+namespace IranRiskTracker.Domain.Entities
+{
+    /// <summary>
+    /// Traceability record produced per evaluated event-indicator pair.
+    /// </summary>
+    public class ModelDecision
+    {
+        public Guid Id { get; init; }
+        public Guid SnapshotId { get; init; }
+        public Guid EventId { get; init; }
+        public Guid IndicatorId { get; init; }
+        public SignalType SignalType { get; init; }
+        public string Reason { get; init; } = string.Empty;
+        public decimal? AppliedDelta { get; init; }
+
+        public RiskSnapshot? Snapshot { get; init; }
+    }
+}
+
+===== E:\Projects\IranRiskTracker\IranRiskTracker\IranRiskTracker.Domain\Entities\RiskSnapshot.cs =====
+using System;
+using System.Collections.Generic;
+using IranRiskTracker.Domain.ValueObjects;
+
+namespace IranRiskTracker.Domain.Entities
+{
+    /// <summary>
+    /// Immutable point-in-time risk record produced by the scoring engine.
+    /// </summary>
+    public class RiskSnapshot
+    {
+        public Guid Id { get; init; }
+        public decimal RiskPercent { get; init; }
+        public DateTime ComputedAt { get; init; }
+        public string ModelVersion { get; init; } = string.Empty;
+        public Guid? TriggeringEventId { get; init; }
+
+        public ICollection<IndicatorScore> IndicatorScores { get; init; } = new List<IndicatorScore>();
+        public ICollection<ModelDecision> Decisions { get; init; } = new List<ModelDecision>();
+    }
+}
+
+===== E:\Projects\IranRiskTracker\IranRiskTracker\IranRiskTracker.Domain\Entities\ScoringRule.cs =====
+using System;
+using IranRiskTracker.Domain.Enums;
+
+namespace IranRiskTracker.Domain.Entities
+{
+    /// <summary>
+    /// Conditional rule attached to an indicator to govern how events affect it.
+    /// </summary>
+    public class ScoringRule
+    {
+        public Guid Id { get; init; }
+        public Guid IndicatorId { get; init; }
+        public EventCategory MatchCategory { get; init; }
+        public RuleType RuleType { get; init; }
+        public decimal WeightOverride { get; init; }
+        public string Justification { get; init; } = string.Empty;
+
+        public Indicator? Indicator { get; init; }
+    }
+}
+
+===== E:\Projects\IranRiskTracker\IranRiskTracker\IranRiskTracker.Domain\Entities\Source.cs =====
+using IranRiskTracker.Domain.ValueObjects;
+using IranRiskTracker.Domain.Enums;
+using System;
+using System.Collections.Generic;
+
+namespace IranRiskTracker.Domain.Entities
+{
+    /// <summary>
+    /// A named information origin with a credibility weight the scoring engine uses
+    /// to adjust raw event delta.
+    /// </summary>
+    public class Source
+    {
+        public Guid Id { get; init; }
+        public string Name { get; init; } = string.Empty;
+        public string? Url { get; init; }
+        public CredibilityScore Credibility { get; init; }
+        public SourceBias Bias { get; init; }
+        public bool IsActive { get; init; } = true;
+
+        public ICollection<EventSource> EventLinks { get; init; } = new List<EventSource>();
+    }
+}
+
+===== E:\Projects\IranRiskTracker\IranRiskTracker\IranRiskTracker.Domain\Enums\EventCategory.cs =====
+namespace IranRiskTracker.Domain.Enums
+{
+    /// <summary>
+    /// Broad event categories used to classify events for scoring rules.
+    /// </summary>
+    public enum EventCategory
+    {
+        Unknown = 0,
+        Protests = 1,
+        Executions = 2,
+        Nuclear = 3,
+        Maritime = 4,
+        Cyber = 5,
+        Military = 6,
+        Political = 7,
+        Economic = 8
+    }
+}
+
+===== E:\Projects\IranRiskTracker\IranRiskTracker\IranRiskTracker.Domain\Enums\RiskLevel.cs =====
+using System;
+
+namespace IranRiskTracker.Domain.Enums
+{
+    /// <summary>
+    /// Represents a qualitative risk level used across the domain.
+    /// </summary>
+    public enum RiskLevel
+    {
+        Unknown = 0,
+        Low = 1,
+        Medium = 2,
+        High = 3,
+        Critical = 4
+    }
+}
+
+===== E:\Projects\IranRiskTracker\IranRiskTracker\IranRiskTracker.Domain\Enums\RuleType.cs =====
+namespace IranRiskTracker.Domain.Enums
+{
+    /// <summary>
+    /// Rule application type. Similar to SignalType but kept separate for intent clarity.
+    /// </summary>
+    public enum RuleType
+    {
+        Include = 0,
+        Exclude = 1,
+        Dispute = 2,
+        Experience = 3
+    }
+}
+
+===== E:\Projects\IranRiskTracker\IranRiskTracker\IranRiskTracker.Domain\Enums\SignalType.cs =====
+namespace IranRiskTracker.Domain.Enums
+{
+    /// <summary>
+    /// Signal handling types produced by scoring rules.
+    /// </summary>
+    public enum SignalType
+    {
+        Included = 0,
+        Excluded = 1,
+        Disputed = 2,
+        ExperienceBased = 3
+    }
+}
+
+===== E:\Projects\IranRiskTracker\IranRiskTracker\IranRiskTracker.Domain\Enums\SourceBias.cs =====
+namespace IranRiskTracker.Domain.Enums
+{
+    /// <summary>
+    /// Represents the origin bias classification of a source.
+    /// </summary>
+    public enum SourceBias
+    {
+        Unknown = 0,
+        StateMedia = 1,
+        WesternPress = 2,
+        Regional = 3,
+        NGO = 4,
+        Academic = 5
+    }
+}
+
+===== E:\Projects\IranRiskTracker\IranRiskTracker\IranRiskTracker.Domain\IranRiskTracker.Domain.csproj =====
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+</Project>
+
+===== E:\Projects\IranRiskTracker\IranRiskTracker\IranRiskTracker.Domain\ValueObjects\CredibilityScore.cs =====
+using System;
+
+namespace IranRiskTracker.Domain.ValueObjects
+{
+    /// <summary>
+    /// Validated wrapper for source credibility score between 0.0 and 1.0.
+    /// </summary>
+    public readonly struct CredibilityScore
+    {
+        public decimal Value { get; }
+
+        public CredibilityScore(decimal value)
+        {
+            if (value < 0m || value > 1m) throw new ArgumentOutOfRangeException(nameof(value), "CredibilityScore must be between 0.0 and 1.0");
+            Value = value;
+        }
+
+        public override string ToString() => Value.ToString("0.##");
+    }
+}
+
+===== E:\Projects\IranRiskTracker\IranRiskTracker\IranRiskTracker.Domain\ValueObjects\RiskPercent.cs =====
+using System;
+
+namespace IranRiskTracker.Domain.ValueObjects
+{
+    /// <summary>
+    /// Validated wrapper for a 0–100 percent risk value.
+    /// </summary>
+    public readonly struct RiskPercent
+    {
+        public decimal Value { get; }
+
+        public RiskPercent(decimal value)
+        {
+            if (value < 0m || value > 100m) throw new ArgumentOutOfRangeException(nameof(value), "RiskPercent must be between 0 and 100");
+            Value = value;
+        }
+
+        public override string ToString() => Value.ToString("0.##");
+    }
+}
+
+===== E:\Projects\IranRiskTracker\IranRiskTracker\IranRiskTracker.Infrastructure\IranRiskTracker.Infrastructure.csproj =====
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\IranRiskTracker.Application\IranRiskTracker.Application.csproj" />
+    <ProjectReference Include="..\IranRiskTracker.Domain\IranRiskTracker.Domain.csproj" />
+  </ItemGroup>
+
+</Project>
+
+===== E:\Projects\IranRiskTracker\IranRiskTracker\IranRiskTracker.Infrastructure\Seed\data\historicalEvents.json =====
+[
+  {
+    "id": "b1f6a2d5-1c5f-4b3d-9b6f-6b2a8b7e9a11",
+    "occurredAt": "2022-11-15T00:00:00Z",
+    "title": "Significant Cyber Attack",
+    "details": "A coordinated cyber intrusion impacted government services.",
+    "severity": 3
+  },
+  {
+    "id": "c2d7b3e6-2d6a-5c4e-ab7f-7c3b9c8f0b22",
+    "occurredAt": "2021-06-01T00:00:00Z",
+    "title": "Border Incident",
+    "details": "Military skirmish near border region.",
+    "severity": 2
+  }
+]
+
+===== E:\Projects\IranRiskTracker\IranRiskTracker\IranRiskTracker.Infrastructure\Seed\data\indicators.json =====
+[
+  {
+    "id": "4e9f3d44-7a6f-6h5d-c4c8-333333333333",
+    "key": "military_activity",
+    "name": "Military Activity",
+    "description": "Observed movement and exercises"
+  },
+  {
+    "id": "5f0g4e55-6b7g-7i6e-d5d9-444444444444",
+    "key": "cyber_incidents",
+    "name": "Cyber Incidents",
+    "description": "Reported cyber operations and outages"
+  }
+]
+
+===== E:\Projects\IranRiskTracker\IranRiskTracker\IranRiskTracker.Infrastructure\Seed\data\sources.json =====
+[
+  {
+    "id": "2c7f1f22-9b8d-4f3b-a2a6-111111111111",
+    "name": "Official Government Feed",
+    "description": "Primary government press releases"
+  },
+  {
+    "id": "3d8f2e33-8c7e-5g4c-b3b7-222222222222",
+    "name": "Open Intelligence",
+    "description": "Aggregated open-source intelligence feeds"
+  }
+]
+
+===== E:\Projects\IranRiskTracker\IranRiskTracker\IranRiskTracker.Infrastructure\Seed\SeedLoader.cs =====
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Text.Json;
+using IranRiskTracker.Domain.Entities;
+
+namespace IranRiskTracker.Infrastructure.Seed
+{
+    /// <summary>
+    /// Skeleton JSON seed loader. Responsible for loading seed files from disk
+    /// and producing domain entities. For Phase 1 this is JSON-first and synchronous.
+    /// </summary>
+    public static class SeedLoader
+    {
+        public static IEnumerable<HistoricalEvent> LoadHistoricalEvents(string jsonPath)
+        {
+            if (!File.Exists(jsonPath)) return Enumerable.Empty<HistoricalEvent>();
+
+            var json = File.ReadAllText(jsonPath);
+            var items = JsonSerializer.Deserialize<List<HistoricalEvent>>(json, new JsonSerializerOptions
+            {
+                PropertyNameCaseInsensitive = true
+            });
+
+            return items ?? Enumerable.Empty<HistoricalEvent>();
+        }
+    }
+}
+
+===== E:\Projects\IranRiskTracker\IranRiskTracker\IranRiskTracker.Infrastructure\Seeding\Data\historical_events.json =====
+[
+  {
+    "id": "2f1a8b6c-0000-4f3b-9b6f-111111111111",
+    "title": "Significant Cyber Attack",
+    "description": "A coordinated cyber intrusion impacted government services.",
+    "occurredAt": "2022-11-15T00:00:00Z",
+    "category": 5,
+    "regionTag": "Tehran",
+    "verifiedAt": "2022-11-16T00:00:00Z",
+    "isBaseline": true
+  },
+  {
+    "id": "3e2b7c5d-0000-4b3d-8a6f-222222222222",
+    "title": "Border Incident",
+    "description": "Military skirmish near border region.",
+    "occurredAt": "2021-06-01T00:00:00Z",
+    "category": 6,
+    "regionTag": "Northern Border",
+    "verifiedAt": "2021-06-02T00:00:00Z",
+    "isBaseline": true
+  }
+]
+
+===== E:\Projects\IranRiskTracker\IranRiskTracker\IranRiskTracker.Infrastructure\Seeding\Data\indicators.json =====
+[
+  {
+    "id": "i1111111-1111-4111-8111-111111111111",
+    "name": "Military Activity",
+    "category": 6,
+    "weight": 0.2,
+    "directionMultiplier": 1,
+    "notes": "Movement and exercises"
+  },
+  {
+    "id": "i2222222-2222-4222-8222-222222222222",
+    "name": "Cyber Incidents",
+    "category": 5,
+    "weight": 0.15,
+    "directionMultiplier": 1,
+    "notes": "Significant outages and campaigns"
+  }
+]
+
+===== E:\Projects\IranRiskTracker\IranRiskTracker\IranRiskTracker.Infrastructure\Seeding\Data\sources.json =====
+[
+  {
+    "id": "a1111111-1111-4111-8111-111111111111",
+    "name": "Official Government Feed",
+    "url": "https://gov.example/press",
+    "credibility": 0.9,
+    "bias": 1,
+    "isActive": true
+  },
+  {
+    "id": "b2222222-2222-4222-8222-222222222222",
+    "name": "Open Intelligence",
+    "url": "https://osint.example/feeds",
+    "credibility": 0.6,
+    "bias": 3,
+    "isActive": true
+  }
+]
+
+===== E:\Projects\IranRiskTracker\IranRiskTracker\IranRiskTracker.Infrastructure\Seeding\JsonSeeder.cs =====
+using System.Text.Json;
+using System.IO;
+using IranRiskTracker.Domain.Entities;
+
+namespace IranRiskTracker.Infrastructure.Seeding
+{
+    /// <summary>
+    /// Reads JSON files from the Data folder and produces domain objects.
+    /// Phase 1: simple synchronous loader; validating and mapping to domain
+    /// objects will be extended in Phase 2.
+    /// </summary>
+    public static class JsonSeeder
+    {
+        private static readonly JsonSerializerOptions _opts = new() { PropertyNameCaseInsensitive = true };
+
+        public static IEnumerable<HistoricalEvent> LoadHistoricalEvents(string basePath)
+        {
+            var path = Path.Combine(basePath, "historical_events.json");
+            if (!File.Exists(path)) return Enumerable.Empty<HistoricalEvent>();
+
+            var json = File.ReadAllText(path);
+            var items = JsonSerializer.Deserialize<List<HistoricalEvent>>(json, _opts);
+            return items ?? Enumerable.Empty<HistoricalEvent>();
+        }
+
+        public static IEnumerable<Source> LoadSources(string basePath)
+        {
+            var path = Path.Combine(basePath, "sources.json");
+            if (!File.Exists(path)) return Enumerable.Empty<Source>();
+
+            var json = File.ReadAllText(path);
+            var items = JsonSerializer.Deserialize<List<Source>>(json, _opts);
+            return items ?? Enumerable.Empty<Source>();
+        }
+
+        public static IEnumerable<Indicator> LoadIndicators(string basePath)
+        {
+            var path = Path.Combine(basePath, "indicators.json");
+            if (!File.Exists(path)) return Enumerable.Empty<Indicator>();
+
+            var json = File.ReadAllText(path);
+            var items = JsonSerializer.Deserialize<List<Indicator>>(json, _opts);
+            return items ?? Enumerable.Empty<Indicator>();
+        }
+    }
+}
+
+===== E:\Projects\IranRiskTracker\IranRiskTracker\IranRiskTracker.slnx =====
+<Solution>
+  <Project Path="IranRiskTracker.Api/IranRiskTracker.Api.csproj" />
+  <Project Path="IranRiskTracker.Application/IranRiskTracker.Application.csproj" />
+  <Project Path="IranRiskTracker.Domain/IranRiskTracker.Domain.csproj" />
+  <Project Path="IranRiskTracker.Infrastructure/IranRiskTracker.Infrastructure.csproj" />
+  <Project Path="IranRiskTracker.Tests/IranRiskTracker.Tests.csproj" />
+</Solution>
+
+===== E:\Projects\IranRiskTracker\IranRiskTracker\IranRiskTracker.Tests\IranRiskTracker.Tests.csproj =====
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\IranRiskTracker.Api\IranRiskTracker.Api.csproj" />
+    <ProjectReference Include="..\IranRiskTracker.Application\IranRiskTracker.Application.csproj" />
+    <ProjectReference Include="..\IranRiskTracker.Domain\IranRiskTracker.Domain.csproj" />
+    <ProjectReference Include="..\IranRiskTracker.Infrastructure\IranRiskTracker.Infrastructure.csproj" />
+  </ItemGroup>
+
+</Project>
+

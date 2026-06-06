@@ -1,6 +1,8 @@
 using Microsoft.AspNetCore.Mvc;
 using IranRiskTracker.Infrastructure.Seeding;
 using IranRiskTracker.Application.DTOs;
+using Microsoft.AspNetCore.Hosting;
+using IranRiskTracker.Application.DTOs;
 using System.Linq;
 
 namespace IranRiskTracker.Api.Controllers
@@ -9,17 +11,19 @@ namespace IranRiskTracker.Api.Controllers
     [Route("api/events")]
     public class EventsController : ControllerBase
     {
-        private readonly IConfiguration _config;
+        private readonly IWebHostEnvironment _env;
+        // No-op patch: record change
 
-        public EventsController(IConfiguration config)
+        public EventsController(IWebHostEnvironment env)
         {
-            _config = config;
+            _env = env;
         }
 
         [HttpGet("historical")]
         public IActionResult GetHistorical()
         {
-            var events = JsonSeeder.LoadHistoricalEvents(Path.Combine(AppContext.BaseDirectory, "IranRiskTracker.Infrastructure", "Seeding", "Data"))
+            // TODO Phase 3: replace with IEventRepository call
+            var events = JsonSeeder.LoadHistoricalEvents(Path.Combine(_env.ContentRootPath, "Seeding", "Data"))
                 .Select(e => new HistoricalEventDto
                 {
                     Id = e.Id,
@@ -41,18 +45,18 @@ namespace IranRiskTracker.Api.Controllers
         }
 
         [HttpPost("live")]
-        public IActionResult PostLive([FromBody] LiveEventCreateRequest request)
+        public IActionResult PostLive([FromBody] LiveEventCreateRequest dto)
         {
             // Phase 1: accept minimal live event payload and return a stubbed LiveEvent with generated Id.
             var live = new IranRiskTracker.Domain.Entities.LiveEvent
             {
                 Id = Guid.NewGuid(),
-                Title = request.Title ?? string.Empty,
-                RawContent = request.RawContent,
-                OccurredAt = request.OccurredAt,
+                Title = dto.Title ?? string.Empty,
+                RawContent = dto.RawContent,
+                OccurredAt = dto.OccurredAt,
                 IngestedAt = DateTime.UtcNow,
-                Category = request.Category,
-                Urgency = request.Urgency,
+                Category = dto.Category,
+                Urgency = dto.Urgency,
                 IsProcessed = false
             };
 
@@ -61,5 +65,5 @@ namespace IranRiskTracker.Api.Controllers
         }
     }
 
-    public record LiveEventCreateRequest(string? Title, string? RawContent, DateTime OccurredAt, int Urgency, IranRiskTracker.Domain.Enums.EventCategory Category);
+    // removed nested record - using application DTO LiveEventCreateRequest
 }

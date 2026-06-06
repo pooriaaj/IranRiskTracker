@@ -11,4 +11,8 @@
     <ProjectReference Include="..\IranRiskTracker.Domain\IranRiskTracker.Domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Seed\data\" />
+  </ItemGroup>
+
 </Project>

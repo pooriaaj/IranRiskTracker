@@ -8,6 +8,10 @@ namespace IranRiskTracker.Domain.Entities
     public class EventSource
     {
         public Guid EventId { get; init; }
+        /// <summary>
+        /// Required alongside EventId to resolve which event table this record targets.
+        /// </summary>
+        public IranRiskTracker.Domain.Enums.EventType EventType { get; init; }
         public Guid SourceId { get; init; }
         public decimal CorroborationWeight { get; init; } = 1m;
 
