@@ -16,7 +16,6 @@ namespace IranRiskTracker.Application.DTOs
         public double LiveBaseScore { get; set; }
         public double WeightedContribution { get; set; }
         public string Explanation { get; set; } = string.Empty;
-        // No-op update: property already present
         public IReadOnlyCollection<LiveSignalContributionDto> LiveSignals { get; set; } = Array.Empty<LiveSignalContributionDto>();
     }
 }
