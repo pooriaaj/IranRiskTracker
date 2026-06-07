@@ -47,7 +47,8 @@ namespace IranRiskTracker.Tests.Phase1
 
             // Historical base score unchanged; live base score should add LiveUrgencyHigh (20.0) multiplied by indicator weight 0.10
             // Source 's' is not in seed data, default credibility 0.5 applies -> effective urgency = 10.0
-            var expectedIncrease = 10.0 * 0.10; // 1.0
+            // Category severity multiplier for Cyber = 1.05 -> effective increase = 10.0 * 1.05 * 0.10
+            var expectedIncrease = 10.0 * 1.05 * 0.10; // 1.05
             (cyberAfter.WeightedContribution - cyber.WeightedContribution).Should().BeApproximately(expectedIncrease, 0.0001);
         }
 
@@ -71,7 +72,8 @@ namespace IranRiskTracker.Tests.Phase1
             var militaryAfter = after.Contributions.Single(c => c.IndicatorKey == "military_activity");
 
             // Source 's' is not in seed data, default credibility 0.5 applies -> effective urgency = 17.5
-            var expectedIncrease = 17.5 * 0.15; // 2.625
+            // Category severity multiplier for Military = 1.30 -> effective increase = 17.5 * 1.30 * 0.15
+            var expectedIncrease = 17.5 * 1.30 * 0.15; // 3.4125
             (militaryAfter.WeightedContribution - military.WeightedContribution).Should().BeApproximately(expectedIncrease, 0.0001);
         }
 

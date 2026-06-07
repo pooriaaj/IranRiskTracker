@@ -16,6 +16,8 @@ namespace IranRiskTracker.Application.DTOs
         public double LiveBaseScore { get; set; }
         public double CorroborationMultiplier { get; set; }
         public int DistinctLiveSourceCount { get; set; }
+        public double CategorySeverityMultiplier { get; set; }
+        public double SeverityAdjustedBaseScore { get; set; }
         public double WeightedContribution { get; set; }
         public string Explanation { get; set; } = string.Empty;
         public IReadOnlyCollection<LiveSignalContributionDto> LiveSignals { get; set; } = Array.Empty<LiveSignalContributionDto>();

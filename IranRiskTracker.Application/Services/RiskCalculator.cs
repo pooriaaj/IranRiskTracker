@@ -69,8 +69,10 @@ namespace IranRiskTracker.Application.Services
                 var distinctSources = CalculateDistinctSourceCount(matchingLiveEvents);
                 var corroborationMultiplier = CalculateCorroborationMultiplier(distinctSources);
                 liveBaseScore = Math.Clamp(liveBaseScore * corroborationMultiplier, 0.0, MaximumRiskScore);
-                var indicatorBaseScore = Math.Clamp(historicalBaseScore + liveBaseScore, 0.0, MaximumRiskScore);
-                var weighted = CalculateWeightedContribution(indicatorBaseScore, ind.Weight, ind.DirectionMultiplier);
+                var rawCombinedBaseScore = Math.Clamp(historicalBaseScore + liveBaseScore, 0.0, MaximumRiskScore);
+                var categorySeverityMultiplier = CalculateCategorySeverityMultiplier(ind.Category);
+                var severityAdjustedBaseScore = Math.Clamp(rawCombinedBaseScore * categorySeverityMultiplier, 0.0, MaximumRiskScore);
+                var weighted = CalculateWeightedContribution(severityAdjustedBaseScore, ind.Weight, ind.DirectionMultiplier);
 
                 var dto = new IndicatorRiskContributionDto
                 {
@@ -84,7 +86,10 @@ namespace IranRiskTracker.Application.Services
                     LiveBaseScore = liveBaseScore,
                     CorroborationMultiplier = corroborationMultiplier,
                     DistinctLiveSourceCount = distinctSources,
-                    BaseScore = indicatorBaseScore,
+                    CategorySeverityMultiplier = categorySeverityMultiplier,
+                    SeverityAdjustedBaseScore = severityAdjustedBaseScore,
+                    // keep BaseScore as the pre-severity combined base for backward clarity
+                    BaseScore = rawCombinedBaseScore,
                     WeightedContribution = weighted,
                     Explanation = BuildExplanation(historicalBaseScore, liveBaseScore, ind.Weight, ind.DirectionMultiplier, weighted, matching, matchingLive)
                 };
@@ -223,6 +228,22 @@ namespace IranRiskTracker.Application.Services
                 UrgencyLevel.High => LiveUrgencyHigh,
                 UrgencyLevel.Critical => LiveUrgencyCritical,
                 _ => 0.0
+            };
+        }
+
+        private static double CalculateCategorySeverityMultiplier(EventCategory category)
+        {
+            // Deterministic category severity multipliers
+            return category switch
+            {
+                EventCategory.Military => 1.30,
+                EventCategory.Maritime => 1.25,
+                EventCategory.Executions => 1.20, // Repression/Executions
+                EventCategory.Protests => 1.15,
+                EventCategory.Cyber => 1.05,
+                EventCategory.Economic => 1.00, // Sanctions/economic
+                EventCategory.Political => 0.90, // Negotiation/Political
+                _ => 1.00
             };
         }
 

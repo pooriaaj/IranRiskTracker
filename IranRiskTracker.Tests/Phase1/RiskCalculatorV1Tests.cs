@@ -77,8 +77,12 @@ namespace IranRiskTracker.Tests.Phase1
             cyber.BaseScore.Should().Be(20.0);
             military.BaseScore.Should().Be(20.0);
 
-            cyber.WeightedContribution.Should().BeApproximately(20.0 * 0.10, 0.0001);
-            military.WeightedContribution.Should().BeApproximately(20.0 * 0.15, 0.0001);
+            // WeightedContribution now uses severity-adjusted base score
+            var cyberSeverity = 1.05; // Cyber category multiplier
+            var militarySeverity = 1.30; // Military category multiplier
+
+            cyber.WeightedContribution.Should().BeApproximately(20.0 * cyberSeverity * 0.10, 0.0001);
+            military.WeightedContribution.Should().BeApproximately(20.0 * militarySeverity * 0.15, 0.0001);
 
             var expected = cyber.WeightedContribution + military.WeightedContribution;
             result.Score.Should().BeApproximately(expected, 0.001);
