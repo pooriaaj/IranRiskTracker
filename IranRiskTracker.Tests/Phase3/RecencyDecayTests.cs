@@ -161,6 +161,13 @@ namespace IranRiskTracker.Tests.Phase3
             sig.RecencyMultiplier.Should().Be(1.0);
             // Explanation should indicate count fallback or event impact as historical source
             cyber.Explanation.Should().Contain("HistoricalSource=");
+            // Ensure DTO fields reflect historical scoring metadata
+            cyber.HistoricalScoringSource.Should().NotBeNullOrWhiteSpace();
+            if (cyber.HistoricalScoringSource == "EventImpact")
+            {
+                cyber.MatchingEventImpactCount.Should().BeGreaterThan(0);
+                cyber.HistoricalImpacts.Should().NotBeEmpty();
+            }
         }
 
         [Fact]

@@ -103,6 +103,19 @@ namespace IranRiskTracker.Application.Services
                     SeverityAdjustedBaseScore = severityAdjustedBaseScore,
                     // keep BaseScore as the pre-severity combined base for backward clarity
                     BaseScore = rawCombinedBaseScore,
+                    HistoricalScoringSource = impactsForIndicator.Any() ? "EventImpact" : "CountFallback",
+                    MatchingEventImpactCount = impactsForIndicator.Count(),
+                    HistoricalImpacts = impactsForIndicator.Select(i => new HistoricalImpactContributionDto
+                    {
+                        EventImpactId = i.Id,
+                        EventId = i.EventId,
+                        EventType = i.EventType,
+                        IndicatorId = i.IndicatorId,
+                        RawDelta = i.RawDelta,
+                        AdjustedDelta = i.AdjustedDelta,
+                        Reason = i.Reason,
+                        SignalType = i.SignalType
+                    }).ToList(),
                     WeightedContribution = weighted,
                     Explanation = BuildExplanation(historicalBaseScore, liveBaseScore, categorySeverityMultiplier, severityAdjustedBaseScore, ind.Weight, ind.DirectionMultiplier, weighted, matching, matchingLive) + (impactsForIndicator.Any() ? ", HistoricalSource=EventImpact" : ", HistoricalSource=CountFallback")
                 };

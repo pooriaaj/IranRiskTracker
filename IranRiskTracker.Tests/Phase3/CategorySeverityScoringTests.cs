@@ -42,6 +42,11 @@ namespace IranRiskTracker.Tests.Phase3
             cyber.Explanation.Should().Contain("CategorySeverityMultiplier");
             cyber.Explanation.Should().Contain("SeverityAdjustedBaseScore");
             cyber.Explanation.Should().Contain("HistoricalSource=EventImpact");
+            cyber.HistoricalScoringSource.Should().Be("EventImpact");
+            cyber.MatchingEventImpactCount.Should().BeGreaterThan(0);
+            cyber.HistoricalImpacts.Should().NotBeEmpty();
+            cyber.HistoricalImpacts.First().AdjustedDelta.Should().BeGreaterThan(0);
+            cyber.HistoricalImpacts.First().Reason.Should().NotBeNullOrWhiteSpace();
         }
 
         [Fact]

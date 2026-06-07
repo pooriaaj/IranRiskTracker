@@ -13,6 +13,9 @@ namespace IranRiskTracker.Application.DTOs
         public int MatchingLiveEventCount { get; set; }
         public double BaseScore { get; set; }
         public double HistoricalBaseScore { get; set; }
+        public string HistoricalScoringSource { get; set; } = string.Empty;
+        public int MatchingEventImpactCount { get; set; }
+        public IReadOnlyCollection<HistoricalImpactContributionDto> HistoricalImpacts { get; set; } = Array.Empty<HistoricalImpactContributionDto>();
         public double LiveBaseScore { get; set; }
         public double CorroborationMultiplier { get; set; }
         public int DistinctLiveSourceCount { get; set; }
