@@ -124,5 +124,149 @@ namespace IranRiskTracker.Tests.Phase3
             var baseAfter = after.BaseScoreBeforeOverrides;
             (after.Score - before.Score).Should().BeApproximately((baseAfter - baseBefore) + 5.0, 0.0001);
         }
+
+        [Fact]
+        public void RecencyBoundary_Exactly6Hours_IsTreatedAsMostRecent()
+        {
+            var basePath = FindSeedDataPath();
+            var seed = new JsonSeedDataProvider(basePath);
+            var sources = seed.GetSources().ToList();
+            sources.Should().NotBeEmpty();
+
+            var seedSource = sources.First();
+
+            var liveStore = new InMemoryLiveEventStore();
+            var qsvc = new EventQueryService(seed, liveStore);
+            var overrideStore = new IranRiskTracker.Infrastructure.Storage.InMemoryOwnerOverrideStore();
+            var calc = new RiskCalculator(seed, liveStore, overrideStore);
+
+            // OccurredAt set to 6 hours minus a couple seconds to avoid timing flakiness
+            var occurred = DateTime.UtcNow.AddHours(-6).AddSeconds(2);
+
+            var evt = new IranRiskTracker.Application.DTOs.LiveEventCreateRequest
+            {
+                Title = "boundary6",
+                RawContent = "r",
+                SourceName = seedSource.Name,
+                OccurredAt = occurred,
+                Category = Domain.Enums.EventCategory.Cyber,
+                Urgency = Domain.Enums.UrgencyLevel.High
+            };
+
+            qsvc.AcceptLiveEvent(evt);
+
+            var res = calc.GetCurrentRiskAsync().GetAwaiter().GetResult();
+            var cyber = res.Contributions.Single(c => c.IndicatorKey == "cyber_incidents");
+            var sig = cyber.LiveSignals.Single();
+            sig.RecencyMultiplier.Should().Be(1.0);
+        }
+
+        [Fact]
+        public void RecencyBoundary_Exactly24Hours_IsTreatedAsSecondBucket()
+        {
+            var basePath = FindSeedDataPath();
+            var seed = new JsonSeedDataProvider(basePath);
+            var sources = seed.GetSources().ToList();
+            sources.Should().NotBeEmpty();
+
+            var seedSource = sources.First();
+
+            var liveStore = new InMemoryLiveEventStore();
+            var qsvc = new EventQueryService(seed, liveStore);
+            var overrideStore = new IranRiskTracker.Infrastructure.Storage.InMemoryOwnerOverrideStore();
+            var calc = new RiskCalculator(seed, liveStore, overrideStore);
+
+            // OccurredAt set to 24 hours minus a couple seconds to avoid timing flakiness
+            var occurred = DateTime.UtcNow.AddHours(-24).AddSeconds(2);
+
+            var evt = new IranRiskTracker.Application.DTOs.LiveEventCreateRequest
+            {
+                Title = "boundary24",
+                RawContent = "r",
+                SourceName = seedSource.Name,
+                OccurredAt = occurred,
+                Category = Domain.Enums.EventCategory.Cyber,
+                Urgency = Domain.Enums.UrgencyLevel.High
+            };
+
+            qsvc.AcceptLiveEvent(evt);
+
+            var res = calc.GetCurrentRiskAsync().GetAwaiter().GetResult();
+            var cyber = res.Contributions.Single(c => c.IndicatorKey == "cyber_incidents");
+            var sig = cyber.LiveSignals.Single();
+            sig.RecencyMultiplier.Should().Be(0.75);
+        }
+
+        [Fact]
+        public void RecencyBoundary_Exactly72Hours_IsTreatedAsThirdBucket()
+        {
+            var basePath = FindSeedDataPath();
+            var seed = new JsonSeedDataProvider(basePath);
+            var sources = seed.GetSources().ToList();
+            sources.Should().NotBeEmpty();
+
+            var seedSource = sources.First();
+
+            var liveStore = new InMemoryLiveEventStore();
+            var qsvc = new EventQueryService(seed, liveStore);
+            var overrideStore = new IranRiskTracker.Infrastructure.Storage.InMemoryOwnerOverrideStore();
+            var calc = new RiskCalculator(seed, liveStore, overrideStore);
+
+            // OccurredAt set to 72 hours minus a couple seconds to avoid timing flakiness
+            var occurred = DateTime.UtcNow.AddHours(-72).AddSeconds(2);
+
+            var evt = new IranRiskTracker.Application.DTOs.LiveEventCreateRequest
+            {
+                Title = "boundary72",
+                RawContent = "r",
+                SourceName = seedSource.Name,
+                OccurredAt = occurred,
+                Category = Domain.Enums.EventCategory.Cyber,
+                Urgency = Domain.Enums.UrgencyLevel.High
+            };
+
+            qsvc.AcceptLiveEvent(evt);
+
+            var res = calc.GetCurrentRiskAsync().GetAwaiter().GetResult();
+            var cyber = res.Contributions.Single(c => c.IndicatorKey == "cyber_incidents");
+            var sig = cyber.LiveSignals.Single();
+            sig.RecencyMultiplier.Should().Be(0.50);
+        }
+
+        [Fact]
+        public void RecencyBoundary_SlightlyOlderThan72Hours_IsTreatedAsOldestBucket()
+        {
+            var basePath = FindSeedDataPath();
+            var seed = new JsonSeedDataProvider(basePath);
+            var sources = seed.GetSources().ToList();
+            sources.Should().NotBeEmpty();
+
+            var seedSource = sources.First();
+
+            var liveStore = new InMemoryLiveEventStore();
+            var qsvc = new EventQueryService(seed, liveStore);
+            var overrideStore = new IranRiskTracker.Infrastructure.Storage.InMemoryOwnerOverrideStore();
+            var calc = new RiskCalculator(seed, liveStore, overrideStore);
+
+            // OccurredAt set to 72 hours plus a couple seconds to ensure oldest bucket
+            var occurred = DateTime.UtcNow.AddHours(-72).AddSeconds(-2);
+
+            var evt = new IranRiskTracker.Application.DTOs.LiveEventCreateRequest
+            {
+                Title = "boundary72plus",
+                RawContent = "r",
+                SourceName = seedSource.Name,
+                OccurredAt = occurred,
+                Category = Domain.Enums.EventCategory.Cyber,
+                Urgency = Domain.Enums.UrgencyLevel.High
+            };
+
+            qsvc.AcceptLiveEvent(evt);
+
+            var res = calc.GetCurrentRiskAsync().GetAwaiter().GetResult();
+            var cyber = res.Contributions.Single(c => c.IndicatorKey == "cyber_incidents");
+            var sig = cyber.LiveSignals.Single();
+            sig.RecencyMultiplier.Should().Be(0.25);
+        }
     }
 }
