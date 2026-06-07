@@ -64,21 +64,10 @@ namespace IranRiskTracker.Application.Services
                 var historicalBaseScore = CalculateHistoricalBaseScore(matching);
                 var matchingLiveEvents = liveEvents.Where(e => e.Category == ind.Category).ToList();
                 var liveBaseScore = CalculateLiveBaseScore(matchingLiveEvents, sources, calculationTime);
+
                 // Corroboration multiplier: count distinct live source names for this indicator
-                var distinctSources = matchingLiveEvents
-                    .Select(e => (e.SourceName ?? string.Empty).Trim())
-                    .Where(n => !string.IsNullOrEmpty(n))
-                    .Select(n => n.ToLowerInvariant())
-                    .Distinct()
-                    .Count();
-                double corroborationMultiplier = distinctSources switch
-                {
-                    0 => 1.0,
-                    1 => 1.0,
-                    2 => 1.10,
-                    3 => 1.20,
-                    _ => 1.30
-                };
+                var distinctSources = CalculateDistinctSourceCount(matchingLiveEvents);
+                var corroborationMultiplier = CalculateCorroborationMultiplier(distinctSources);
                 liveBaseScore = Math.Clamp(liveBaseScore * corroborationMultiplier, 0.0, MaximumRiskScore);
                 var indicatorBaseScore = Math.Clamp(historicalBaseScore + liveBaseScore, 0.0, MaximumRiskScore);
                 var weighted = CalculateWeightedContribution(indicatorBaseScore, ind.Weight, ind.DirectionMultiplier);
@@ -200,6 +189,28 @@ namespace IranRiskTracker.Application.Services
                 OwnerNotes = liveEvent.OwnerNotes,
                 OccurredAt = liveEvent.OccurredAt,
                 IngestedAt = liveEvent.IngestedAt
+            };
+        }
+
+        private static int CalculateDistinctSourceCount(IEnumerable<LiveEventDto> liveEvents)
+        {
+            return liveEvents
+                .Select(e => (e.SourceName ?? string.Empty).Trim())
+                .Where(n => !string.IsNullOrEmpty(n))
+                .Select(n => n.ToLowerInvariant())
+                .Distinct()
+                .Count();
+        }
+
+        private static double CalculateCorroborationMultiplier(int distinctSourceCount)
+        {
+            return distinctSourceCount switch
+            {
+                0 => 1.0,
+                1 => 1.0,
+                2 => 1.10,
+                3 => 1.20,
+                _ => 1.30
             };
         }
 
