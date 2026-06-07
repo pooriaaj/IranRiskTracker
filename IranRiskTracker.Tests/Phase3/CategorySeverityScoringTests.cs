@@ -41,6 +41,7 @@ namespace IranRiskTracker.Tests.Phase3
             cyber.WeightedContribution.Should().BeGreaterOrEqualTo(0.0);
             cyber.Explanation.Should().Contain("CategorySeverityMultiplier");
             cyber.Explanation.Should().Contain("SeverityAdjustedBaseScore");
+            cyber.Explanation.Should().Contain("HistoricalSource=EventImpact");
         }
 
         [Fact]
@@ -127,6 +128,8 @@ namespace IranRiskTracker.Tests.Phase3
             foreach (var i in impacts)
             {
                 i.Id.Should().NotBeEmpty();
+                i.EventId.Should().NotBeEmpty();
+                Enum.IsDefined(typeof(IranRiskTracker.Domain.Enums.EventType), i.EventType).Should().BeTrue();
                 i.IndicatorId.Should().NotBeEmpty();
                 ((double)i.RawDelta).Should().BeInRange(0.0, 100.0);
                 ((double)i.AdjustedDelta).Should().BeInRange(0.0, 100.0);

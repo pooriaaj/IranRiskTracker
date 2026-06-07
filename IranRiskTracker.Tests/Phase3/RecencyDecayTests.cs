@@ -159,6 +159,8 @@ namespace IranRiskTracker.Tests.Phase3
             var cyber = res.Contributions.Single(c => c.IndicatorKey == "cyber_incidents");
             var sig = cyber.LiveSignals.Single();
             sig.RecencyMultiplier.Should().Be(1.0);
+            // Explanation should indicate count fallback or event impact as historical source
+            cyber.Explanation.Should().Contain("HistoricalSource=");
         }
 
         [Fact]

@@ -56,15 +56,16 @@ namespace IranRiskTracker.Application.Services
             // Load seeded sources to allow matching live event sources to their credibility.
             var sources = _seedDataProvider.GetSources().ToList();
 
+            // Load event impacts once
+            var eventImpacts = _seedDataProvider.GetEventImpacts().ToList();
+
             foreach (var ind in indicators)
             {
                 var matching = historicalEvents.Count(e => e.Category == ind.Category);
                 var matchingLive = liveEvents.Count(e => e.Category == ind.Category);
-
                 // Historical base score: prefer event impact sums when available, otherwise fallback to count-based scoring
-                var impacts = _seedDataProvider.GetEventImpacts().ToList();
                 double historicalBaseScore;
-                var impactsForIndicator = impacts.Where(i => i.IndicatorId == ind.Id).ToList();
+                var impactsForIndicator = eventImpacts.Where(i => i.IndicatorId == ind.Id).ToList();
                 if (impactsForIndicator.Any())
                 {
                     // Use AdjustedDelta sum
@@ -103,7 +104,7 @@ namespace IranRiskTracker.Application.Services
                     // keep BaseScore as the pre-severity combined base for backward clarity
                     BaseScore = rawCombinedBaseScore,
                     WeightedContribution = weighted,
-                    Explanation = BuildExplanation(historicalBaseScore, liveBaseScore, categorySeverityMultiplier, severityAdjustedBaseScore, ind.Weight, ind.DirectionMultiplier, weighted, matching, matchingLive)
+                    Explanation = BuildExplanation(historicalBaseScore, liveBaseScore, categorySeverityMultiplier, severityAdjustedBaseScore, ind.Weight, ind.DirectionMultiplier, weighted, matching, matchingLive) + (impactsForIndicator.Any() ? ", HistoricalSource=EventImpact" : ", HistoricalSource=CountFallback")
                 };
 
                 // Build live signal DTOs using centralized helper
