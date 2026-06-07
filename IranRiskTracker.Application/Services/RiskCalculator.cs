@@ -91,7 +91,7 @@ namespace IranRiskTracker.Application.Services
                     // keep BaseScore as the pre-severity combined base for backward clarity
                     BaseScore = rawCombinedBaseScore,
                     WeightedContribution = weighted,
-                    Explanation = BuildExplanation(historicalBaseScore, liveBaseScore, ind.Weight, ind.DirectionMultiplier, weighted, matching, matchingLive)
+                    Explanation = BuildExplanation(historicalBaseScore, liveBaseScore, categorySeverityMultiplier, severityAdjustedBaseScore, ind.Weight, ind.DirectionMultiplier, weighted, matching, matchingLive)
                 };
 
                 // Build live signal DTOs using centralized helper
@@ -253,9 +253,9 @@ namespace IranRiskTracker.Application.Services
             return weighted < 0 ? 0.0 : weighted;
         }
 
-        private static string BuildExplanation(double historicalBase, double liveBase, decimal weight, int direction, double weighted, int historicalCount, int liveCount)
+        private static string BuildExplanation(double historicalBase, double liveBase, double categorySeverityMultiplier, double severityAdjustedBaseScore, decimal weight, int direction, double weighted, int historicalCount, int liveCount)
         {
-            return $"HistCount={historicalCount}, LiveCount={liveCount}, HistBase={historicalBase}, LiveBase={liveBase} (credibility+recency-adjusted), Weight={weight}, Direction={direction}, Weighted={weighted}";
+            return $"HistCount={historicalCount}, LiveCount={liveCount}, HistBase={historicalBase}, LiveBase(CorroborationAdjusted)={liveBase}, CategorySeverityMultiplier={categorySeverityMultiplier}, SeverityAdjustedBaseScore={severityAdjustedBaseScore}, Weight={weight}, Direction={direction}, Weighted={weighted}";
         }
 
         private static RiskLevel MapRiskLevel(double score)

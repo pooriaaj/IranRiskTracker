@@ -39,6 +39,8 @@ namespace IranRiskTracker.Tests.Phase3
             cyber.SeverityAdjustedBaseScore.Should().BeApproximately(Math.Clamp(cyber.BaseScore * 1.05, 0.0, 100.0), 0.0001);
             cyber.WeightedContribution.Should().BeApproximately(cyber.SeverityAdjustedBaseScore * (double)cyber.Weight * 1, 0.0001);
             cyber.WeightedContribution.Should().BeGreaterOrEqualTo(0.0);
+            cyber.Explanation.Should().Contain("CategorySeverityMultiplier");
+            cyber.Explanation.Should().Contain("SeverityAdjustedBaseScore");
         }
 
         [Fact]
