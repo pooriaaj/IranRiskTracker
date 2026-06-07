@@ -64,17 +64,8 @@ namespace IranRiskTracker.Application.Services
                 var matching = historicalEvents.Count(e => e.Category == ind.Category);
                 var matchingLive = liveEvents.Count(e => e.Category == ind.Category);
                 // Historical base score: prefer event impact sums when available, otherwise fallback to count-based scoring
-                double historicalBaseScore;
                 var impactsForIndicator = eventImpacts.Where(i => i.IndicatorId == ind.Id).ToList();
-                if (impactsForIndicator.Any())
-                {
-                    // Use AdjustedDelta sum
-                    historicalBaseScore = Math.Clamp((double)impactsForIndicator.Sum(i => i.AdjustedDelta), 0.0, MaximumRiskScore);
-                }
-                else
-                {
-                    historicalBaseScore = CalculateHistoricalBaseScore(matching);
-                }
+                var historicalBaseScore = CalculateHistoricalBaseScore(matching, impactsForIndicator);
                 var matchingLiveEvents = liveEvents.Where(e => e.Category == ind.Category).ToList();
                 var liveBaseScore = CalculateLiveBaseScore(matchingLiveEvents, sources, calculationTime);
 
@@ -103,19 +94,9 @@ namespace IranRiskTracker.Application.Services
                     SeverityAdjustedBaseScore = severityAdjustedBaseScore,
                     // keep BaseScore as the pre-severity combined base for backward clarity
                     BaseScore = rawCombinedBaseScore,
-                    HistoricalScoringSource = impactsForIndicator.Any() ? "EventImpact" : "CountFallback",
+                    HistoricalScoringSource = GetHistoricalScoringSource(impactsForIndicator),
                     MatchingEventImpactCount = impactsForIndicator.Count(),
-                    HistoricalImpacts = impactsForIndicator.Select(i => new HistoricalImpactContributionDto
-                    {
-                        EventImpactId = i.Id,
-                        EventId = i.EventId,
-                        EventType = i.EventType,
-                        IndicatorId = i.IndicatorId,
-                        RawDelta = i.RawDelta,
-                        AdjustedDelta = i.AdjustedDelta,
-                        Reason = i.Reason,
-                        SignalType = i.SignalType
-                    }).ToList(),
+                    HistoricalImpacts = MapHistoricalImpacts(impactsForIndicator),
                     WeightedContribution = weighted,
                     Explanation = BuildExplanation(historicalBaseScore, liveBaseScore, categorySeverityMultiplier, severityAdjustedBaseScore, ind.Weight, ind.DirectionMultiplier, weighted, matching, matchingLive) + (impactsForIndicator.Any() ? ", HistoricalSource=EventImpact" : ", HistoricalSource=CountFallback")
                 };
@@ -243,6 +224,36 @@ namespace IranRiskTracker.Application.Services
                 3 => 1.20,
                 _ => 1.30
             };
+        }
+
+        private static string GetHistoricalScoringSource(IReadOnlyCollection<Domain.Entities.EventImpact> impactsForIndicator)
+        {
+            return impactsForIndicator.Any() ? "EventImpact" : "CountFallback";
+        }
+
+        private static double CalculateHistoricalBaseScore(int matchingHistoricalEventCount, IReadOnlyCollection<Domain.Entities.EventImpact> impactsForIndicator)
+        {
+            if (impactsForIndicator.Any())
+            {
+                return Math.Clamp((double)impactsForIndicator.Sum(i => i.AdjustedDelta), 0.0, MaximumRiskScore);
+            }
+
+            return CalculateHistoricalBaseScore(matchingHistoricalEventCount);
+        }
+
+        private static IReadOnlyCollection<HistoricalImpactContributionDto> MapHistoricalImpacts(IReadOnlyCollection<Domain.Entities.EventImpact> impactsForIndicator)
+        {
+            return impactsForIndicator.Select(i => new HistoricalImpactContributionDto
+            {
+                EventImpactId = i.Id,
+                EventId = i.EventId,
+                EventType = i.EventType,
+                IndicatorId = i.IndicatorId,
+                RawDelta = i.RawDelta,
+                AdjustedDelta = i.AdjustedDelta,
+                Reason = i.Reason,
+                SignalType = i.SignalType
+            }).ToList();
         }
 
         private static double GetUrgencyScore(UrgencyLevel urgency)
