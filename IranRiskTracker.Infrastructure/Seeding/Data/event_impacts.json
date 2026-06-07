@@ -1,0 +1,34 @@
+[
+  {
+    "id": "aaaaaaaa-1111-4111-8111-111111111111",
+    "indicatorId": "22222222-2222-4222-8222-222222222222",
+    "rawDelta": 20.0,
+    "adjustedDelta": 20.0,
+    "reason": "Baseline cyber incident impact",
+    "signalType": "Included"
+  },
+  {
+    "id": "bbbbbbbb-2222-4222-8222-222222222222",
+    "indicatorId": "11111111-1111-4111-8111-111111111111",
+    "rawDelta": 25.0,
+    "adjustedDelta": 25.0,
+    "reason": "Baseline military incident impact",
+    "signalType": "Included"
+  },
+  {
+    "id": "cccccccc-3333-4333-8333-333333333333",
+    "indicatorId": "88888888-8888-4888-8888-888888888888",
+    "rawDelta": 15.0,
+    "adjustedDelta": 15.0,
+    "reason": "Baseline political instability impact",
+    "signalType": "Included"
+  },
+  {
+    "id": "dddddddd-4444-4444-8444-444444444444",
+    "indicatorId": "66666666-6666-4666-8666-666666666666",
+    "rawDelta": 30.0,
+    "adjustedDelta": 30.0,
+    "reason": "Baseline executions impact",
+    "signalType": "Included"
+  }
+]

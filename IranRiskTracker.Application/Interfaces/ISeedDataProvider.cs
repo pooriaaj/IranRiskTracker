@@ -10,6 +10,7 @@ namespace IranRiskTracker.Application.Interfaces
     {
         IEnumerable<HistoricalEvent> GetHistoricalEvents();
         IEnumerable<Source> GetSources();
+        IEnumerable<Domain.Entities.EventImpact> GetEventImpacts();
         IEnumerable<Indicator> GetIndicators();
     }
 }

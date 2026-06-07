@@ -61,7 +61,19 @@ namespace IranRiskTracker.Application.Services
                 var matching = historicalEvents.Count(e => e.Category == ind.Category);
                 var matchingLive = liveEvents.Count(e => e.Category == ind.Category);
 
-                var historicalBaseScore = CalculateHistoricalBaseScore(matching);
+                // Historical base score: prefer event impact sums when available, otherwise fallback to count-based scoring
+                var impacts = _seedDataProvider.GetEventImpacts().ToList();
+                double historicalBaseScore;
+                var impactsForIndicator = impacts.Where(i => i.IndicatorId == ind.Id).ToList();
+                if (impactsForIndicator.Any())
+                {
+                    // Use AdjustedDelta sum
+                    historicalBaseScore = Math.Clamp((double)impactsForIndicator.Sum(i => i.AdjustedDelta), 0.0, MaximumRiskScore);
+                }
+                else
+                {
+                    historicalBaseScore = CalculateHistoricalBaseScore(matching);
+                }
                 var matchingLiveEvents = liveEvents.Where(e => e.Category == ind.Category).ToList();
                 var liveBaseScore = CalculateLiveBaseScore(matchingLiveEvents, sources, calculationTime);
 
@@ -69,7 +81,7 @@ namespace IranRiskTracker.Application.Services
                 var distinctSources = CalculateDistinctSourceCount(matchingLiveEvents);
                 var corroborationMultiplier = CalculateCorroborationMultiplier(distinctSources);
                 liveBaseScore = Math.Clamp(liveBaseScore * corroborationMultiplier, 0.0, MaximumRiskScore);
-                var rawCombinedBaseScore = Math.Clamp(historicalBaseScore + liveBaseScore, 0.0, MaximumRiskScore);
+                var rawCombinedBaseScore = Math.Clamp((historicalBaseScore + liveBaseScore), 0.0, MaximumRiskScore);
                 var categorySeverityMultiplier = CalculateCategorySeverityMultiplier(ind.Category);
                 var severityAdjustedBaseScore = Math.Clamp(rawCombinedBaseScore * categorySeverityMultiplier, 0.0, MaximumRiskScore);
                 var weighted = CalculateWeightedContribution(severityAdjustedBaseScore, ind.Weight, ind.DirectionMultiplier);

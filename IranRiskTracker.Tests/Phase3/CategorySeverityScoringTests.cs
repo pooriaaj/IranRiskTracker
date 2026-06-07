@@ -116,5 +116,22 @@ namespace IranRiskTracker.Tests.Phase3
 
             (after.Score - before.Score).Should().BeApproximately((after.BaseScoreBeforeOverrides - before.BaseScoreBeforeOverrides) + 5.0, 0.0001);
         }
+
+        [Fact]
+        public void JsonSeedDataProvider_Loads_EventImpacts()
+        {
+            var basePath = FindSeedDataPath();
+            var seed = new JsonSeedDataProvider(basePath);
+            var impacts = seed.GetEventImpacts().ToList();
+            impacts.Should().NotBeEmpty();
+            foreach (var i in impacts)
+            {
+                i.Id.Should().NotBeEmpty();
+                i.IndicatorId.Should().NotBeEmpty();
+                ((double)i.RawDelta).Should().BeInRange(0.0, 100.0);
+                ((double)i.AdjustedDelta).Should().BeInRange(0.0, 100.0);
+                i.Reason.Should().NotBeNullOrWhiteSpace();
+            }
+        }
     }
 }

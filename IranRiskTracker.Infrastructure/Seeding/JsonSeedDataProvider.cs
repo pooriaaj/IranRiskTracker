@@ -1,5 +1,8 @@
 using System.Collections.Generic;
 using System.Text.Json;
+using System.Text.Json.Serialization;
+using System.IO;
+using System.Linq;
 using IranRiskTracker.Application.Interfaces;
 using IranRiskTracker.Domain.Entities;
 
@@ -18,6 +21,8 @@ namespace IranRiskTracker.Infrastructure.Seeding
         static JsonSeedDataProvider()
         {
             SerializerOptions.Converters.Add(new CredibilityScoreJsonConverter());
+            // Allow enum values to be read from their string names in seed JSON files
+            SerializerOptions.Converters.Add(new JsonStringEnumConverter());
         }
 
         private readonly string _basePath;
@@ -49,6 +54,14 @@ namespace IranRiskTracker.Infrastructure.Seeding
         public IEnumerable<Indicator> GetIndicators()
         {
             return LoadSeedFile<Indicator>("indicators.json");
+        }
+
+        /// <summary>
+        /// Loads event impact definitions from event_impacts.json.
+        /// </summary>
+        public IEnumerable<EventImpact> GetEventImpacts()
+        {
+            return LoadSeedFile<EventImpact>("event_impacts.json");
         }
 
         private IEnumerable<T> LoadSeedFile<T>(string fileName)
