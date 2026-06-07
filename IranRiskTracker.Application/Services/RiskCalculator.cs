@@ -62,7 +62,24 @@ namespace IranRiskTracker.Application.Services
                 var matchingLive = liveEvents.Count(e => e.Category == ind.Category);
 
                 var historicalBaseScore = CalculateHistoricalBaseScore(matching);
-                var liveBaseScore = CalculateLiveBaseScore(liveEvents.Where(e => e.Category == ind.Category), sources, calculationTime);
+                var matchingLiveEvents = liveEvents.Where(e => e.Category == ind.Category).ToList();
+                var liveBaseScore = CalculateLiveBaseScore(matchingLiveEvents, sources, calculationTime);
+                // Corroboration multiplier: count distinct live source names for this indicator
+                var distinctSources = matchingLiveEvents
+                    .Select(e => (e.SourceName ?? string.Empty).Trim())
+                    .Where(n => !string.IsNullOrEmpty(n))
+                    .Select(n => n.ToLowerInvariant())
+                    .Distinct()
+                    .Count();
+                double corroborationMultiplier = distinctSources switch
+                {
+                    0 => 1.0,
+                    1 => 1.0,
+                    2 => 1.10,
+                    3 => 1.20,
+                    _ => 1.30
+                };
+                liveBaseScore = Math.Clamp(liveBaseScore * corroborationMultiplier, 0.0, MaximumRiskScore);
                 var indicatorBaseScore = Math.Clamp(historicalBaseScore + liveBaseScore, 0.0, MaximumRiskScore);
                 var weighted = CalculateWeightedContribution(indicatorBaseScore, ind.Weight, ind.DirectionMultiplier);
 
@@ -76,6 +93,8 @@ namespace IranRiskTracker.Application.Services
                     MatchingLiveEventCount = matchingLive,
                     HistoricalBaseScore = historicalBaseScore,
                     LiveBaseScore = liveBaseScore,
+                    CorroborationMultiplier = corroborationMultiplier,
+                    DistinctLiveSourceCount = distinctSources,
                     BaseScore = indicatorBaseScore,
                     WeightedContribution = weighted,
                     Explanation = BuildExplanation(historicalBaseScore, liveBaseScore, ind.Weight, ind.DirectionMultiplier, weighted, matching, matchingLive)
