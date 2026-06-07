@@ -29,11 +29,53 @@ namespace IranRiskTracker.Application.Services
         private const double MaximumRiskScore = 100.0;
         private const int ScoreRoundingDigits = 2;
 
-        public RiskCalculator(ISeedDataProvider seedDataProvider, ILiveEventStore liveStore, IOwnerOverrideStore overrideStore)
+        private readonly IRiskSnapshotStore _snapshotStore;
+        public RiskCalculator(ISeedDataProvider seedDataProvider, ILiveEventStore liveStore, IOwnerOverrideStore overrideStore, IRiskSnapshotStore snapshotStore)
         {
             _seedDataProvider = seedDataProvider;
             _liveStore = liveStore;
             _overrideStore = overrideStore;
+            _snapshotStore = snapshotStore;
+        }
+
+        // Backwards-compatible constructor used by tests and callers that do not provide a snapshot store.
+        // Creates an internal in-memory store to avoid forcing all tests to change.
+        public RiskCalculator(ISeedDataProvider seedDataProvider, ILiveEventStore liveStore, IOwnerOverrideStore overrideStore)
+            : this(seedDataProvider, liveStore, overrideStore, new DefaultInMemorySnapshotStore())
+        {
+        }
+
+        // Simple in-process snapshot store used only as a default when none is provided.
+        // Mirrors the rules: private List<RiskDto>, lock for reads/writes, newest Timestamp first, no static state.
+        private sealed class DefaultInMemorySnapshotStore : IRiskSnapshotStore
+        {
+            private readonly List<RiskDto> _items = new();
+            private readonly object _lock = new();
+
+            public RiskDto Add(RiskDto snapshot)
+            {
+                lock (_lock)
+                {
+                    _items.Add(snapshot);
+                    return snapshot;
+                }
+            }
+
+            public RiskDto? GetLatest()
+            {
+                lock (_lock)
+                {
+                    return _items.OrderByDescending(i => i.Timestamp).FirstOrDefault();
+                }
+            }
+
+            public IReadOnlyCollection<RiskDto> GetAll()
+            {
+                lock (_lock)
+                {
+                    return _items.OrderByDescending(i => i.Timestamp).ToList().AsReadOnly();
+                }
+            }
         }
 
         /// <summary>
@@ -131,7 +173,9 @@ namespace IranRiskTracker.Application.Services
                 Contributions = contributions
             };
 
-            return Task.FromResult(result);
+            // Store snapshot and return stored instance
+            var stored = _snapshotStore.Add(result);
+            return Task.FromResult(stored);
         }
 
         private static double CalculateHistoricalBaseScore(int matchingEventCount)

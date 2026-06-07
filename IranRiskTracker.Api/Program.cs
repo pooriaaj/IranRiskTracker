@@ -15,6 +15,7 @@ builder.Services.AddSingleton<IranRiskTracker.Application.Interfaces.IOwnerOverr
 builder.Services.AddScoped<IranRiskTracker.Application.Interfaces.IOwnerOverrideService, IranRiskTracker.Application.Services.OwnerOverrideService>();
 builder.Services.AddScoped<IEventQueryService, EventQueryService>();
 builder.Services.AddScoped<IRiskCalculator, RiskCalculator>();
+builder.Services.AddSingleton<IranRiskTracker.Application.Interfaces.IRiskSnapshotStore, IranRiskTracker.Infrastructure.Storage.InMemoryRiskSnapshotStore>();
 
 var app = builder.Build();
 
