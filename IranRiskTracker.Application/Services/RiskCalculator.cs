@@ -38,45 +38,7 @@ namespace IranRiskTracker.Application.Services
             _snapshotStore = snapshotStore;
         }
 
-        // Backwards-compatible constructor used by tests and callers that do not provide a snapshot store.
-        // Creates an internal in-memory store to avoid forcing all tests to change.
-        public RiskCalculator(ISeedDataProvider seedDataProvider, ILiveEventStore liveStore, IOwnerOverrideStore overrideStore)
-            : this(seedDataProvider, liveStore, overrideStore, new DefaultInMemorySnapshotStore())
-        {
-        }
-
-        // Simple in-process snapshot store used only as a default when none is provided.
-        // Mirrors the rules: private List<RiskDto>, lock for reads/writes, newest Timestamp first, no static state.
-        private sealed class DefaultInMemorySnapshotStore : IRiskSnapshotStore
-        {
-            private readonly List<RiskDto> _items = new();
-            private readonly object _lock = new();
-
-            public RiskDto Add(RiskDto snapshot)
-            {
-                lock (_lock)
-                {
-                    _items.Add(snapshot);
-                    return snapshot;
-                }
-            }
-
-            public RiskDto? GetLatest()
-            {
-                lock (_lock)
-                {
-                    return _items.OrderByDescending(i => i.Timestamp).FirstOrDefault();
-                }
-            }
-
-            public IReadOnlyCollection<RiskDto> GetAll()
-            {
-                lock (_lock)
-                {
-                    return _items.OrderByDescending(i => i.Timestamp).ToList().AsReadOnly();
-                }
-            }
-        }
+        // Note: IRiskSnapshotStore must be provided via constructor injection.
 
         /// <summary>
         /// Calculates a deterministic baseline risk snapshot.

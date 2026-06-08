@@ -40,7 +40,8 @@ namespace IranRiskTracker.Tests.Phase3
             var liveStore = new InMemoryLiveEventStore();
             var qsvc = new EventQueryService(seed, liveStore);
             var overrideStore = new IranRiskTracker.Infrastructure.Storage.InMemoryOwnerOverrideStore();
-            var calc = new RiskCalculator(seed, liveStore, overrideStore);
+            var snapshotStore = new IranRiskTracker.Infrastructure.Storage.InMemoryRiskSnapshotStore();
+            var calc = new RiskCalculator(seed, liveStore, overrideStore, snapshotStore);
 
             var occurred = DateTime.UtcNow.AddHours(-hoursAgo);
 
@@ -78,7 +79,8 @@ namespace IranRiskTracker.Tests.Phase3
             var liveStore = new InMemoryLiveEventStore();
             var qsvc = new EventQueryService(seed, liveStore);
             var overrideStore = new IranRiskTracker.Infrastructure.Storage.InMemoryOwnerOverrideStore();
-            var calc = new RiskCalculator(seed, liveStore, overrideStore);
+            var snapshotStore = new IranRiskTracker.Infrastructure.Storage.InMemoryRiskSnapshotStore();
+            var calc = new RiskCalculator(seed, liveStore, overrideStore, snapshotStore);
 
             qsvc.AcceptLiveEvent(new IranRiskTracker.Application.DTOs.LiveEventCreateRequest { Title = "a", RawContent = "r", SourceName = seedSource.Name, OccurredAt = DateTime.UtcNow, Category = Domain.Enums.EventCategory.Cyber, Urgency = Domain.Enums.UrgencyLevel.Medium });
             qsvc.AcceptLiveEvent(new IranRiskTracker.Application.DTOs.LiveEventCreateRequest { Title = "b", RawContent = "r", SourceName = seedSource.Name, OccurredAt = DateTime.UtcNow.AddHours(-12), Category = Domain.Enums.EventCategory.Cyber, Urgency = Domain.Enums.UrgencyLevel.High });
@@ -106,7 +108,8 @@ namespace IranRiskTracker.Tests.Phase3
             var svc = new IranRiskTracker.Application.Services.OwnerOverrideService(overrideStore);
 
             // baseline
-            var calc = new RiskCalculator(seed, liveStore, overrideStore);
+            var snapshotStore = new IranRiskTracker.Infrastructure.Storage.InMemoryRiskSnapshotStore();
+            var calc = new RiskCalculator(seed, liveStore, overrideStore, snapshotStore);
             var before = calc.GetCurrentRiskAsync().GetAwaiter().GetResult();
             var cyberBefore = before.Contributions.Single(c => c.IndicatorKey == "cyber_incidents");
 
@@ -138,7 +141,8 @@ namespace IranRiskTracker.Tests.Phase3
             var liveStore = new InMemoryLiveEventStore();
             var qsvc = new EventQueryService(seed, liveStore);
             var overrideStore = new IranRiskTracker.Infrastructure.Storage.InMemoryOwnerOverrideStore();
-            var calc = new RiskCalculator(seed, liveStore, overrideStore);
+            var snapshotStore = new IranRiskTracker.Infrastructure.Storage.InMemoryRiskSnapshotStore();
+            var calc = new RiskCalculator(seed, liveStore, overrideStore, snapshotStore);
 
             // OccurredAt set to 6 hours minus a couple seconds to avoid timing flakiness
             var occurred = DateTime.UtcNow.AddHours(-6).AddSeconds(2);
@@ -183,7 +187,8 @@ namespace IranRiskTracker.Tests.Phase3
             var liveStore = new InMemoryLiveEventStore();
             var qsvc = new EventQueryService(seed, liveStore);
             var overrideStore = new IranRiskTracker.Infrastructure.Storage.InMemoryOwnerOverrideStore();
-            var calc = new RiskCalculator(seed, liveStore, overrideStore);
+            var snapshotStore = new IranRiskTracker.Infrastructure.Storage.InMemoryRiskSnapshotStore();
+            var calc = new RiskCalculator(seed, liveStore, overrideStore, snapshotStore);
 
             // OccurredAt set to 24 hours minus a couple seconds to avoid timing flakiness
             var occurred = DateTime.UtcNow.AddHours(-24).AddSeconds(2);
@@ -219,7 +224,8 @@ namespace IranRiskTracker.Tests.Phase3
             var liveStore = new InMemoryLiveEventStore();
             var qsvc = new EventQueryService(seed, liveStore);
             var overrideStore = new IranRiskTracker.Infrastructure.Storage.InMemoryOwnerOverrideStore();
-            var calc = new RiskCalculator(seed, liveStore, overrideStore);
+            var snapshotStore = new IranRiskTracker.Infrastructure.Storage.InMemoryRiskSnapshotStore();
+            var calc = new RiskCalculator(seed, liveStore, overrideStore, snapshotStore);
 
             // OccurredAt set to 72 hours minus a couple seconds to avoid timing flakiness
             var occurred = DateTime.UtcNow.AddHours(-72).AddSeconds(2);
@@ -255,7 +261,8 @@ namespace IranRiskTracker.Tests.Phase3
             var liveStore = new InMemoryLiveEventStore();
             var qsvc = new EventQueryService(seed, liveStore);
             var overrideStore = new IranRiskTracker.Infrastructure.Storage.InMemoryOwnerOverrideStore();
-            var calc = new RiskCalculator(seed, liveStore, overrideStore);
+            var snapshotStore = new IranRiskTracker.Infrastructure.Storage.InMemoryRiskSnapshotStore();
+            var calc = new RiskCalculator(seed, liveStore, overrideStore, snapshotStore);
 
             // OccurredAt set to 72 hours plus a couple seconds to ensure oldest bucket
             var occurred = DateTime.UtcNow.AddHours(-72).AddSeconds(-2);

@@ -34,7 +34,8 @@ namespace IranRiskTracker.Tests.Phase1
             var seed = new JsonSeedDataProvider(basePath);
             var liveStore = new IranRiskTracker.Infrastructure.Storage.InMemoryLiveEventStore();
             var overrideStore = new IranRiskTracker.Infrastructure.Storage.InMemoryOwnerOverrideStore();
-            var calc = new RiskCalculator(seed, liveStore, overrideStore);
+            var snapshotStore = new IranRiskTracker.Infrastructure.Storage.InMemoryRiskSnapshotStore();
+            var calc = new RiskCalculator(seed, liveStore, overrideStore, snapshotStore);
             // Patch: added no-op comment to ensure liveStore is passed (keeps behavior unchanged)
             // No-op: keep line numbers stable for test expectations
             // Patch: no-op insertion to ensure patch applies cleanly
@@ -64,7 +65,8 @@ namespace IranRiskTracker.Tests.Phase1
             var seed = new JsonSeedDataProvider(basePath);
             var liveStore = new IranRiskTracker.Infrastructure.Storage.InMemoryLiveEventStore();
             var overrideStore = new IranRiskTracker.Infrastructure.Storage.InMemoryOwnerOverrideStore();
-            var calc = new RiskCalculator(seed, liveStore, overrideStore);
+            var snapshotStore = new IranRiskTracker.Infrastructure.Storage.InMemoryRiskSnapshotStore();
+            var calc = new RiskCalculator(seed, liveStore, overrideStore, snapshotStore);
 
             // Act
             var result = calc.GetCurrentRiskAsync().GetAwaiter().GetResult();
@@ -99,7 +101,8 @@ namespace IranRiskTracker.Tests.Phase1
             var seed = new JsonSeedDataProvider(basePath);
             var liveStore = new IranRiskTracker.Infrastructure.Storage.InMemoryLiveEventStore();
             var overrideStore = new IranRiskTracker.Infrastructure.Storage.InMemoryOwnerOverrideStore();
-            var calc = new RiskCalculator(seed, liveStore, overrideStore);
+            var snapshotStore = new IranRiskTracker.Infrastructure.Storage.InMemoryRiskSnapshotStore();
+            var calc = new RiskCalculator(seed, liveStore, overrideStore, snapshotStore);
 
             var a = calc.GetCurrentRiskAsync().GetAwaiter().GetResult();
             System.Threading.Thread.Sleep(10);

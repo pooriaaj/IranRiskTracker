@@ -80,7 +80,8 @@ namespace IranRiskTracker.Tests.Phase1
             var seed = new JsonSeedDataProvider(basePath);
             var liveStore = new IranRiskTracker.Infrastructure.Storage.InMemoryLiveEventStore();
             var overrideStore = new IranRiskTracker.Infrastructure.Storage.InMemoryOwnerOverrideStore();
-            var calc = new RiskCalculator(seed, liveStore, overrideStore);
+            var snapshotStore = new IranRiskTracker.Infrastructure.Storage.InMemoryRiskSnapshotStore();
+            var calc = new RiskCalculator(seed, liveStore, overrideStore, snapshotStore);
 
             // Act
             var result = calc.GetCurrentRiskAsync().GetAwaiter().GetResult();
@@ -116,7 +117,8 @@ namespace IranRiskTracker.Tests.Phase1
             var seed = new JsonSeedDataProvider(basePath);
             var liveStore = new IranRiskTracker.Infrastructure.Storage.InMemoryLiveEventStore();
             var overrideStore = new IranRiskTracker.Infrastructure.Storage.InMemoryOwnerOverrideStore();
-            var calc = new RiskCalculator(seed, liveStore, overrideStore);
+            var snapshotStoreForRisk = new IranRiskTracker.Infrastructure.Storage.InMemoryRiskSnapshotStore();
+            var calc = new RiskCalculator(seed, liveStore, overrideStore, snapshotStoreForRisk);
             var controller = new IranRiskTracker.Api.Controllers.RiskController(calc);
 
             // Act
@@ -134,8 +136,9 @@ namespace IranRiskTracker.Tests.Phase1
             var seed = new JsonSeedDataProvider(basePath);
             var liveStore = new IranRiskTracker.Infrastructure.Storage.InMemoryLiveEventStore();
             var overrideStore = new IranRiskTracker.Infrastructure.Storage.InMemoryOwnerOverrideStore();
-            var calc = new RiskCalculator(seed, liveStore, overrideStore);
-            var controller = new IranRiskTracker.Api.Controllers.SnapshotsController(calc);
+            var snapshotStore = new IranRiskTracker.Infrastructure.Storage.InMemoryRiskSnapshotStore();
+            var calc = new RiskCalculator(seed, liveStore, overrideStore, snapshotStore);
+            var controller = new IranRiskTracker.Api.Controllers.SnapshotsController(calc, snapshotStore);
 
             // Act
             var action = controller.GetLatest().GetAwaiter().GetResult();

@@ -31,7 +31,8 @@ namespace IranRiskTracker.Tests.Phase2
             var seed = new JsonSeedDataProvider(basePath);
             var liveStore = new InMemoryLiveEventStore();
             var overrideStore = new IranRiskTracker.Infrastructure.Storage.InMemoryOwnerOverrideStore();
-            var calc = new RiskCalculator(seed, liveStore, overrideStore);
+            var snapshotStore = new IranRiskTracker.Infrastructure.Storage.InMemoryRiskSnapshotStore();
+            var calc = new RiskCalculator(seed, liveStore, overrideStore, snapshotStore);
 
             var res = calc.GetCurrentRiskAsync().GetAwaiter().GetResult();
             foreach (var c in res.Contributions)
@@ -48,7 +49,8 @@ namespace IranRiskTracker.Tests.Phase2
             var liveStore = new InMemoryLiveEventStore();
             var qsvc = new EventQueryService(seed, liveStore);
             var overrideStore = new IranRiskTracker.Infrastructure.Storage.InMemoryOwnerOverrideStore();
-            var calc = new RiskCalculator(seed, liveStore, overrideStore);
+            var snapshotStore = new IranRiskTracker.Infrastructure.Storage.InMemoryRiskSnapshotStore();
+            var calc = new RiskCalculator(seed, liveStore, overrideStore, snapshotStore);
 
             var evt = new LiveEventCreateRequest { Title = "x", RawContent = "r", SourceName = "s", OccurredAt = DateTime.UtcNow, Category = Domain.Enums.EventCategory.Cyber, Urgency = Domain.Enums.UrgencyLevel.High };
             qsvc.AcceptLiveEvent(evt);
@@ -72,7 +74,8 @@ namespace IranRiskTracker.Tests.Phase2
             var liveStore = new InMemoryLiveEventStore();
             var qsvc = new EventQueryService(seed, liveStore);
             var overrideStore = new IranRiskTracker.Infrastructure.Storage.InMemoryOwnerOverrideStore();
-            var calc = new RiskCalculator(seed, liveStore, overrideStore);
+            var snapshotStore = new IranRiskTracker.Infrastructure.Storage.InMemoryRiskSnapshotStore();
+            var calc = new RiskCalculator(seed, liveStore, overrideStore, snapshotStore);
 
             var evt = new LiveEventCreateRequest { Title = "x", RawContent = "r", SourceName = "src", SourceUrl = "https://x", SourceHandle = "@h", OwnerNotes = "n", OccurredAt = DateTime.UtcNow, Category = Domain.Enums.EventCategory.Cyber, Urgency = Domain.Enums.UrgencyLevel.High };
             qsvc.AcceptLiveEvent(evt);
@@ -103,7 +106,8 @@ namespace IranRiskTracker.Tests.Phase2
             var liveStore = new InMemoryLiveEventStore();
             var qsvc = new EventQueryService(seed, liveStore);
             var overrideStore = new IranRiskTracker.Infrastructure.Storage.InMemoryOwnerOverrideStore();
-            var calc = new RiskCalculator(seed, liveStore, overrideStore);
+            var snapshotStore = new IranRiskTracker.Infrastructure.Storage.InMemoryRiskSnapshotStore();
+            var calc = new RiskCalculator(seed, liveStore, overrideStore, snapshotStore);
 
             qsvc.AcceptLiveEvent(new LiveEventCreateRequest { Title = "a", RawContent = "r", SourceName = "s", OccurredAt = DateTime.UtcNow, Category = Domain.Enums.EventCategory.Cyber, Urgency = Domain.Enums.UrgencyLevel.Medium });
             qsvc.AcceptLiveEvent(new LiveEventCreateRequest { Title = "b", RawContent = "r", SourceName = "s", OccurredAt = DateTime.UtcNow, Category = Domain.Enums.EventCategory.Cyber, Urgency = Domain.Enums.UrgencyLevel.High });

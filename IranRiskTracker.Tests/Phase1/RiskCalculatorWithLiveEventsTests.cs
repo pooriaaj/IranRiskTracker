@@ -30,7 +30,8 @@ namespace IranRiskTracker.Tests.Phase1
             var seed = new JsonSeedDataProvider(basePath);
             var liveStore = new InMemoryLiveEventStore();
             var overrideStore = new IranRiskTracker.Infrastructure.Storage.InMemoryOwnerOverrideStore();
-            var calc = new RiskCalculator(seed, liveStore, overrideStore);
+            var snapshotStore = new IranRiskTracker.Infrastructure.Storage.InMemoryRiskSnapshotStore();
+            var calc = new RiskCalculator(seed, liveStore, overrideStore, snapshotStore);
 
             // Ensure baseline
             var before = calc.GetCurrentRiskAsync().GetAwaiter().GetResult();
@@ -59,7 +60,8 @@ namespace IranRiskTracker.Tests.Phase1
             var seed = new JsonSeedDataProvider(basePath);
             var liveStore = new InMemoryLiveEventStore();
             var overrideStore = new IranRiskTracker.Infrastructure.Storage.InMemoryOwnerOverrideStore();
-            var calc = new RiskCalculator(seed, liveStore, overrideStore);
+            var snapshotStore = new IranRiskTracker.Infrastructure.Storage.InMemoryRiskSnapshotStore();
+            var calc = new RiskCalculator(seed, liveStore, overrideStore, snapshotStore);
 
             var before = calc.GetCurrentRiskAsync().GetAwaiter().GetResult();
             var military = before.Contributions.Single(c => c.IndicatorKey == "military_activity");
@@ -84,7 +86,8 @@ namespace IranRiskTracker.Tests.Phase1
             var seed = new JsonSeedDataProvider(basePath);
             var liveStore = new InMemoryLiveEventStore();
             var overrideStore = new IranRiskTracker.Infrastructure.Storage.InMemoryOwnerOverrideStore();
-            var calc = new RiskCalculator(seed, liveStore, overrideStore);
+            var snapshotStore = new IranRiskTracker.Infrastructure.Storage.InMemoryRiskSnapshotStore();
+            var calc = new RiskCalculator(seed, liveStore, overrideStore, snapshotStore);
 
             var a = calc.GetCurrentRiskAsync().GetAwaiter().GetResult();
             System.Threading.Thread.Sleep(10);

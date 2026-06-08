@@ -30,7 +30,8 @@ namespace IranRiskTracker.Tests.Phase3
             var seed = new JsonSeedDataProvider(basePath);
             var liveStore = new InMemoryLiveEventStore();
             var overrideStore = new InMemoryOwnerOverrideStore();
-            var calc = new RiskCalculator(seed, liveStore, overrideStore);
+            var snapshotStore = new IranRiskTracker.Infrastructure.Storage.InMemoryRiskSnapshotStore();
+            var calc = new RiskCalculator(seed, liveStore, overrideStore, snapshotStore);
 
             var res = calc.GetCurrentRiskAsync().GetAwaiter().GetResult();
             var cyber = res.Contributions.Single(c => c.IndicatorKey == "cyber_incidents");
@@ -56,7 +57,8 @@ namespace IranRiskTracker.Tests.Phase3
             var seed = new JsonSeedDataProvider(basePath);
             var liveStore = new InMemoryLiveEventStore();
             var overrideStore = new InMemoryOwnerOverrideStore();
-            var calc = new RiskCalculator(seed, liveStore, overrideStore);
+            var snapshotStore = new IranRiskTracker.Infrastructure.Storage.InMemoryRiskSnapshotStore();
+            var calc = new RiskCalculator(seed, liveStore, overrideStore, snapshotStore);
 
             var res = calc.GetCurrentRiskAsync().GetAwaiter().GetResult();
             var military = res.Contributions.Single(c => c.IndicatorKey == "military_activity");
@@ -73,7 +75,8 @@ namespace IranRiskTracker.Tests.Phase3
             var seed = new JsonSeedDataProvider(basePath);
             var liveStore = new InMemoryLiveEventStore();
             var overrideStore = new InMemoryOwnerOverrideStore();
-            var calc = new RiskCalculator(seed, liveStore, overrideStore);
+            var snapshotStore = new IranRiskTracker.Infrastructure.Storage.InMemoryRiskSnapshotStore();
+            var calc = new RiskCalculator(seed, liveStore, overrideStore, snapshotStore);
 
             var res = calc.GetCurrentRiskAsync().GetAwaiter().GetResult();
             var political = res.Contributions.Single(c => c.IndicatorKey == "political_instability");
@@ -90,7 +93,8 @@ namespace IranRiskTracker.Tests.Phase3
             var seed = new JsonSeedDataProvider(basePath);
             var liveStore = new InMemoryLiveEventStore();
             var overrideStore = new InMemoryOwnerOverrideStore();
-            var calc = new RiskCalculator(seed, liveStore, overrideStore);
+            var snapshotStore = new IranRiskTracker.Infrastructure.Storage.InMemoryRiskSnapshotStore();
+            var calc = new RiskCalculator(seed, liveStore, overrideStore, snapshotStore);
 
             var res = calc.GetCurrentRiskAsync().GetAwaiter().GetResult();
             var exec = res.Contributions.Single(c => c.IndicatorKey == "executions_repression");
@@ -110,7 +114,8 @@ namespace IranRiskTracker.Tests.Phase3
             var overrideStore = new InMemoryOwnerOverrideStore();
             var svc = new IranRiskTracker.Application.Services.OwnerOverrideService(overrideStore);
 
-            var calc = new RiskCalculator(seed, liveStore, overrideStore);
+            var snapshotStore = new IranRiskTracker.Infrastructure.Storage.InMemoryRiskSnapshotStore();
+            var calc = new RiskCalculator(seed, liveStore, overrideStore, snapshotStore);
             var before = calc.GetCurrentRiskAsync().GetAwaiter().GetResult();
 
             // add live event to ensure non-zero base change

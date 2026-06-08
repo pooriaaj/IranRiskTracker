@@ -96,7 +96,8 @@ namespace IranRiskTracker.Tests.Phase2
             var seed = new IranRiskTracker.Infrastructure.Seeding.JsonSeedDataProvider(seedPath.FullName);
             var liveStore = new InMemoryLiveEventStore();
             var overrideStore = new InMemoryOwnerOverrideStore();
-            var calc = new RiskCalculator(seed, liveStore, overrideStore);
+            var snapshotStore = new IranRiskTracker.Infrastructure.Storage.InMemoryRiskSnapshotStore();
+            var calc = new RiskCalculator(seed, liveStore, overrideStore, snapshotStore);
 
             // no overrides -> summary should contain BaseScore and OverrideTotal
             var res = calc.GetCurrentRiskAsync().GetAwaiter().GetResult();

@@ -36,7 +36,8 @@ namespace IranRiskTracker.Tests.Phase3
             var liveStore = new InMemoryLiveEventStore();
             var qsvc = new EventQueryService(seed, liveStore);
             var overrideStore = new IranRiskTracker.Infrastructure.Storage.InMemoryOwnerOverrideStore();
-            var calc = new RiskCalculator(seed, liveStore, overrideStore);
+            var snapshotStore = new IranRiskTracker.Infrastructure.Storage.InMemoryRiskSnapshotStore();
+            var calc = new RiskCalculator(seed, liveStore, overrideStore, snapshotStore);
 
             // Exact name match
             var evt = new IranRiskTracker.Application.DTOs.LiveEventCreateRequest
@@ -77,7 +78,8 @@ namespace IranRiskTracker.Tests.Phase3
             var liveStore = new InMemoryLiveEventStore();
             var qsvc = new EventQueryService(seed, liveStore);
             var overrideStore = new IranRiskTracker.Infrastructure.Storage.InMemoryOwnerOverrideStore();
-            var calc = new RiskCalculator(seed, liveStore, overrideStore);
+            var snapshotStore = new IranRiskTracker.Infrastructure.Storage.InMemoryRiskSnapshotStore();
+            var calc = new RiskCalculator(seed, liveStore, overrideStore, snapshotStore);
 
             // Use different casing for the source name
             var mixedCase = seedSource.Name.ToUpperInvariant();

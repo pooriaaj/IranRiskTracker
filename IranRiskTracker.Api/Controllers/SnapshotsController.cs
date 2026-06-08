@@ -8,9 +8,9 @@ namespace IranRiskTracker.Api.Controllers
     public class SnapshotsController : ControllerBase
     {
         private readonly IRiskCalculator _riskCalculator;
-        private readonly IranRiskTracker.Application.Interfaces.IRiskSnapshotStore? _snapshotStore;
+        private readonly IranRiskTracker.Application.Interfaces.IRiskSnapshotStore _snapshotStore;
 
-        public SnapshotsController(IRiskCalculator riskCalculator, IranRiskTracker.Application.Interfaces.IRiskSnapshotStore? snapshotStore = null)
+        public SnapshotsController(IRiskCalculator riskCalculator, IranRiskTracker.Application.Interfaces.IRiskSnapshotStore snapshotStore)
         {
             _riskCalculator = riskCalculator;
             _snapshotStore = snapshotStore;
@@ -22,7 +22,7 @@ namespace IranRiskTracker.Api.Controllers
         [HttpGet("latest")]
         public async Task<IActionResult> GetLatest()
         {
-            var latest = _snapshotStore?.GetLatest();
+            var latest = _snapshotStore.GetLatest();
             if (latest != null) return Ok(latest);
 
             var result = await _riskCalculator.GetCurrentRiskAsync();
@@ -32,7 +32,7 @@ namespace IranRiskTracker.Api.Controllers
         [HttpGet]
         public IActionResult GetAll()
         {
-            var all = _snapshotStore?.GetAll() ?? Array.Empty<IranRiskTracker.Application.DTOs.RiskDto>();
+            var all = _snapshotStore.GetAll();
             return Ok(all);
         }
     }
