@@ -128,12 +128,32 @@ namespace IranRiskTracker.Application.Services
                 Timestamp = DateTime.UtcNow,
                 Level = MapRiskLevel(final),
                 Score = final,
+                // PreviousScore, ScoreChange and ScoreTrend will be computed below before storing
+                PreviousScore = null,
+                ScoreChange = 0.0,
+                ScoreTrend = string.Empty,
                 BaseScoreBeforeOverrides = baseScore,
                 OwnerOverrideTotalAdjustment = overrideTotal,
                 AppliedOwnerOverrides = overrides,
                 Summary = $"Deterministic scoring using {indicators.Count} indicators, {historicalEvents.Count} historical events, {liveEvents.Count} live events and {overrides.Count} owner overrides. BaseScore={baseScore}, OverrideTotal={overrideTotal}, FinalScore={final}",
                 Contributions = contributions
             };
+
+            // Calculate trend against previous stored snapshot
+            var previous = _snapshotStore.GetLatest();
+            if (previous == null)
+            {
+                result.PreviousScore = null;
+                result.ScoreChange = 0.0;
+                result.ScoreTrend = "NoPreviousSnapshot";
+            }
+            else
+            {
+                result.PreviousScore = previous.Score;
+                var change = Math.Round(result.Score - previous.Score, ScoreRoundingDigits);
+                result.ScoreChange = change;
+                result.ScoreTrend = change > 0 ? "Increased" : change < 0 ? "Decreased" : "Unchanged";
+            }
 
             // Store snapshot and return stored instance
             var stored = _snapshotStore.Add(result);
