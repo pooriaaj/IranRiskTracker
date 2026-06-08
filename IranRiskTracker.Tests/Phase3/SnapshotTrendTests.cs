@@ -1,5 +1,6 @@
 using System;
 using System.Linq;
+using System.Threading.Tasks;
 using FluentAssertions;
 using Xunit;
 using IranRiskTracker.Infrastructure.Seeding;
@@ -25,7 +26,7 @@ namespace IranRiskTracker.Tests.Phase3
         }
 
         [Fact]
-        public void FirstCalculation_HasNoPreviousSnapshot()
+        public async Task FirstCalculation_HasNoPreviousSnapshot()
         {
             var basePath = FindSeedDataPath();
             var seed = new JsonSeedDataProvider(basePath);
@@ -34,7 +35,7 @@ namespace IranRiskTracker.Tests.Phase3
             var snapshotStore = new InMemoryRiskSnapshotStore();
             var calc = new RiskCalculator(seed, liveStore, overrideStore, snapshotStore);
 
-            var first = calc.GetCurrentRiskAsync().GetAwaiter().GetResult();
+            var first = await calc.GetCurrentRiskAsync();
 
             first.PreviousScore.Should().BeNull();
             first.ScoreChange.Should().BeApproximately(0.0, 0.0001);
@@ -42,7 +43,7 @@ namespace IranRiskTracker.Tests.Phase3
         }
 
         [Fact]
-        public void SecondCalculation_WithNoChanges_IsUnchanged()
+        public async Task SecondCalculation_WithNoChanges_IsUnchanged()
         {
             var basePath = FindSeedDataPath();
             var seed = new JsonSeedDataProvider(basePath);
@@ -51,8 +52,8 @@ namespace IranRiskTracker.Tests.Phase3
             var snapshotStore = new InMemoryRiskSnapshotStore();
             var calc = new RiskCalculator(seed, liveStore, overrideStore, snapshotStore);
 
-            var first = calc.GetCurrentRiskAsync().GetAwaiter().GetResult();
-            var second = calc.GetCurrentRiskAsync().GetAwaiter().GetResult();
+            var first = await calc.GetCurrentRiskAsync();
+            var second = await calc.GetCurrentRiskAsync();
 
             second.PreviousScore.Should().BeApproximately(first.Score, 0.0001);
             second.ScoreChange.Should().BeApproximately(0.0, 0.0001);
@@ -60,7 +61,7 @@ namespace IranRiskTracker.Tests.Phase3
         }
 
         [Fact]
-        public void SecondCalculation_WhenIncreased_IsMarkedIncreased()
+        public async Task SecondCalculation_WhenIncreased_IsMarkedIncreased()
         {
             var basePath = FindSeedDataPath();
             var seed = new JsonSeedDataProvider(basePath);
@@ -70,12 +71,12 @@ namespace IranRiskTracker.Tests.Phase3
             var calc = new RiskCalculator(seed, liveStore, overrideStore, snapshotStore);
             var svc = new IranRiskTracker.Application.Services.OwnerOverrideService(overrideStore);
 
-            var first = calc.GetCurrentRiskAsync().GetAwaiter().GetResult();
+            var first = await calc.GetCurrentRiskAsync();
 
             // Add a positive override to increase final score
             svc.Add(new IranRiskTracker.Application.DTOs.OwnerOverrideCreateRequest { Title = "up", Reasoning = "r", Category = Domain.Enums.EventCategory.Cyber, ScoreAdjustment = 5.0, AppliedAt = DateTime.UtcNow });
 
-            var second = calc.GetCurrentRiskAsync().GetAwaiter().GetResult();
+            var second = await calc.GetCurrentRiskAsync();
 
             second.PreviousScore.Should().BeApproximately(first.Score, 0.0001);
             second.ScoreChange.Should().BeGreaterThan(0.0);
@@ -83,7 +84,7 @@ namespace IranRiskTracker.Tests.Phase3
         }
 
         [Fact]
-        public void SecondCalculation_WhenDecreased_IsMarkedDecreased()
+        public async Task SecondCalculation_WhenDecreased_IsMarkedDecreased()
         {
             var basePath = FindSeedDataPath();
             var seed = new JsonSeedDataProvider(basePath);
@@ -93,12 +94,12 @@ namespace IranRiskTracker.Tests.Phase3
             var calc = new RiskCalculator(seed, liveStore, overrideStore, snapshotStore);
             var svc = new IranRiskTracker.Application.Services.OwnerOverrideService(overrideStore);
 
-            var first = calc.GetCurrentRiskAsync().GetAwaiter().GetResult();
+            var first = await calc.GetCurrentRiskAsync();
 
             // Add a negative override to decrease final score
             svc.Add(new IranRiskTracker.Application.DTOs.OwnerOverrideCreateRequest { Title = "down", Reasoning = "r", Category = Domain.Enums.EventCategory.Cyber, ScoreAdjustment = -5.0, AppliedAt = DateTime.UtcNow });
 
-            var second = calc.GetCurrentRiskAsync().GetAwaiter().GetResult();
+            var second = await calc.GetCurrentRiskAsync();
 
             second.PreviousScore.Should().BeApproximately(first.Score, 0.0001);
             second.ScoreChange.Should().BeLessThan(0.0);
@@ -106,7 +107,7 @@ namespace IranRiskTracker.Tests.Phase3
         }
 
         [Fact]
-        public void SnapshotStore_GetAll_ReturnsNewestFirst()
+        public async Task SnapshotStore_GetAll_ReturnsNewestFirst()
         {
             var basePath = FindSeedDataPath();
             var seed = new JsonSeedDataProvider(basePath);
@@ -115,9 +116,9 @@ namespace IranRiskTracker.Tests.Phase3
             var snapshotStore = new InMemoryRiskSnapshotStore();
             var calc = new RiskCalculator(seed, liveStore, overrideStore, snapshotStore);
 
-            var first = calc.GetCurrentRiskAsync().GetAwaiter().GetResult();
-            System.Threading.Thread.Sleep(10); // ensure timestamp order
-            var second = calc.GetCurrentRiskAsync().GetAwaiter().GetResult();
+            var first = await calc.GetCurrentRiskAsync();
+            await Task.Delay(10); // ensure timestamp order
+            var second = await calc.GetCurrentRiskAsync();
 
             var all = snapshotStore.GetAll().ToList();
             all.Should().HaveCountGreaterOrEqualTo(2);
