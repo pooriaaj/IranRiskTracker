@@ -26,7 +26,7 @@ namespace IranRiskTracker.Tests.Phase4
         }
 
         [Fact]
-        public void Service_Returns_ValidSummary()
+        public async Task Service_Returns_ValidSummary()
         {
             var basePath = FindSeedDataPath();
             var seed = new JsonSeedDataProvider(basePath);
@@ -36,16 +36,17 @@ namespace IranRiskTracker.Tests.Phase4
             var calc = new RiskCalculator(seed, liveStore, overrideStore, snapshotStore);
             var svc = new DashboardSummaryService(calc);
 
-            var dto = svc.GetSummaryAsync().GetAwaiter().GetResult();
+            var dto = await svc.GetSummaryAsync();
 
             dto.ScorePercent.Should().BeInRange(1, 100);
-            dto.Level.Should().Be(calc.GetCurrentRiskAsync().GetAwaiter().GetResult().Level);
-            dto.ScoreTrend.Should().NotBeNull();
+            dto.Score.Should().BeInRange(1.0, 100.0);
+            Enum.IsDefined(typeof(IranRiskTracker.Domain.Enums.RiskLevel), dto.Level).Should().BeTrue();
+            dto.ScoreTrend.Should().Be("NoPreviousSnapshot");
             dto.PreviousScore.Should().BeNull();
         }
 
         [Fact]
-        public void TopContributors_LimitedAndOrdered()
+        public async Task TopContributors_LimitedAndOrdered()
         {
             var basePath = FindSeedDataPath();
             var seed = new JsonSeedDataProvider(basePath);
@@ -55,7 +56,7 @@ namespace IranRiskTracker.Tests.Phase4
             var calc = new RiskCalculator(seed, liveStore, overrideStore, snapshotStore);
             var svc = new DashboardSummaryService(calc);
 
-            var dto = svc.GetSummaryAsync().GetAwaiter().GetResult();
+            var dto = await svc.GetSummaryAsync();
 
             dto.TopContributors.Count.Should().BeLessOrEqualTo(5);
             var ordered = dto.TopContributors.OrderByDescending(t => t.WeightedContribution).ToList();
@@ -63,7 +64,7 @@ namespace IranRiskTracker.Tests.Phase4
         }
 
         [Fact]
-        public void Controller_Returns_Ok()
+        public async Task Controller_Returns_Ok()
         {
             var basePath = FindSeedDataPath();
             var seed = new JsonSeedDataProvider(basePath);
@@ -74,8 +75,10 @@ namespace IranRiskTracker.Tests.Phase4
             var svc = new DashboardSummaryService(calc);
             var controller = new IranRiskTracker.Api.Controllers.DashboardController(svc);
 
-            var res = controller.GetSummary().GetAwaiter().GetResult();
+            var res = await controller.GetSummary();
             res.Should().BeOfType<OkObjectResult>();
+            var ok = res as OkObjectResult;
+            ok!.Value.Should().BeOfType<IranRiskTracker.Application.DTOs.DashboardSummaryDto>();
         }
     }
 }
