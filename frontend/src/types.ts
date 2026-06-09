@@ -1,21 +1,21 @@
 export type DashboardTopContributor = {
-  IndicatorKey: string
-  IndicatorName: string
-  Category: string
-  WeightedContribution: number
-  BaseScore: number
-  SeverityAdjustedBaseScore: number
-  Explanation: string
+  indicatorKey: string
+  indicatorName: string
+  category: string
+  weightedContribution: number
+  baseScore: number
+  severityAdjustedBaseScore: number
+  explanation: string
 }
 
 export type DashboardSummaryDto = {
-  Score: number
-  ScorePercent: number
-  Level: string
-  PreviousScore?: number | null
-  ScoreChange: number
-  ScoreTrend: string
-  Timestamp: string
-  Summary: string
-  TopContributors: DashboardTopContributor[]
+  score: number
+  scorePercent: number
+  level: string
+  previousScore?: number | null
+  scoreChange: number
+  scoreTrend: string
+  timestamp: string
+  summary: string
+  topContributors: DashboardTopContributor[]
 }
