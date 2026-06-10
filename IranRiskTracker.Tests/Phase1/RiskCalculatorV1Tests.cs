@@ -60,7 +60,7 @@ namespace IranRiskTracker.Tests.Phase1
         [Fact]
         public void RiskCalculator_ShouldProduceExpectedSeedScore()
         {
-            // Arrange: use current seed which has 1 cyber (category 5) and 1 military (category 6) events
+            // Arrange: enriched seed with 22 Iran historical events (2009-2024), 24 event impacts
             var basePath = FindSeedDataPath();
             var seed = new JsonSeedDataProvider(basePath);
             var liveStore = new IranRiskTracker.Infrastructure.Storage.InMemoryLiveEventStore();
@@ -75,14 +75,15 @@ namespace IranRiskTracker.Tests.Phase1
             var cyber = result.Contributions.Single(c => c.IndicatorKey == "cyber_incidents");
             var military = result.Contributions.Single(c => c.IndicatorKey == "military_activity");
 
-            // Assert expected math: BaseScore = 20 per matching event; weights 0.10 and 0.15
-            // Historical base now uses EventImpact seed when present
-            cyber.BaseScore.Should().Be(20.0);
-            military.BaseScore.Should().Be(25.0);
+            // Expected base scores from event_impacts.json sums (no live events)
+            // cyber: Stuxnet(15) + fuel attack(9) = 24
+            // military: Soleimani(18) + Al-Assad missiles(16) + Israel attack(10) = 44
+            cyber.BaseScore.Should().Be(24.0);
+            military.BaseScore.Should().Be(44.0);
 
-            // WeightedContribution now uses severity-adjusted base score (base may come from EventImpact)
-            var cyberSeverity = 1.05; // Cyber category multiplier
-            var militarySeverity = 1.30; // Military category multiplier
+            // WeightedContribution uses severity-adjusted base score
+            var cyberSeverity = 1.05;
+            var militarySeverity = 1.30;
 
             cyber.WeightedContribution.Should().BeApproximately(cyber.BaseScore * cyberSeverity * (double)cyber.Weight, 0.0001);
             military.WeightedContribution.Should().BeApproximately(military.BaseScore * militarySeverity * (double)military.Weight, 0.0001);
@@ -91,7 +92,7 @@ namespace IranRiskTracker.Tests.Phase1
             var totalWeighted = result.Contributions.Sum(c => c.WeightedContribution);
             var expected = Math.Clamp(Math.Round(totalWeighted, 2), 1.0, 100.0);
             result.Score.Should().BeApproximately(expected, 0.001);
-            result.Level.Should().Be(Domain.Enums.RiskLevel.Low);
+            result.Level.Should().Be(Domain.Enums.RiskLevel.Medium);
         }
 
         [Fact]

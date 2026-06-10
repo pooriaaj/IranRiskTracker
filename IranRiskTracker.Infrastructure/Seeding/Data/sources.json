@@ -1,18 +1,122 @@
 [
   {
-    "id": "a1111111-1111-4111-8111-111111111111",
-    "name": "Official Government Feed",
-    "url": "https://gov.example/press",
-    "credibility": 0.9,
+    "id": "cc010001-0000-4000-8000-010000000001",
+    "name": "Reuters",
+    "url": "https://www.reuters.com",
+    "credibility": 0.90,
+    "bias": 2,
+    "isActive": true
+  },
+  {
+    "id": "cc010002-0000-4000-8000-010000000002",
+    "name": "AP",
+    "url": "https://apnews.com",
+    "credibility": 0.88,
+    "bias": 2,
+    "isActive": true
+  },
+  {
+    "id": "cc010003-0000-4000-8000-010000000003",
+    "name": "BBC Persian",
+    "url": "https://www.bbc.com/persian",
+    "credibility": 0.85,
+    "bias": 2,
+    "isActive": true
+  },
+  {
+    "id": "cc010004-0000-4000-8000-010000000004",
+    "name": "Iran International",
+    "url": "https://www.iranintl.com",
+    "credibility": 0.82,
+    "bias": 3,
+    "isActive": true
+  },
+  {
+    "id": "cc010005-0000-4000-8000-010000000005",
+    "name": "Al Jazeera",
+    "url": "https://www.aljazeera.com",
+    "credibility": 0.75,
+    "bias": 3,
+    "isActive": true
+  },
+  {
+    "id": "cc010006-0000-4000-8000-010000000006",
+    "name": "CENTCOM",
+    "url": "https://www.centcom.mil",
+    "credibility": 0.85,
     "bias": 1,
     "isActive": true
   },
   {
-    "id": "b2222222-2222-4222-8222-222222222222",
-    "name": "Open Intelligence",
-    "url": "https://osint.example/feeds",
-    "credibility": 0.6,
+    "id": "cc010007-0000-4000-8000-010000000007",
+    "name": "IAEA",
+    "url": "https://www.iaea.org",
+    "credibility": 0.92,
+    "bias": 4,
+    "isActive": true
+  },
+  {
+    "id": "cc010008-0000-4000-8000-010000000008",
+    "name": "MarineTraffic",
+    "url": "https://www.marinetraffic.com",
+    "credibility": 0.88,
+    "bias": 0,
+    "isActive": true
+  },
+  {
+    "id": "cc010009-0000-4000-8000-010000000009",
+    "name": "Flightradar24",
+    "url": "https://www.flightradar24.com",
+    "credibility": 0.88,
+    "bias": 0,
+    "isActive": true
+  },
+  {
+    "id": "cc010010-0000-4000-8000-010000000010",
+    "name": "ACLED",
+    "url": "https://acleddata.com",
+    "credibility": 0.86,
+    "bias": 4,
+    "isActive": true
+  },
+  {
+    "id": "cc010011-0000-4000-8000-010000000011",
+    "name": "Faytuks",
+    "url": "https://twitter.com/Faytuks",
+    "credibility": 0.72,
+    "bias": 0,
+    "isActive": true
+  },
+  {
+    "id": "cc010012-0000-4000-8000-010000000012",
+    "name": "Osint613",
+    "url": "https://twitter.com/Osint613",
+    "credibility": 0.68,
+    "bias": 0,
+    "isActive": true
+  },
+  {
+    "id": "cc010013-0000-4000-8000-010000000013",
+    "name": "Osinttechnical",
+    "url": "https://twitter.com/Osinttechnical",
+    "credibility": 0.70,
+    "bias": 0,
+    "isActive": true
+  },
+  {
+    "id": "cc010014-0000-4000-8000-010000000014",
+    "name": "Vahid Online",
+    "url": "https://twitter.com/VahidOnline",
+    "credibility": 0.72,
     "bias": 3,
+    "isActive": true
+  },
+  {
+    "id": "cc010015-0000-4000-8000-010000000015",
+    "name": "GordoCDA",
+    "url": "https://twitter.com/GordoCDA",
+    "credibility": 0.68,
+    "bias": 0,
     "isActive": true
   }
 ]

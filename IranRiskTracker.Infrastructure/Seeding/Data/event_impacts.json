@@ -1,42 +1,232 @@
 [
   {
-    "id": "aaaaaaaa-1111-4111-8111-111111111111",
-    "eventId": "2f1a8b6c-0000-4f3b-9b6f-111111111111",
-    "eventType": "Historical",
-    "indicatorId": "22222222-2222-4222-8222-222222222222",
-    "rawDelta": 20.0,
-    "adjustedDelta": 20.0,
-    "reason": "Baseline cyber incident impact",
-    "signalType": "Included"
-  },
-  {
-    "id": "bbbbbbbb-2222-4222-8222-222222222222",
-    "eventId": "3e2b7c5d-0000-4b3d-8a6f-222222222222",
+    "id": "bb010001-0000-4000-8000-110000000001",
+    "eventId": "aa060001-0000-4000-8000-600000000001",
     "eventType": "Historical",
     "indicatorId": "11111111-1111-4111-8111-111111111111",
-    "rawDelta": 25.0,
-    "adjustedDelta": 25.0,
-    "reason": "Baseline military incident impact",
+    "rawDelta": 18.0,
+    "adjustedDelta": 18.0,
+    "reason": "Soleimani assassination: direct US military action targeting IRGC senior command, unprecedented escalation in state-on-state shadow war",
     "signalType": "Included"
   },
   {
-    "id": "cccccccc-3333-4333-8333-333333333333",
-    "eventId": "2f1a8b6c-0000-4f3b-9b6f-111111111111",
+    "id": "bb010002-0000-4000-8000-110000000002",
+    "eventId": "aa060002-0000-4000-8000-600000000002",
     "eventType": "Historical",
-    "indicatorId": "88888888-8888-4888-8888-888888888888",
+    "indicatorId": "11111111-1111-4111-8111-111111111111",
+    "rawDelta": 16.0,
+    "adjustedDelta": 16.0,
+    "reason": "Iran ballistic missile strike on US bases: first direct Iranian state military attack on US-occupied positions, highly escalatory",
+    "signalType": "Included"
+  },
+  {
+    "id": "bb010003-0000-4000-8000-110000000003",
+    "eventId": "aa060003-0000-4000-8000-600000000003",
+    "eventType": "Historical",
+    "indicatorId": "11111111-1111-4111-8111-111111111111",
+    "rawDelta": 10.0,
+    "adjustedDelta": 10.0,
+    "reason": "Iran direct attack on Israel: first ever Iranian state-on-state attack on Israeli territory, historic threshold crossed",
+    "signalType": "Included"
+  },
+  {
+    "id": "bb020001-0000-4000-8000-220000000001",
+    "eventId": "aa050001-0000-4000-8000-500000000001",
+    "eventType": "Historical",
+    "indicatorId": "22222222-2222-4222-8222-222222222222",
     "rawDelta": 15.0,
     "adjustedDelta": 15.0,
-    "reason": "Baseline political instability impact",
+    "reason": "Stuxnet: first cyberweapon to cause physical infrastructure destruction, established Iran as primary nation-state cyber conflict theater",
     "signalType": "Included"
   },
   {
-    "id": "dddddddd-4444-4444-8444-444444444444",
-    "eventId": "3e2b7c5d-0000-4b3d-8a6f-222222222222",
+    "id": "bb020002-0000-4000-8000-220000000002",
+    "eventId": "aa050002-0000-4000-8000-500000000002",
+    "eventType": "Historical",
+    "indicatorId": "22222222-2222-4222-8222-222222222222",
+    "rawDelta": 9.0,
+    "adjustedDelta": 9.0,
+    "reason": "Fuel distribution cyberattack: national infrastructure disruption causing civil unrest, demonstrates ongoing cyber warfare against regime systems",
+    "signalType": "Included"
+  },
+  {
+    "id": "bb030001-0000-4000-8000-330000000001",
+    "eventId": "aa010001-0000-4000-8000-100000000001",
+    "eventType": "Historical",
+    "indicatorId": "33333333-3333-4333-8333-333333333333",
+    "rawDelta": 15.0,
+    "adjustedDelta": 15.0,
+    "reason": "Mahsa Amini protests: largest civil uprising since 1979 revolution, cross-class and cross-ethnic participation signals deep legitimacy crisis",
+    "signalType": "Included"
+  },
+  {
+    "id": "bb030002-0000-4000-8000-330000000002",
+    "eventId": "aa010002-0000-4000-8000-100000000002",
+    "eventType": "Historical",
+    "indicatorId": "33333333-3333-4333-8333-333333333333",
+    "rawDelta": 9.0,
+    "adjustedDelta": 9.0,
+    "reason": "Green Movement: first post-revolution mass protest challenging electoral legitimacy, demonstrated regime's reliance on force to suppress political opposition",
+    "signalType": "Included"
+  },
+  {
+    "id": "bb030003-0000-4000-8000-330000000003",
+    "eventId": "aa010003-0000-4000-8000-100000000003",
+    "eventType": "Historical",
+    "indicatorId": "33333333-3333-4333-8333-333333333333",
+    "rawDelta": 8.0,
+    "adjustedDelta": 8.0,
+    "reason": "2019 fuel protests: economic grievance-driven uprising across 100+ cities, accompanied by nationwide internet shutdown indicating regime panic",
+    "signalType": "Included"
+  },
+  {
+    "id": "bb040001-0000-4000-8000-440000000001",
+    "eventId": "aa030001-0000-4000-8000-300000000001",
+    "eventType": "Historical",
+    "indicatorId": "44444444-4444-4444-8444-444444444444",
+    "rawDelta": 12.0,
+    "adjustedDelta": 12.0,
+    "reason": "JCPOA collapse: removal of nuclear constraints without replacement mechanism, triggered Iran's graduated escalation of enrichment program",
+    "signalType": "Included"
+  },
+  {
+    "id": "bb040002-0000-4000-8000-440000000002",
+    "eventId": "aa030002-0000-4000-8000-300000000002",
+    "eventType": "Historical",
+    "indicatorId": "44444444-4444-4444-8444-444444444444",
+    "rawDelta": 14.0,
+    "adjustedDelta": 14.0,
+    "reason": "60% enrichment: crosses meaningful threshold between civilian nuclear program and weapons-relevant capability, dramatically reduced breakout timeline",
+    "signalType": "Included"
+  },
+  {
+    "id": "bb040003-0000-4000-8000-440000000003",
+    "eventId": "aa030003-0000-4000-8000-300000000003",
+    "eventType": "Historical",
+    "indicatorId": "44444444-4444-4444-8444-444444444444",
+    "rawDelta": 8.0,
+    "adjustedDelta": 8.0,
+    "reason": "84% enrichment: one step from weapons-grade threshold, IAEA monitoring compromised, breakout window now measured in weeks not months",
+    "signalType": "Included"
+  },
+  {
+    "id": "bb050001-0000-4000-8000-550000000001",
+    "eventId": "aa080001-0000-4000-8000-800000000001",
+    "eventType": "Historical",
+    "indicatorId": "55555555-5555-4555-8555-555555555555",
+    "rawDelta": 12.0,
+    "adjustedDelta": 12.0,
+    "reason": "Rial 80% collapse: currency collapse of this magnitude historically precedes social instability, comparable to pre-revolution 1978 economic deterioration",
+    "signalType": "Included"
+  },
+  {
+    "id": "bb050002-0000-4000-8000-550000000002",
+    "eventId": "aa080002-0000-4000-8000-800000000002",
+    "eventType": "Historical",
+    "indicatorId": "55555555-5555-4555-8555-555555555555",
+    "rawDelta": 10.0,
+    "adjustedDelta": 10.0,
+    "reason": "40%+ inflation: sustained hyperinflationary pressure erodes real wages and savings, historically correlates with increased protest risk and legitimacy erosion",
+    "signalType": "Included"
+  },
+  {
+    "id": "bb050003-0000-4000-8000-550000000003",
+    "eventId": "aa080003-0000-4000-8000-800000000003",
+    "eventType": "Historical",
+    "indicatorId": "55555555-5555-4555-8555-555555555555",
+    "rawDelta": 6.0,
+    "adjustedDelta": 6.0,
+    "reason": "Currency at 600k/USD: 18x devaluation from pre-sanctions baseline signals structural economic failure, not cyclical downturn",
+    "signalType": "Included"
+  },
+  {
+    "id": "bb060001-0000-4000-8000-660000000001",
+    "eventId": "aa020001-0000-4000-8000-200000000001",
     "eventType": "Historical",
     "indicatorId": "66666666-6666-4666-8666-666666666666",
-    "rawDelta": 30.0,
-    "adjustedDelta": 30.0,
-    "reason": "Baseline executions impact",
+    "rawDelta": 16.0,
+    "adjustedDelta": 16.0,
+    "reason": "2022 protest mass killings: deliberate lethal force used against civilian protesters signals regime prioritizing survival over any legitimacy concerns",
+    "signalType": "Included"
+  },
+  {
+    "id": "bb060002-0000-4000-8000-660000000002",
+    "eventId": "aa020002-0000-4000-8000-200000000002",
+    "eventType": "Historical",
+    "indicatorId": "66666666-6666-4666-8666-666666666666",
+    "rawDelta": 14.0,
+    "adjustedDelta": 14.0,
+    "reason": "853 executions in 2023: record execution rate including protest-related sentences, signals regime using judicial terror to suppress political opposition",
+    "signalType": "Included"
+  },
+  {
+    "id": "bb060003-0000-4000-8000-660000000003",
+    "eventId": "aa020003-0000-4000-8000-200000000003",
+    "eventType": "Historical",
+    "indicatorId": "66666666-6666-4666-8666-666666666666",
+    "rawDelta": 6.0,
+    "adjustedDelta": 6.0,
+    "reason": "Bloody November 2019: estimated 1,500 killed in 6 days, scale of lethal repression indicates regime assessed existential threat from economic protest wave",
+    "signalType": "Included"
+  },
+  {
+    "id": "bb070001-0000-4000-8000-770000000001",
+    "eventId": "aa040001-0000-4000-8000-400000000001",
+    "eventType": "Historical",
+    "indicatorId": "77777777-7777-4777-8777-777777777777",
+    "rawDelta": 12.0,
+    "adjustedDelta": 12.0,
+    "reason": "Stena Impero seizure: Iran demonstrated willingness to seize international shipping in Hormuz, direct threat to 20% of global oil supply chokepoint",
+    "signalType": "Included"
+  },
+  {
+    "id": "bb070002-0000-4000-8000-770000000002",
+    "eventId": "aa040002-0000-4000-8000-400000000002",
+    "eventType": "Historical",
+    "indicatorId": "77777777-7777-4777-8777-777777777777",
+    "rawDelta": 10.0,
+    "adjustedDelta": 10.0,
+    "reason": "Fujairah tanker mine attacks: covert limpet mine attacks on allied commercial shipping, demonstrated Iran's gray-zone maritime warfare capability",
+    "signalType": "Included"
+  },
+  {
+    "id": "bb070003-0000-4000-8000-770000000003",
+    "eventId": "aa040003-0000-4000-8000-400000000003",
+    "eventType": "Historical",
+    "indicatorId": "77777777-7777-4777-8777-777777777777",
+    "rawDelta": 6.0,
+    "adjustedDelta": 6.0,
+    "reason": "Houthi Red Sea attacks: Iran-backed proxy disrupting 12% of global trade through Bab al-Mandab, forcing strategic shipping reroutes and insurance cost spikes",
+    "signalType": "Included"
+  },
+  {
+    "id": "bb080001-0000-4000-8000-880000000001",
+    "eventId": "aa070001-0000-4000-8000-700000000001",
+    "eventType": "Historical",
+    "indicatorId": "88888888-8888-4888-8888-888888888888",
+    "rawDelta": 10.0,
+    "adjustedDelta": 10.0,
+    "reason": "Raisi election: consolidation of hardliner control with record-low turnout signals end of reformist political avenue, narrowing space for internal change",
+    "signalType": "Included"
+  },
+  {
+    "id": "bb080002-0000-4000-8000-880000000002",
+    "eventId": "aa070002-0000-4000-8000-700000000002",
+    "eventType": "Historical",
+    "indicatorId": "88888888-8888-4888-8888-888888888888",
+    "rawDelta": 10.0,
+    "adjustedDelta": 10.0,
+    "reason": "IAEA censure and camera disconnect: Iran cutting nuclear monitoring access as political retaliation increases international isolation and military option risk",
+    "signalType": "Included"
+  },
+  {
+    "id": "bb080003-0000-4000-8000-880000000003",
+    "eventId": "aa030001-0000-4000-8000-300000000001",
+    "eventType": "Historical",
+    "indicatorId": "88888888-8888-4888-8888-888888888888",
+    "rawDelta": 8.0,
+    "adjustedDelta": 8.0,
+    "reason": "JCPOA collapse political dimension: removed diplomatic engagement framework, forced Iran into isolation track that historically correlates with military escalation",
     "signalType": "Included"
   }
 ]

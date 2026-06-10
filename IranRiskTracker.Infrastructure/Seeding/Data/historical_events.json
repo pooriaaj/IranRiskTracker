@@ -1,22 +1,222 @@
 [
   {
-    "id": "2f1a8b6c-0000-4f3b-9b6f-111111111111",
-    "title": "Significant Cyber Attack",
-    "description": "A coordinated cyber intrusion impacted government services.",
-    "occurredAt": "2022-11-15T00:00:00Z",
-    "category": 5,
-    "regionTag": "Tehran",
-    "verifiedAt": "2022-11-16T00:00:00Z",
+    "id": "aa010001-0000-4000-8000-100000000001",
+    "title": "Mahsa Amini Protests",
+    "description": "Nationwide uprising following the death of Mahsa Amini in morality police custody. Largest protest wave since 1979 revolution, spanning 160+ cities. Security forces killed over 500 protesters.",
+    "occurredAt": "2022-09-16T00:00:00Z",
+    "category": 1,
+    "regionTag": "Nationwide",
+    "verifiedAt": "2022-09-17T00:00:00Z",
     "isBaseline": true
   },
   {
-    "id": "3e2b7c5d-0000-4b3d-8a6f-222222222222",
-    "title": "Border Incident",
-    "description": "Military skirmish near border region.",
-    "occurredAt": "2021-06-01T00:00:00Z",
+    "id": "aa010002-0000-4000-8000-100000000002",
+    "title": "Green Movement Uprising",
+    "description": "Mass protests erupted after disputed 2009 presidential election. Millions marched in Tehran and other cities demanding annulment of results. Regime crackdown killed dozens and imprisoned hundreds.",
+    "occurredAt": "2009-06-12T00:00:00Z",
+    "category": 1,
+    "regionTag": "Tehran, Major Cities",
+    "verifiedAt": "2009-06-15T00:00:00Z",
+    "isBaseline": true
+  },
+  {
+    "id": "aa010003-0000-4000-8000-100000000003",
+    "title": "November 2019 Fuel Price Protests",
+    "description": "Protests erupted across Iran after government announced sudden 50-300% fuel price hike. Spread to 100+ cities within 48 hours. Internet was shut down nationally for 6 days.",
+    "occurredAt": "2019-11-15T00:00:00Z",
+    "category": 1,
+    "regionTag": "Nationwide",
+    "verifiedAt": "2019-11-16T00:00:00Z",
+    "isBaseline": true
+  },
+  {
+    "id": "aa020001-0000-4000-8000-200000000001",
+    "title": "Mahsa Amini Protest Crackdown - 500+ Killed",
+    "description": "IRGC and Basij systematically shot protesters across 160+ cities. Amnesty International documented over 500 killed. Thousands imprisoned. Executions of protest-linked detainees followed in 2023.",
+    "occurredAt": "2022-10-01T00:00:00Z",
+    "category": 2,
+    "regionTag": "Nationwide",
+    "verifiedAt": "2023-01-01T00:00:00Z",
+    "isBaseline": true
+  },
+  {
+    "id": "aa020002-0000-4000-8000-200000000002",
+    "title": "Record 853 Executions in 2023",
+    "description": "Iran executed at least 853 people in 2023, the highest number in 15 years and one of the highest globally. Many were related to protest convictions under vague national security charges.",
+    "occurredAt": "2023-12-31T00:00:00Z",
+    "category": 2,
+    "regionTag": "Nationwide",
+    "verifiedAt": "2024-01-10T00:00:00Z",
+    "isBaseline": true
+  },
+  {
+    "id": "aa020003-0000-4000-8000-200000000003",
+    "title": "Bloody November 2019 - Approximately 1500 Killed",
+    "description": "Security forces killed an estimated 1,500 protesters in six days during the November 2019 uprising according to Reuters citing official sources. The true toll remains unknown due to information blackout.",
+    "occurredAt": "2019-11-20T00:00:00Z",
+    "category": 2,
+    "regionTag": "Nationwide",
+    "verifiedAt": "2020-03-01T00:00:00Z",
+    "isBaseline": true
+  },
+  {
+    "id": "aa030001-0000-4000-8000-300000000001",
+    "title": "US Withdrawal from JCPOA Nuclear Deal",
+    "description": "President Trump announced withdrawal from the 2015 Joint Comprehensive Plan of Action and reimposed sweeping sanctions. Iran called it a violation of international law. Nuclear deal effectively collapsed.",
+    "occurredAt": "2018-05-08T00:00:00Z",
+    "category": 3,
+    "regionTag": "Diplomatic",
+    "verifiedAt": "2018-05-08T00:00:00Z",
+    "isBaseline": true
+  },
+  {
+    "id": "aa030002-0000-4000-8000-300000000002",
+    "title": "Iran Enriches Uranium to 60% Purity",
+    "description": "Iran announced it had enriched uranium to 60% purity, a significant step toward weapons-grade 90%. Declared in response to sabotage at Natanz facility. IAEA confirmed the enrichment.",
+    "occurredAt": "2021-04-17T00:00:00Z",
+    "category": 3,
+    "regionTag": "Natanz",
+    "verifiedAt": "2021-04-18T00:00:00Z",
+    "isBaseline": true
+  },
+  {
+    "id": "aa030003-0000-4000-8000-300000000003",
+    "title": "Iran Reaches 84% Uranium Enrichment",
+    "description": "IAEA inspectors detected uranium particles enriched to 84% at Fordow. Iran denied intentional breach, attributing it to technical fluctuations. 84% is near weapons-grade threshold of 90%.",
+    "occurredAt": "2023-02-20T00:00:00Z",
+    "category": 3,
+    "regionTag": "Fordow",
+    "verifiedAt": "2023-02-21T00:00:00Z",
+    "isBaseline": true
+  },
+  {
+    "id": "aa040001-0000-4000-8000-400000000001",
+    "title": "Iran Seizes British Tanker Stena Impero in Strait of Hormuz",
+    "description": "IRGC Navy commandos fast-roped onto the UK-flagged Stena Impero and seized it in the Strait of Hormuz. UK scrambled warships. Tanker held for 65 days as leverage in diplomatic dispute.",
+    "occurredAt": "2019-07-19T00:00:00Z",
+    "category": 4,
+    "regionTag": "Strait of Hormuz",
+    "verifiedAt": "2019-07-19T00:00:00Z",
+    "isBaseline": true
+  },
+  {
+    "id": "aa040002-0000-4000-8000-400000000002",
+    "title": "Limpet Mine Attacks on Oil Tankers Near Fujairah",
+    "description": "Multiple oil tankers attacked using limpet mines near the UAE port of Fujairah. US and Saudi Arabia attributed attacks to Iran. Two tankers severely damaged. Created global maritime insurance crisis.",
+    "occurredAt": "2019-05-12T00:00:00Z",
+    "category": 4,
+    "regionTag": "Gulf of Oman",
+    "verifiedAt": "2019-05-13T00:00:00Z",
+    "isBaseline": true
+  },
+  {
+    "id": "aa040003-0000-4000-8000-400000000003",
+    "title": "Iranian-Backed Houthi Attacks on Red Sea Shipping",
+    "description": "Yemen-based Houthis, armed and directed by Iran, launched sustained drone and missile attacks on commercial shipping in the Red Sea. Forced major shipping rerouting around Cape of Good Hope. Significant global supply chain disruption.",
+    "occurredAt": "2023-11-19T00:00:00Z",
+    "category": 4,
+    "regionTag": "Red Sea, Bab al-Mandab",
+    "verifiedAt": "2023-11-20T00:00:00Z",
+    "isBaseline": true
+  },
+  {
+    "id": "aa050001-0000-4000-8000-500000000001",
+    "title": "Stuxnet Worm Destroys Natanz Centrifuges",
+    "description": "The Stuxnet cyberweapon, widely attributed to US-Israeli intelligence, physically destroyed approximately 1,000 Iranian uranium enrichment centrifuges at Natanz. First known cyberweapon to cause physical destruction.",
+    "occurredAt": "2010-06-01T00:00:00Z",
+    "category": 5,
+    "regionTag": "Natanz",
+    "verifiedAt": "2010-09-25T00:00:00Z",
+    "isBaseline": true
+  },
+  {
+    "id": "aa050002-0000-4000-8000-500000000002",
+    "title": "Cyberattack Paralyzes Iranian Fuel Distribution Network",
+    "description": "A major cyberattack, attributed to Israel-linked group Predatory Sparrow, took down Iran's national fuel distribution network. Over 4,300 petrol stations went offline. Regime accused of cover-up.",
+    "occurredAt": "2021-10-26T00:00:00Z",
+    "category": 5,
+    "regionTag": "Nationwide",
+    "verifiedAt": "2021-10-27T00:00:00Z",
+    "isBaseline": true
+  },
+  {
+    "id": "aa060001-0000-4000-8000-600000000001",
+    "title": "US Drone Strike Assassinates IRGC General Qasem Soleimani",
+    "description": "US airstrike at Baghdad airport killed IRGC Quds Force commander Qasem Soleimani and Iraqi PMF commander Abu Mahdi al-Muhandis. Most significant direct US-Iran military action in decades. Iran vowed revenge.",
+    "occurredAt": "2020-01-03T00:00:00Z",
     "category": 6,
-    "regionTag": "Northern Border",
-    "verifiedAt": "2021-06-02T00:00:00Z",
+    "regionTag": "Baghdad, Iraq",
+    "verifiedAt": "2020-01-03T00:00:00Z",
+    "isBaseline": true
+  },
+  {
+    "id": "aa060002-0000-4000-8000-600000000002",
+    "title": "Iran Fires 16 Ballistic Missiles at US Bases in Iraq",
+    "description": "Iran launched 16 ballistic missiles at Al-Assad and Erbil air bases in Iraq hosting US forces. First direct Iranian state-on-state ballistic missile attack on US military. Over 100 US personnel suffered traumatic brain injuries.",
+    "occurredAt": "2020-01-08T00:00:00Z",
+    "category": 6,
+    "regionTag": "Al-Assad Air Base, Iraq",
+    "verifiedAt": "2020-01-08T00:00:00Z",
+    "isBaseline": true
+  },
+  {
+    "id": "aa060003-0000-4000-8000-600000000003",
+    "title": "Iran Launches Direct Drone and Missile Attack on Israel",
+    "description": "Iran launched over 300 drones and missiles directly at Israel from Iranian soil, the first direct state-on-state attack between Iran and Israel. Over 99% intercepted by US, UK, French, Jordanian, and Israeli forces. Marked historic escalation.",
+    "occurredAt": "2024-04-13T00:00:00Z",
+    "category": 6,
+    "regionTag": "Iran to Israel",
+    "verifiedAt": "2024-04-14T00:00:00Z",
+    "isBaseline": true
+  },
+  {
+    "id": "aa070001-0000-4000-8000-700000000001",
+    "title": "Hardliner Ebrahim Raisi Wins Presidential Election",
+    "description": "Ebrahim Raisi, linked to the 1988 mass executions of political prisoners, won Iran's presidential election after reformist candidates were disqualified. Lowest voter turnout in Islamic Republic history. Marked consolidation of hardliner control.",
+    "occurredAt": "2021-06-18T00:00:00Z",
+    "category": 7,
+    "regionTag": "Iran",
+    "verifiedAt": "2021-06-19T00:00:00Z",
+    "isBaseline": true
+  },
+  {
+    "id": "aa070002-0000-4000-8000-700000000002",
+    "title": "IAEA Board Censures Iran, Cuts Monitoring Access",
+    "description": "IAEA Board of Governors voted to censure Iran for lack of cooperation. Iran responded by disconnecting 27 IAEA monitoring cameras, creating a massive intelligence blind spot on nuclear activities.",
+    "occurredAt": "2022-06-08T00:00:00Z",
+    "category": 7,
+    "regionTag": "Vienna, IAEA",
+    "verifiedAt": "2022-06-09T00:00:00Z",
+    "isBaseline": true
+  },
+  {
+    "id": "aa080001-0000-4000-8000-800000000001",
+    "title": "Iranian Rial Collapses 80% Under Sanctions",
+    "description": "The Iranian rial lost approximately 80% of its value as US and EU sanctions tightened. Oil exports halved. Imports of medicine and basic goods severely disrupted. Middle class wealth effectively destroyed.",
+    "occurredAt": "2012-09-01T00:00:00Z",
+    "category": 8,
+    "regionTag": "Iran",
+    "verifiedAt": "2012-10-01T00:00:00Z",
+    "isBaseline": true
+  },
+  {
+    "id": "aa080002-0000-4000-8000-800000000002",
+    "title": "Iran Annual Inflation Exceeds 40% Under Maximum Pressure",
+    "description": "Following US maximum pressure campaign sanctions, Iran's annual inflation rate exceeded 40% with food inflation reaching 60%+. Unemployment and poverty rates surged. IMF cited as among world's worst economic contractions.",
+    "occurredAt": "2020-01-01T00:00:00Z",
+    "category": 8,
+    "regionTag": "Iran",
+    "verifiedAt": "2020-06-01T00:00:00Z",
+    "isBaseline": true
+  },
+  {
+    "id": "aa080003-0000-4000-8000-800000000003",
+    "title": "Iranian Rial Hits Historic Low, 600,000 per USD",
+    "description": "The Iranian rial reached a new historic low of approximately 600,000 rials per US dollar in 2023, compared to 32,000 per dollar in 2011. Purchasing power of ordinary Iranians collapsed. Black market premiums widespread.",
+    "occurredAt": "2023-06-01T00:00:00Z",
+    "category": 8,
+    "regionTag": "Iran",
+    "verifiedAt": "2023-06-15T00:00:00Z",
     "isBaseline": true
   }
 ]
