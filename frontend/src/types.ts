@@ -1,7 +1,7 @@
 export type DashboardTopContributor = {
   indicatorKey: string
   indicatorName: string
-  category: string
+  category: number | string
   weightedContribution: number
   baseScore: number
   severityAdjustedBaseScore: number
@@ -11,7 +11,7 @@ export type DashboardTopContributor = {
 export type DashboardSummaryDto = {
   score: number
   scorePercent: number
-  level: string
+  level: number | string
   previousScore?: number | null
   scoreChange: number
   scoreTrend: string

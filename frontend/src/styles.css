@@ -1,25 +1,171 @@
-:root{
-  --bg:#0b1020; --card:#0f1724; --muted:#9aa4b2; --accent:#ff6b6b; --text:#e6eef6;
+:root {
+  --bg: #0b1020;
+  --card: #0f1724;
+  --border: rgba(255, 255, 255, 0.05);
+  --muted: #7a8899;
+  --text: #e6eef6;
+  --accent: #ff6b6b;
+  --up: #ef4444;
+  --down: #22c55e;
+  --stable: #7a8899;
 }
-html,body,#root{height:100%;}
-body{margin:0;font-family:Inter,Segoe UI,Roboto,Helvetica,Arial,sans-serif;background:var(--bg);color:var(--text);display:flex;align-items:center;justify-content:center}
-.app{width:100%;max-width:960px;padding:24px}
-.header{font-size:20px;font-weight:700;margin-bottom:12px;text-align:center}
-.card{background:linear-gradient(180deg,var(--card),#0b1220);padding:20px;border-radius:10px;box-shadow:0 6px 18px rgba(0,0,0,0.6)}
-.muted{color:var(--muted)}
-.error{color:var(--accent)}
-.summary{display:flex;gap:20px}
-.score{flex:0 0 260px;border-right:1px solid rgba(255,255,255,0.04);padding-right:16px}
-.score-percent{font-size:56px;font-weight:800}
-.score-meta{color:var(--muted);margin-top:6px}
-.previous{font-size:12px;color:var(--muted);margin-top:6px}
-.timestamp{font-size:12px;color:var(--muted);margin-top:8px}
-.top{flex:1}
-.top h3{margin:0 0 8px 0}
-ul{list-style:none;padding:0;margin:0}
-li{padding:8px 0;border-top:1px dashed rgba(255,255,255,0.03)}
-.t-row{display:flex;justify-content:space-between}
-.t-name{font-weight:600}
-.t-key{font-size:12px;color:var(--muted)}
-.t-weight{font-weight:700}
-.t-explain{font-size:12px;color:var(--muted);margin-top:6px}
+
+html, body, #root {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: Inter, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  -webkit-font-smoothing: antialiased;
+}
+
+.app {
+  width: 100%;
+  max-width: 960px;
+  padding: 24px;
+}
+
+.header {
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  text-align: center;
+  color: var(--muted);
+  margin-bottom: 16px;
+}
+
+.card {
+  background: linear-gradient(160deg, #111b2e, #0b1220);
+  padding: 28px;
+  border-radius: 14px;
+  border: 1px solid var(--border);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.55);
+}
+
+.muted { color: var(--muted); font-size: 14px; }
+.error { color: var(--accent); font-size: 14px; }
+
+/* ── Layout ── */
+.summary {
+  display: flex;
+  gap: 32px;
+  align-items: flex-start;
+}
+
+/* ── Score panel (left) ── */
+.score-panel {
+  flex: 0 0 190px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border-right: 1px solid var(--border);
+  padding-right: 28px;
+  gap: 6px;
+}
+
+.trend-label {
+  font-size: 12px;
+  font-weight: 600;
+  margin-top: 2px;
+}
+.trend-up   { color: var(--up); }
+.trend-down { color: var(--down); }
+.trend-stable { color: var(--stable); }
+
+.score-change {
+  font-size: 12px;
+  color: var(--muted);
+}
+
+.prev-score {
+  font-size: 11px;
+  color: var(--muted);
+  opacity: 0.7;
+}
+
+.timestamp {
+  font-size: 11px;
+  color: var(--muted);
+  opacity: 0.6;
+  text-align: center;
+}
+
+.summary-text {
+  font-size: 11px;
+  color: var(--muted);
+  line-height: 1.5;
+  text-align: center;
+  margin-top: 4px;
+  opacity: 0.8;
+}
+
+/* ── Contributors panel (right) ── */
+.contributors {
+  flex: 1;
+  min-width: 0;
+}
+
+.contributors-heading {
+  margin: 0 0 12px 0;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--muted);
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+li {
+  padding: 10px 0;
+  border-top: 1px solid var(--border);
+}
+
+li:first-child {
+  border-top: none;
+  padding-top: 0;
+}
+
+.contrib-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.contrib-name {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text);
+}
+
+.contrib-meta {
+  font-size: 11px;
+  color: var(--muted);
+  margin-top: 2px;
+}
+
+.contrib-weight {
+  font-size: 15px;
+  font-weight: 700;
+  white-space: nowrap;
+  color: var(--text);
+}
+
+.contrib-explain {
+  font-size: 12px;
+  color: var(--muted);
+  margin-top: 5px;
+  line-height: 1.55;
+}
