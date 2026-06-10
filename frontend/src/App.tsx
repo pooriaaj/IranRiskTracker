@@ -1,24 +1,15 @@
 import React, { useEffect, useState, useCallback } from 'react'
-import { getDashboardSummary, getLiveEvents, postLiveEvent } from './client'
-import type { DashboardSummaryDto, LiveEventDto, LiveEventCreateRequest } from './types'
+import { getDashboardSummary } from './client'
+import type { DashboardSummaryDto } from './types'
 
 // ── Lookup tables ────────────────────────────────────────────────────────────
 
 const RISK_LEVEL_LABELS: Record<number, string> = {
   0: 'Unknown', 1: 'Low', 2: 'Medium', 3: 'High', 4: 'Critical',
 }
-const RISK_LEVEL_COLORS: Record<number, string> = {
-  0: '#6b7280', 1: '#22c55e', 2: '#eab308', 3: '#f97316', 4: '#ef4444',
-}
 const EVENT_CATEGORY_LABELS: Record<number, string> = {
   0: 'Unknown', 1: 'Protests', 2: 'Executions', 3: 'Nuclear',
   4: 'Maritime', 5: 'Cyber', 6: 'Military', 7: 'Political', 8: 'Economic',
-}
-const URGENCY_LABELS: Record<number, string> = {
-  0: 'Low', 1: 'Medium', 2: 'High', 3: 'Critical',
-}
-const URGENCY_COLORS: Record<number, string> = {
-  0: '#6b7280', 1: '#eab308', 2: '#f97316', 3: '#ef4444',
 }
 
 // ── Helpers ──────────────────────────────────────────────────────────────────
@@ -27,22 +18,9 @@ function formatRiskLevel(level: number | string): string {
   if (typeof level === 'number') return RISK_LEVEL_LABELS[level] ?? 'Unknown'
   return level
 }
-function riskLevelColor(level: number | string): string {
-  if (typeof level === 'number') return RISK_LEVEL_COLORS[level] ?? '#6b7280'
-  const idx = Object.values(RISK_LEVEL_LABELS).indexOf(level)
-  return idx >= 0 ? (RISK_LEVEL_COLORS[idx] ?? '#6b7280') : '#6b7280'
-}
 function formatEventCategory(category: number | string): string {
   if (typeof category === 'number') return EVENT_CATEGORY_LABELS[category] ?? 'Unknown'
   return category
-}
-function formatUrgency(urgency: number | string): string {
-  if (typeof urgency === 'number') return URGENCY_LABELS[urgency] ?? 'Unknown'
-  return urgency
-}
-function urgencyColor(urgency: number | string): string {
-  if (typeof urgency === 'number') return URGENCY_COLORS[urgency] ?? '#6b7280'
-  return '#6b7280'
 }
 function formatScoreChange(change: number): string {
   const fixed = change.toFixed(3)
@@ -53,126 +31,79 @@ function formatTimestamp(ts: string): string {
 }
 function formatScoreTrend(trend: string): string {
   switch (trend) {
-    case 'Increased': return '▲ Increasing'
-    case 'Decreased': return '▼ Decreasing'
-    case 'Unchanged': return '→ Unchanged'
-    case 'NoPreviousSnapshot': return 'First reading'
+    case 'Increased': return '▲ RISING'
+    case 'Decreased': return '▼ FALLING'
+    case 'Unchanged': return '→ STABLE'
+    case 'NoPreviousSnapshot': return 'INITIAL READING'
     default: return trend || '—'
   }
 }
-function trendClass(trend: string): string {
-  if (trend === 'Increased') return 'trend-up'
-  if (trend === 'Decreased') return 'trend-down'
-  return 'trend-stable'
+function trendColor(trend: string): string {
+  if (trend === 'Increased') return '#ff2222'
+  if (trend === 'Decreased') return '#888'
+  return '#cc0000'
 }
-function toLocalDateTimeInput(d: Date): string {
-  const pad = (n: number) => String(n).padStart(2, '0')
-  return `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}T${pad(d.getHours())}:${pad(d.getMinutes())}`
+function scoreToColor(pct: number): string {
+  if (pct >= 75) return '#cc0000'
+  if (pct >= 50) return '#ff4400'
+  if (pct >= 25) return '#ff8800'
+  return '#888888'
 }
 
 // ── Score ring ───────────────────────────────────────────────────────────────
 
 function ScoreRing({ percent, level }: { percent: number; level: number | string }) {
-  const r = 66, cx = 88, cy = 88, size = 176
+  const r = 110, cx = 130, cy = 130, size = 260
   const circ = 2 * Math.PI * r
   const offset = circ * (1 - Math.min(percent, 100) / 100)
-  const color = riskLevelColor(level)
+  const color = scoreToColor(percent)
+  const levelLabel = formatRiskLevel(level).toUpperCase()
+
   return (
-    <svg width={size} height={size} viewBox={`0 0 ${size} ${size}`} aria-label={`Risk score ${percent}%`}>
-      <circle cx={cx} cy={cy} r={r} fill="none" stroke="#1b2a42" strokeWidth="13" />
-      <circle cx={cx} cy={cy} r={r} fill="none" stroke={color} strokeWidth="13"
+    <svg width={size} height={size} viewBox={`0 0 ${size} ${size}`} aria-label={`Regime collapse probability ${percent}%`}
+      style={{ filter: percent >= 75 ? 'drop-shadow(0 0 18px #cc000088)' : 'none' }}>
+      <circle cx={cx} cy={cy} r={r} fill="none" stroke="#1a0000" strokeWidth="16" />
+      <circle cx={cx} cy={cy} r={r} fill="none" stroke={color} strokeWidth="16"
         strokeLinecap="round" strokeDasharray={circ} strokeDashoffset={offset}
         transform={`rotate(-90 ${cx} ${cy})`}
-        style={{ transition: 'stroke-dashoffset 0.6s ease' }} />
-      <text x={cx} y={cy - 8} textAnchor="middle" dominantBaseline="middle"
-        fill="#e6eef6" fontSize="30" fontWeight="800" fontFamily="Inter, Segoe UI, sans-serif">
+        style={{ transition: 'stroke-dashoffset 0.8s ease' }} />
+      <text x={cx} y={cy - 18} textAnchor="middle" dominantBaseline="middle"
+        fill="#ffffff" fontSize="52" fontWeight="900" fontFamily="'Inter', 'Segoe UI', sans-serif"
+        letterSpacing="-1">
         {percent}%
       </text>
       <text x={cx} y={cy + 20} textAnchor="middle" dominantBaseline="middle"
-        fill={color} fontSize="11" fontWeight="700" fontFamily="Inter, Segoe UI, sans-serif" letterSpacing="1.5">
-        {formatRiskLevel(level).toUpperCase()}
+        fill={color} fontSize="13" fontWeight="800" fontFamily="'Inter', 'Segoe UI', sans-serif"
+        letterSpacing="3">
+        {levelLabel}
       </text>
     </svg>
   )
 }
 
-// ── Add event form ───────────────────────────────────────────────────────────
+// ── Indicator bar ────────────────────────────────────────────────────────────
 
-const EMPTY_FORM: LiveEventCreateRequest = {
-  title: '',
-  rawContent: '',
-  sourceName: '',
-  sourceUrl: '',
-  ownerNotes: '',
-  occurredAt: toLocalDateTimeInput(new Date()),
-  urgency: 1,
-  category: 6,
-}
-
-interface AddEventFormProps {
-  onAdded: () => void
-}
-
-function AddEventForm({ onAdded }: AddEventFormProps) {
-  const [form, setForm] = useState<LiveEventCreateRequest>(EMPTY_FORM)
-  const [submitting, setSubmitting] = useState(false)
-  const [err, setErr] = useState<string | null>(null)
-
-  function set(field: keyof LiveEventCreateRequest, value: string | number) {
-    setForm(f => ({ ...f, [field]: value }))
-  }
-
-  async function handleSubmit(e: React.FormEvent) {
-    e.preventDefault()
-    setErr(null)
-    setSubmitting(true)
-    try {
-      await postLiveEvent({
-        ...form,
-        occurredAt: new Date(form.occurredAt).toISOString(),
-      })
-      setForm({ ...EMPTY_FORM, occurredAt: toLocalDateTimeInput(new Date()) })
-      onAdded()
-    } catch (e) {
-      setErr(String(e))
-    } finally {
-      setSubmitting(false)
-    }
-  }
-
+function IndicatorBar({ name, contribution, maxContribution }: {
+  name: string
+  contribution: number
+  maxContribution: number
+}) {
+  const pct = maxContribution > 0 ? (contribution / maxContribution) * 100 : 0
   return (
-    <form className="add-event-form" onSubmit={handleSubmit}>
-      <div className="form-row">
-        <input className="form-input" placeholder="Title *" required
-          value={form.title} onChange={e => set('title', e.target.value)} />
-        <input className="form-input" placeholder="Source name"
-          value={form.sourceName} onChange={e => set('sourceName', e.target.value)} />
+    <div style={{ marginBottom: 14 }}>
+      <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 4 }}>
+        <span style={{ color: '#cccccc', fontSize: 12, fontWeight: 600, letterSpacing: 1, textTransform: 'uppercase' }}>{name}</span>
+        <span style={{ color: '#ff4444', fontSize: 12, fontWeight: 700, fontFamily: 'monospace' }}>+{contribution.toFixed(3)}</span>
       </div>
-      <div className="form-row">
-        <select className="form-select" value={form.category}
-          onChange={e => set('category', Number(e.target.value))}>
-          {Object.entries(EVENT_CATEGORY_LABELS).filter(([k]) => k !== '0').map(([k, v]) => (
-            <option key={k} value={k}>{v}</option>
-          ))}
-        </select>
-        <select className="form-select" value={form.urgency}
-          onChange={e => set('urgency', Number(e.target.value))}>
-          {Object.entries(URGENCY_LABELS).map(([k, v]) => (
-            <option key={k} value={k}>{v}</option>
-          ))}
-        </select>
-        <input className="form-input" type="datetime-local"
-          value={form.occurredAt} onChange={e => set('occurredAt', e.target.value)} />
+      <div style={{ background: '#1a0000', borderRadius: 2, height: 4, overflow: 'hidden' }}>
+        <div style={{
+          width: `${pct}%`, height: '100%',
+          background: 'linear-gradient(90deg, #8b0000, #cc0000)',
+          transition: 'width 0.6s ease',
+          boxShadow: '0 0 6px #cc000066',
+        }} />
       </div>
-      <div className="form-row">
-        <input className="form-input" placeholder="Notes (optional)"
-          value={form.ownerNotes} onChange={e => set('ownerNotes', e.target.value)} />
-      </div>
-      {err && <div className="form-error">{err}</div>}
-      <button className="form-submit" type="submit" disabled={submitting}>
-        {submitting ? 'Adding…' : '+ Add Event'}
-      </button>
-    </form>
+    </div>
   )
 }
 
@@ -180,121 +111,189 @@ function AddEventForm({ onAdded }: AddEventFormProps) {
 
 export default function App() {
   const [data, setData] = useState<DashboardSummaryDto | null>(null)
-  const [loadingDash, setLoadingDash] = useState(true)
-  const [dashErr, setDashErr] = useState<string | null>(null)
-
-  const [events, setEvents] = useState<LiveEventDto[]>([])
-  const [loadingEvents, setLoadingEvents] = useState(true)
+  const [loading, setLoading] = useState(true)
+  const [err, setErr] = useState<string | null>(null)
+  const [lastRefresh, setLastRefresh] = useState<Date>(new Date())
 
   const fetchDashboard = useCallback(() => {
-    setLoadingDash(true)
-    setDashErr(null)
+    setLoading(true)
+    setErr(null)
     getDashboardSummary()
-      .then(setData)
-      .catch(e => setDashErr(String(e)))
-      .finally(() => setLoadingDash(false))
-  }, [])
-
-  const fetchEvents = useCallback(() => {
-    setLoadingEvents(true)
-    getLiveEvents()
-      .then(setEvents)
-      .catch(() => setEvents([]))
-      .finally(() => setLoadingEvents(false))
+      .then(d => { setData(d); setLastRefresh(new Date()) })
+      .catch(e => setErr(String(e)))
+      .finally(() => setLoading(false))
   }, [])
 
   useEffect(() => {
     fetchDashboard()
-    fetchEvents()
-  }, [fetchDashboard, fetchEvents])
+  }, [fetchDashboard])
 
-  function handleEventAdded() {
-    fetchEvents()
-    fetchDashboard()
-  }
+  const pct = data?.scorePercent ?? 0
+  const ringColor = scoreToColor(pct)
+  const maxContrib = data ? Math.max(...data.topContributors.map(t => t.weightedContribution), 0.01) : 1
 
   return (
-    <div className="app">
-      <header className="header">Iran Risk Tracker</header>
+    <div style={{
+      minHeight: '100vh',
+      background: '#050505',
+      color: '#f5f5f5',
+      fontFamily: "'Inter', 'Segoe UI', sans-serif",
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'center',
+    }}>
+      {/* Header */}
+      <div style={{
+        width: '100%',
+        borderBottom: '1px solid #2a0000',
+        background: '#0a0000',
+        padding: '14px 24px',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        boxSizing: 'border-box',
+      }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+          <div style={{
+            width: 10, height: 10, borderRadius: '50%',
+            background: '#cc0000',
+            boxShadow: '0 0 8px #cc0000',
+            animation: 'pulse 2s infinite',
+          }} />
+          <span style={{ fontSize: 13, fontWeight: 700, letterSpacing: 3, color: '#cc0000', textTransform: 'uppercase' }}>
+            Iran Risk Tracker
+          </span>
+        </div>
+        <span style={{ fontSize: 11, color: '#555', letterSpacing: 1 }}>
+          {formatTimestamp(lastRefresh.toISOString())}
+        </span>
+      </div>
 
-      <main className="card">
-        {loadingDash && <div className="muted">Loading…</div>}
-        {dashErr && <div className="error">Error: {dashErr}</div>}
-        {data && (
-          <div className="summary">
-            <div className="score-panel">
-              <ScoreRing percent={data.scorePercent} level={data.level} />
-              <div className={`trend-label ${trendClass(data.scoreTrend)}`}>
-                {formatScoreTrend(data.scoreTrend)}
-              </div>
-              {data.scoreTrend !== 'NoPreviousSnapshot' && (
-                <div className="score-change">{formatScoreChange(data.scoreChange)}</div>
-              )}
-              {data.previousScore != null && (
-                <div className="prev-score">Prev: {data.previousScore.toFixed(4)}</div>
-              )}
-              <div className="timestamp">{formatTimestamp(data.timestamp)}</div>
-              {data.summary && <div className="summary-text">{data.summary}</div>}
-              <button className="refresh-btn" onClick={fetchDashboard} disabled={loadingDash}>
-                {loadingDash ? '↻' : '↻ Refresh'}
-              </button>
-            </div>
+      {/* Main content */}
+      <div style={{ width: '100%', maxWidth: 820, padding: '40px 24px', boxSizing: 'border-box' }}>
 
-            <div className="contributors">
-              <h3 className="contributors-heading">Top Contributors</h3>
-              <ul>
-                {data.topContributors.map(t => (
-                  <li key={t.indicatorKey}>
-                    <div className="contrib-row">
-                      <div className="contrib-left">
-                        <div className="contrib-name">{t.indicatorName}</div>
-                        <div className="contrib-meta">
-                          {t.indicatorKey}
-                          <span className="cat-badge">{formatEventCategory(t.category)}</span>
-                        </div>
-                      </div>
-                      <div className="contrib-weight">{formatScoreChange(t.weightedContribution)}</div>
-                    </div>
-                    {t.explanation && <div className="contrib-explain">{t.explanation}</div>}
-                  </li>
-                ))}
-              </ul>
-            </div>
+        {/* Hero section */}
+        <div style={{ textAlign: 'center', marginBottom: 48 }}>
+          <div style={{ fontSize: 11, letterSpacing: 6, color: '#660000', fontWeight: 700, marginBottom: 12, textTransform: 'uppercase' }}>
+            Intelligence Assessment — Islamic Republic of Iran
           </div>
-        )}
-      </main>
+          <h1 style={{
+            fontSize: 22,
+            fontWeight: 900,
+            letterSpacing: 4,
+            color: '#ffffff',
+            margin: '0 0 4px',
+            textTransform: 'uppercase',
+          }}>
+            Regime Collapse
+          </h1>
+          <h2 style={{
+            fontSize: 14,
+            fontWeight: 400,
+            letterSpacing: 6,
+            color: '#660000',
+            margin: '0 0 40px',
+            textTransform: 'uppercase',
+          }}>
+            Probability Index
+          </h2>
 
-      <section className="card live-section">
-        <div className="live-header">
-          <h2 className="live-title">Live Events</h2>
-          <span className="live-count">{loadingEvents ? '…' : `${events.length} active`}</span>
+          {loading && !data && (
+            <div style={{ color: '#555', fontSize: 13, letterSpacing: 2 }}>LOADING INTELLIGENCE DATA…</div>
+          )}
+          {err && (
+            <div style={{ color: '#cc0000', fontSize: 13, background: '#1a0000', padding: '12px 20px', borderRadius: 4, border: '1px solid #3a0000' }}>
+              ERROR: {err}
+            </div>
+          )}
+
+          {data && (
+            <>
+              <div style={{ display: 'flex', justifyContent: 'center', marginBottom: 24 }}>
+                <ScoreRing percent={pct} level={data.level} />
+              </div>
+
+              <div style={{ marginBottom: 8, fontSize: 13, fontWeight: 700, letterSpacing: 3, color: trendColor(data.scoreTrend) }}>
+                {formatScoreTrend(data.scoreTrend)}
+                {data.scoreTrend !== 'NoPreviousSnapshot' && data.scoreTrend !== 'Unchanged' && (
+                  <span style={{ marginLeft: 10, fontFamily: 'monospace', color: '#ff4444' }}>
+                    {formatScoreChange(data.scoreChange)}
+                  </span>
+                )}
+              </div>
+
+              <div style={{ fontSize: 12, color: '#444', letterSpacing: 1 }}>
+                Raw score: {data.score?.toFixed(4)}
+                {data.previousScore != null && (
+                  <span style={{ marginLeft: 16 }}>prev: {data.previousScore.toFixed(4)}</span>
+                )}
+              </div>
+            </>
+          )}
         </div>
 
-        <AddEventForm onAdded={handleEventAdded} />
+        {/* Divider */}
+        {data && (
+          <div style={{ borderTop: '1px solid #1a0000', marginBottom: 36 }} />
+        )}
 
-        {events.length > 0 && (
-          <ul className="live-list">
-            {events.map(ev => (
-              <li key={ev.id} className="live-item">
-                <div className="live-item-row">
-                  <span className="live-item-title">{ev.title || '(no title)'}</span>
-                  <span className="urgency-badge" style={{ color: urgencyColor(ev.urgency) }}>
-                    {formatUrgency(ev.urgency)}
-                  </span>
-                </div>
-                <div className="live-item-meta">
-                  <span className="cat-badge">{formatEventCategory(ev.category)}</span>
-                  {ev.sourceName && <span className="live-source">{ev.sourceName}</span>}
-                  <span className="live-time">{formatTimestamp(ev.occurredAt)}</span>
-                </div>
-              </li>
+        {/* Indicators */}
+        {data && data.topContributors.length > 0 && (
+          <div>
+            <div style={{ fontSize: 10, letterSpacing: 5, color: '#440000', fontWeight: 700, marginBottom: 24, textTransform: 'uppercase' }}>
+              Threat Indicators
+            </div>
+            {data.topContributors.map(t => (
+              <IndicatorBar
+                key={t.indicatorKey}
+                name={`${t.indicatorName} · ${formatEventCategory(t.category)}`}
+                contribution={t.weightedContribution}
+                maxContribution={maxContrib}
+              />
             ))}
-          </ul>
+          </div>
         )}
-        {!loadingEvents && events.length === 0 && (
-          <div className="muted" style={{ marginTop: 8 }}>No live events yet. Add one above to affect the score.</div>
+
+        {/* Methodology note */}
+        {data && (
+          <>
+            <div style={{ borderTop: '1px solid #1a0000', margin: '36px 0 24px' }} />
+            <div style={{ fontSize: 10, color: '#333', lineHeight: 1.8, letterSpacing: 0.5 }}>
+              <span style={{ color: '#440000', fontWeight: 700, letterSpacing: 2, textTransform: 'uppercase' }}>Methodology</span>
+              &nbsp;·&nbsp;
+              Deterministic weighted indicator model. 8 indicators across military, nuclear, economic, civil, and cyber domains.
+              Baseline calibrated against {data.summary?.match(/(\d+) historical/)?.[1] ?? '53'} verified historical events (2000–2026).
+              Score range 1–100. Critical threshold: ≥75.
+            </div>
+            <div style={{ marginTop: 20, display: 'flex', justifyContent: 'center' }}>
+              <button onClick={fetchDashboard} disabled={loading} style={{
+                background: 'transparent',
+                border: '1px solid #2a0000',
+                color: loading ? '#333' : '#660000',
+                padding: '8px 24px',
+                fontSize: 10,
+                letterSpacing: 3,
+                cursor: loading ? 'default' : 'pointer',
+                textTransform: 'uppercase',
+                fontWeight: 700,
+                borderRadius: 2,
+                transition: 'all 0.2s',
+              }}>
+                {loading ? 'REFRESHING…' : '↻ REFRESH'}
+              </button>
+            </div>
+          </>
         )}
-      </section>
+      </div>
+
+      <style>{`
+        @keyframes pulse {
+          0%, 100% { opacity: 1; box-shadow: 0 0 8px #cc0000; }
+          50% { opacity: 0.4; box-shadow: 0 0 3px #cc0000; }
+        }
+        * { box-sizing: border-box; }
+        body { margin: 0; background: #050505; }
+      `}</style>
     </div>
   )
 }

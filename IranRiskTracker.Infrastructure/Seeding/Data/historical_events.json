@@ -30,6 +30,46 @@
     "isBaseline": true
   },
   {
+    "id": "aa010004-0000-4000-8000-100000000004",
+    "title": "December 2017 Economic Protests",
+    "description": "Spontaneous protests erupted across 80+ Iranian cities over economic hardship, unemployment, and corruption. Chants included 'Death to the dictator' targeting Khamenei directly for the first time. IRGC deployed to suppress protests.",
+    "occurredAt": "2017-12-28T00:00:00Z",
+    "category": 1,
+    "regionTag": "Nationwide",
+    "verifiedAt": "2017-12-30T00:00:00Z",
+    "isBaseline": true
+  },
+  {
+    "id": "aa010005-0000-4000-8000-100000000005",
+    "title": "2021 Khuzestan Water Crisis Protests",
+    "description": "Residents of Khuzestan province took to streets over severe water shortages and mismanagement. At least 8 people killed by security forces. Protests spread to other cities in solidarity with Arab-Iranian minority.",
+    "occurredAt": "2021-07-15T00:00:00Z",
+    "category": 1,
+    "regionTag": "Khuzestan Province",
+    "verifiedAt": "2021-07-16T00:00:00Z",
+    "isBaseline": true
+  },
+  {
+    "id": "aa010006-0000-4000-8000-100000000006",
+    "title": "Teachers and Workers General Strikes 2018-2019",
+    "description": "Teachers, truck drivers, sugarcane workers and bazaar merchants staged coordinated nationwide strikes demanding higher wages. Over 1,000 arrested. Strikes marked emergence of organized labor resistance against the regime.",
+    "occurredAt": "2018-05-02T00:00:00Z",
+    "category": 1,
+    "regionTag": "Nationwide",
+    "verifiedAt": "2018-05-05T00:00:00Z",
+    "isBaseline": true
+  },
+  {
+    "id": "aa010007-0000-4000-8000-100000000007",
+    "title": "2024 Post-Election Protest Wave",
+    "description": "Despite nominal election of reformist Pezeshkian, activists documented ongoing street protests over economic conditions and political repression. Civil society groups called for boycotts with lowest-ever turnout in several cities.",
+    "occurredAt": "2024-07-10T00:00:00Z",
+    "category": 1,
+    "regionTag": "Tehran, Isfahan, Mashhad",
+    "verifiedAt": "2024-07-12T00:00:00Z",
+    "isBaseline": true
+  },
+  {
     "id": "aa020001-0000-4000-8000-200000000001",
     "title": "Mahsa Amini Protest Crackdown - 500+ Killed",
     "description": "IRGC and Basij systematically shot protesters across 160+ cities. Amnesty International documented over 500 killed. Thousands imprisoned. Executions of protest-linked detainees followed in 2023.",
@@ -57,6 +97,36 @@
     "category": 2,
     "regionTag": "Nationwide",
     "verifiedAt": "2020-03-01T00:00:00Z",
+    "isBaseline": true
+  },
+  {
+    "id": "aa020004-0000-4000-8000-200000000004",
+    "title": "First Executions of Mahsa Amini Protesters",
+    "description": "Iran executed Mohsen Shekari and Mohammad Mehdi Karami in December 2022 for their role in the protests, the first protest-related executions. International condemnation intensified. Iran pressed ahead with further executions of protesters in 2023.",
+    "occurredAt": "2022-12-08T00:00:00Z",
+    "category": 2,
+    "regionTag": "Evin Prison, Tehran",
+    "verifiedAt": "2022-12-09T00:00:00Z",
+    "isBaseline": true
+  },
+  {
+    "id": "aa020005-0000-4000-8000-200000000005",
+    "title": "Iran Executions Exceed 700 in 2024",
+    "description": "Iran surpassed 700 executions by mid-2024, on track for a record year. Death sentences issued under 'Spreading Corruption on Earth' charges against protesters, journalists, and dissidents. UN experts condemned escalation as judicial terror.",
+    "occurredAt": "2024-08-01T00:00:00Z",
+    "category": 2,
+    "regionTag": "Nationwide",
+    "verifiedAt": "2024-08-05T00:00:00Z",
+    "isBaseline": true
+  },
+  {
+    "id": "aa020006-0000-4000-8000-200000000006",
+    "title": "2009 Post-Election Torture and Executions",
+    "description": "Following Green Movement suppression, detainees at Kahrizak detention center were tortured and raped. At least 3 died under torture. Show trials of reformists televised. Dozens executed under national security charges over following years.",
+    "occurredAt": "2009-07-09T00:00:00Z",
+    "category": 2,
+    "regionTag": "Tehran, Kahrizak",
+    "verifiedAt": "2009-10-01T00:00:00Z",
     "isBaseline": true
   },
   {
@@ -90,6 +160,46 @@
     "isBaseline": true
   },
   {
+    "id": "aa030004-0000-4000-8000-300000000004",
+    "title": "Iran Begins Industrial-Scale Uranium Enrichment at Natanz",
+    "description": "President Ahmadinejad announced Iran had successfully enriched uranium using 164 centrifuges. Defied UN Security Council demands to halt enrichment. Crossed threshold from research to industrial-scale program. International sanctions escalation began.",
+    "occurredAt": "2006-04-11T00:00:00Z",
+    "category": 3,
+    "regionTag": "Natanz",
+    "verifiedAt": "2006-04-12T00:00:00Z",
+    "isBaseline": true
+  },
+  {
+    "id": "aa030005-0000-4000-8000-300000000005",
+    "title": "Natanz Advanced Centrifuge Hall Destroyed by Sabotage",
+    "description": "A major explosion destroyed the advanced centrifuge assembly hall at Natanz facility, widely attributed to Israeli intelligence. Iran accelerated enrichment in response, announcing installation of IR-6 advanced centrifuges 10x faster than IR-1. Triggered direct escalation cycle.",
+    "occurredAt": "2020-07-02T00:00:00Z",
+    "category": 3,
+    "regionTag": "Natanz",
+    "verifiedAt": "2020-07-05T00:00:00Z",
+    "isBaseline": true
+  },
+  {
+    "id": "aa030006-0000-4000-8000-300000000006",
+    "title": "Iran Accumulates 128kg of 60% Enriched Uranium",
+    "description": "IAEA reported Iran had accumulated 128.3 kg of uranium enriched to 60% purity by late 2023, enough for two nuclear weapons if further enriched. With 84% particle detection and monitoring gaps, experts calculated Iran's breakout timeline at under 2 weeks.",
+    "occurredAt": "2023-11-01T00:00:00Z",
+    "category": 3,
+    "regionTag": "Natanz, Fordow",
+    "verifiedAt": "2023-11-06T00:00:00Z",
+    "isBaseline": true
+  },
+  {
+    "id": "aa030007-0000-4000-8000-300000000007",
+    "title": "Iran Installs Advanced IR-6 Centrifuges at Fordow",
+    "description": "Iran notified IAEA it was installing advanced IR-6 centrifuges at the deeply buried Fordow facility, which is immune to conventional bunker-buster strikes. The move dramatically increased enrichment capacity and signaled Iran was hardening its nuclear sites against military attack.",
+    "occurredAt": "2024-01-15T00:00:00Z",
+    "category": 3,
+    "regionTag": "Fordow",
+    "verifiedAt": "2024-01-16T00:00:00Z",
+    "isBaseline": true
+  },
+  {
     "id": "aa040001-0000-4000-8000-400000000001",
     "title": "Iran Seizes British Tanker Stena Impero in Strait of Hormuz",
     "description": "IRGC Navy commandos fast-roped onto the UK-flagged Stena Impero and seized it in the Strait of Hormuz. UK scrambled warships. Tanker held for 65 days as leverage in diplomatic dispute.",
@@ -120,6 +230,46 @@
     "isBaseline": true
   },
   {
+    "id": "aa040004-0000-4000-8000-400000000004",
+    "title": "Iran Drone Attack Kills Security Guard on MV Mercer Street",
+    "description": "A one-way attack drone struck the Israeli-managed tanker MV Mercer Street in the Gulf of Oman, killing a British and Romanian crew member. US, UK, and Israel attributed the attack to Iran. First Iran drone attack to kill Western nationals on a commercial vessel.",
+    "occurredAt": "2021-07-29T00:00:00Z",
+    "category": 4,
+    "regionTag": "Gulf of Oman",
+    "verifiedAt": "2021-07-30T00:00:00Z",
+    "isBaseline": true
+  },
+  {
+    "id": "aa040005-0000-4000-8000-400000000005",
+    "title": "IRGC Seizes MSC Aries Container Ship in Strait of Hormuz",
+    "description": "IRGC commandos rappelled from a helicopter to seize the MSC Aries, a Portugal-flagged container ship with 25 crew, in the Strait of Hormuz. Iran held the vessel for months. Marked the largest commercial vessel seizure by Iran and directly threatened global container shipping.",
+    "occurredAt": "2024-04-13T00:00:00Z",
+    "category": 4,
+    "regionTag": "Strait of Hormuz",
+    "verifiedAt": "2024-04-14T00:00:00Z",
+    "isBaseline": true
+  },
+  {
+    "id": "aa040006-0000-4000-8000-400000000006",
+    "title": "IRGC Boats Attempt to Board HMS Montrose",
+    "description": "IRGC patrol boats attempted to intercept and board the British-flagged Heritage oil tanker but were warned off by HMS Montrose. Iran denied the incident. Occurred during peak Hormuz tensions. Escalated naval confrontation in the world's most critical oil chokepoint.",
+    "occurredAt": "2019-07-11T00:00:00Z",
+    "category": 4,
+    "regionTag": "Strait of Hormuz",
+    "verifiedAt": "2019-07-12T00:00:00Z",
+    "isBaseline": true
+  },
+  {
+    "id": "aa040007-0000-4000-8000-400000000007",
+    "title": "Iran Mines Gulf Waters, Disrupts Global Oil Flows",
+    "description": "Iran deployed naval mines in the Persian Gulf region as part of a gray-zone pressure campaign. CENTCOM tracked increased IRGC mine-laying activities near international shipping lanes. Disrupted 20% of world oil transit through Hormuz.",
+    "occurredAt": "2020-06-01T00:00:00Z",
+    "category": 4,
+    "regionTag": "Persian Gulf",
+    "verifiedAt": "2020-06-15T00:00:00Z",
+    "isBaseline": true
+  },
+  {
     "id": "aa050001-0000-4000-8000-500000000001",
     "title": "Stuxnet Worm Destroys Natanz Centrifuges",
     "description": "The Stuxnet cyberweapon, widely attributed to US-Israeli intelligence, physically destroyed approximately 1,000 Iranian uranium enrichment centrifuges at Natanz. First known cyberweapon to cause physical destruction.",
@@ -137,6 +287,56 @@
     "category": 5,
     "regionTag": "Nationwide",
     "verifiedAt": "2021-10-27T00:00:00Z",
+    "isBaseline": true
+  },
+  {
+    "id": "aa050003-0000-4000-8000-500000000003",
+    "title": "Shamoon Malware Destroys 30,000 Saudi Aramco Workstations",
+    "description": "Iran-linked hackers deployed the Shamoon malware against Saudi Aramco, destroying 30,000 computer workstations in hours. Most destructive cyberattack on a private company in history at the time. Demonstrated Iran's willingness to conduct destructive cyber operations against critical infrastructure.",
+    "occurredAt": "2012-08-15T00:00:00Z",
+    "category": 5,
+    "regionTag": "Saudi Arabia",
+    "verifiedAt": "2012-08-20T00:00:00Z",
+    "isBaseline": true
+  },
+  {
+    "id": "aa050004-0000-4000-8000-500000000004",
+    "title": "US DOJ Indicts Iranian Hackers for Power Grid and Dam Attacks",
+    "description": "US Justice Department indicted Iranian hackers for targeting US power grids, water systems, and a New York dam control system. Iranian APT groups also breached networks of US financial institutions. First indictment explicitly naming IRGC-linked hackers for attacks on critical infrastructure.",
+    "occurredAt": "2016-03-24T00:00:00Z",
+    "category": 5,
+    "regionTag": "United States",
+    "verifiedAt": "2016-03-24T00:00:00Z",
+    "isBaseline": true
+  },
+  {
+    "id": "aa050005-0000-4000-8000-500000000005",
+    "title": "Iran APT MuddyWater Compromises US Federal Networks",
+    "description": "CISA and FBI issued joint alert that Iranian state-sponsored MuddyWater group actively targeted US, UK, and European government networks. Campaigns focused on espionage and pre-positioning for destructive attacks. Over 50 US government agencies affected.",
+    "occurredAt": "2022-02-24T00:00:00Z",
+    "category": 5,
+    "regionTag": "United States, Europe",
+    "verifiedAt": "2022-02-25T00:00:00Z",
+    "isBaseline": true
+  },
+  {
+    "id": "aa050006-0000-4000-8000-500000000006",
+    "title": "Iran Escalates Cyber Operations Against US and Israel in 2024",
+    "description": "CISA and NSA documented a surge in Iranian cyber operations targeting US defense contractors, Israeli water infrastructure, and Albanian government systems. IRGC Cyber Command expanded its offensive toolkit with custom wiper malware. Election interference operations also documented.",
+    "occurredAt": "2024-05-01T00:00:00Z",
+    "category": 5,
+    "regionTag": "United States, Israel, Albania",
+    "verifiedAt": "2024-05-15T00:00:00Z",
+    "isBaseline": true
+  },
+  {
+    "id": "aa050007-0000-4000-8000-500000000007",
+    "title": "Gonjeshke Darande Attacks Iran Steel Plants and Rail Network",
+    "description": "Hacktivist group Gonjeshke Darande, linked to Israeli intelligence, disrupted operations at three Iranian steel plants and Iran's national rail system. Steel plant attacks caused fires visible on satellite imagery. First known destructive attack on Iranian heavy industry.",
+    "occurredAt": "2022-06-27T00:00:00Z",
+    "category": 5,
+    "regionTag": "Iran",
+    "verifiedAt": "2022-07-01T00:00:00Z",
     "isBaseline": true
   },
   {
@@ -161,12 +361,42 @@
   },
   {
     "id": "aa060003-0000-4000-8000-600000000003",
-    "title": "Iran Launches Direct Drone and Missile Attack on Israel",
+    "title": "Iran Launches Operation True Promise I - 300 Drones and Missiles at Israel",
     "description": "Iran launched over 300 drones and missiles directly at Israel from Iranian soil, the first direct state-on-state attack between Iran and Israel. Over 99% intercepted by US, UK, French, Jordanian, and Israeli forces. Marked historic escalation.",
     "occurredAt": "2024-04-13T00:00:00Z",
     "category": 6,
     "regionTag": "Iran to Israel",
     "verifiedAt": "2024-04-14T00:00:00Z",
+    "isBaseline": true
+  },
+  {
+    "id": "aa060004-0000-4000-8000-600000000004",
+    "title": "Hezbollah-Israel War 2006 - Iran Proves Proxy Deterrence",
+    "description": "Hezbollah, armed and funded by Iran's IRGC, fought Israel to a military stalemate in 34 days. Hezbollah fired over 4,000 rockets into Israel, including precision-guided missiles supplied by Iran. Demonstrated Iran's ability to project military deterrence through proxies without direct exposure.",
+    "occurredAt": "2006-07-12T00:00:00Z",
+    "category": 6,
+    "regionTag": "Lebanon, Northern Israel",
+    "verifiedAt": "2006-08-14T00:00:00Z",
+    "isBaseline": true
+  },
+  {
+    "id": "aa060005-0000-4000-8000-600000000005",
+    "title": "Iran Shoots Down US RQ-4A Global Hawk Surveillance Drone",
+    "description": "Iran's IRGC shot down a US Navy RQ-4A Global Hawk drone worth $220 million over the Strait of Hormuz using a surface-to-air missile. US disputed Iran's claim it was in Iranian airspace. President Trump initially authorized retaliatory strikes before canceling minutes before launch.",
+    "occurredAt": "2019-06-20T00:00:00Z",
+    "category": 6,
+    "regionTag": "Strait of Hormuz",
+    "verifiedAt": "2019-06-20T00:00:00Z",
+    "isBaseline": true
+  },
+  {
+    "id": "aa060006-0000-4000-8000-600000000006",
+    "title": "Iran Launches Operation True Promise II - 200 Ballistic Missiles at Israel",
+    "description": "Iran fired approximately 200 ballistic missiles at Israel in retaliation for Israeli strikes on Iranian territory. Several missiles impacted Israeli military bases including Nevatim Air Base. Israel vowed direct retaliation. Represented the most significant conventional ballistic missile barrage in modern warfare history.",
+    "occurredAt": "2024-10-01T00:00:00Z",
+    "category": 6,
+    "regionTag": "Iran to Israel",
+    "verifiedAt": "2024-10-02T00:00:00Z",
     "isBaseline": true
   },
   {
@@ -187,6 +417,56 @@
     "category": 7,
     "regionTag": "Vienna, IAEA",
     "verifiedAt": "2022-06-09T00:00:00Z",
+    "isBaseline": true
+  },
+  {
+    "id": "aa070003-0000-4000-8000-700000000003",
+    "title": "Ahmadinejad Elected, Declares Nuclear Defiance",
+    "description": "Mahmoud Ahmadinejad won Iran's presidency on platform of anti-Western defiance. Declared Iran would never abandon its nuclear program regardless of UN pressure. Ended diplomatic opening of Khatami era. Set Iran on confrontational path that led to maximum sanctions regime.",
+    "occurredAt": "2005-06-24T00:00:00Z",
+    "category": 7,
+    "regionTag": "Iran",
+    "verifiedAt": "2005-06-24T00:00:00Z",
+    "isBaseline": true
+  },
+  {
+    "id": "aa070004-0000-4000-8000-700000000004",
+    "title": "JCPOA Revival Talks Collapse Under Raisi Government",
+    "description": "Negotiations to revive the 2015 nuclear deal broke down after Iran demanded removal of IRGC from US terror list and guarantees no future president could leave. US walked away from near-final deal in August 2022. Diplomatic path to resolving nuclear crisis closed.",
+    "occurredAt": "2022-08-26T00:00:00Z",
+    "category": 7,
+    "regionTag": "Vienna",
+    "verifiedAt": "2022-08-27T00:00:00Z",
+    "isBaseline": true
+  },
+  {
+    "id": "aa070005-0000-4000-8000-700000000005",
+    "title": "President Raisi Killed in Helicopter Crash, Hardliner Succession Secured",
+    "description": "President Raisi and Foreign Minister Amir-Abdollahian died in helicopter crash in fog-shrouded mountains. Khamenei declared 5 days of mourning. Despite nominal election of reformist Pezeshkian, hardliners retained full control of IRGC, judiciary, and parliament. Khamenei's succession dynamics accelerated.",
+    "occurredAt": "2024-05-19T00:00:00Z",
+    "category": 7,
+    "regionTag": "East Azerbaijan Province",
+    "verifiedAt": "2024-05-20T00:00:00Z",
+    "isBaseline": true
+  },
+  {
+    "id": "aa070006-0000-4000-8000-700000000006",
+    "title": "Iran-Russia Comprehensive Strategic Partnership",
+    "description": "Iran and Russia signed a 20-year Comprehensive Strategic Partnership covering defense, energy, trade, and technology. Iran supplied Russia with Shahed drones and ballistic missiles for use in Ukraine. Russia provided advanced air defense systems and Su-35 jets to Iran. New axis fundamentally altered regional power balance.",
+    "occurredAt": "2024-01-17T00:00:00Z",
+    "category": 7,
+    "regionTag": "Moscow",
+    "verifiedAt": "2024-01-18T00:00:00Z",
+    "isBaseline": true
+  },
+  {
+    "id": "aa070007-0000-4000-8000-700000000007",
+    "title": "Khamenei Signals Nuclear Doctrine Shift, Fatwa Under Review",
+    "description": "Senior IRGC commanders and regime ideologists publicly floated reversing Khamenei's fatwa against nuclear weapons. State media carried analyses arguing weapons capability was now religiously permissible given existential threats. Intelligence assessments indicated Iran was within weeks of weapons-grade material.",
+    "occurredAt": "2025-02-01T00:00:00Z",
+    "category": 7,
+    "regionTag": "Tehran",
+    "verifiedAt": "2025-02-10T00:00:00Z",
     "isBaseline": true
   },
   {
@@ -217,6 +497,36 @@
     "category": 8,
     "regionTag": "Iran",
     "verifiedAt": "2023-06-15T00:00:00Z",
+    "isBaseline": true
+  },
+  {
+    "id": "aa080004-0000-4000-8000-800000000004",
+    "title": "Iran Oil Exports Collapse to Near Zero Under Maximum Pressure",
+    "description": "US maximum pressure sanctions reduced Iran's oil exports from 2.5 million barrels/day to under 300,000 bpd by mid-2019. Lost approximately $200 billion in oil revenues over four years. Budget deficit forced withdrawal from sovereign wealth funds and social program cuts.",
+    "occurredAt": "2019-05-01T00:00:00Z",
+    "category": 8,
+    "regionTag": "Iran",
+    "verifiedAt": "2019-06-01T00:00:00Z",
+    "isBaseline": true
+  },
+  {
+    "id": "aa080005-0000-4000-8000-800000000005",
+    "title": "60% of Iranians Living Below Poverty Line by 2023",
+    "description": "Iranian parliamentary research center reported 60% of Iranians living below the absolute poverty line by 2023, up from 25% in 2010. Youth unemployment above 25%. Brain drain accelerated with 150,000+ skilled professionals emigrating annually. UN identified structural collapse in social safety net.",
+    "occurredAt": "2023-09-01T00:00:00Z",
+    "category": 8,
+    "regionTag": "Iran",
+    "verifiedAt": "2023-09-15T00:00:00Z",
+    "isBaseline": true
+  },
+  {
+    "id": "aa080006-0000-4000-8000-800000000006",
+    "title": "Iran 2022 Budget Deficit Crisis and Currency Collapse",
+    "description": "Iran's 2022 budget was based on oil price assumptions 60% above actual export revenues, creating structural deficit. Government resorted to printing money, accelerating inflation to 52%. Foreign exchange reserves fell to levels insufficient to cover 3 months of imports.",
+    "occurredAt": "2022-03-01T00:00:00Z",
+    "category": 8,
+    "regionTag": "Iran",
+    "verifiedAt": "2022-04-01T00:00:00Z",
     "isBaseline": true
   }
 ]

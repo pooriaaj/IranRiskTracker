@@ -30,6 +30,36 @@
     "signalType": "Included"
   },
   {
+    "id": "bb010004-0000-4000-8000-110000000004",
+    "eventId": "aa060004-0000-4000-8000-600000000004",
+    "eventType": "Historical",
+    "indicatorId": "11111111-1111-4111-8111-111111111111",
+    "rawDelta": 10.0,
+    "adjustedDelta": 10.0,
+    "reason": "Hezbollah-Israel 2006 war: Iran proved it could fight Israel to a standstill via proxy without direct exposure, established deterrence-by-proxy doctrine and Iran's 'Axis of Resistance' as military reality",
+    "signalType": "Included"
+  },
+  {
+    "id": "bb010005-0000-4000-8000-110000000005",
+    "eventId": "aa060005-0000-4000-8000-600000000005",
+    "eventType": "Historical",
+    "indicatorId": "11111111-1111-4111-8111-111111111111",
+    "rawDelta": 10.0,
+    "adjustedDelta": 10.0,
+    "reason": "Iran shot down US Global Hawk: demonstrated advanced air defense capability and willingness to directly strike $220M US asset; near-triggered US military retaliation per Trump's own statement",
+    "signalType": "Included"
+  },
+  {
+    "id": "bb010006-0000-4000-8000-110000000006",
+    "eventId": "aa060006-0000-4000-8000-600000000006",
+    "eventType": "Historical",
+    "indicatorId": "11111111-1111-4111-8111-111111111111",
+    "rawDelta": 11.0,
+    "adjustedDelta": 11.0,
+    "reason": "Operation True Promise II: 200 ballistic missiles reached Israeli military bases, several impacting Nevatim Air Base; largest ballistic missile barrage in modern history, qualitative escalation beyond April 2024 attack",
+    "signalType": "Included"
+  },
+  {
     "id": "bb020001-0000-4000-8000-220000000001",
     "eventId": "aa050001-0000-4000-8000-500000000001",
     "eventType": "Historical",
@@ -47,6 +77,56 @@
     "rawDelta": 9.0,
     "adjustedDelta": 9.0,
     "reason": "Fuel distribution cyberattack: national infrastructure disruption causing civil unrest, demonstrates ongoing cyber warfare against regime systems",
+    "signalType": "Included"
+  },
+  {
+    "id": "bb020003-0000-4000-8000-220000000003",
+    "eventId": "aa050003-0000-4000-8000-500000000003",
+    "eventType": "Historical",
+    "indicatorId": "22222222-2222-4222-8222-222222222222",
+    "rawDelta": 14.0,
+    "adjustedDelta": 14.0,
+    "reason": "Shamoon destroyed 30,000 Aramco workstations: most destructive cyber attack on private infrastructure at the time, Iran proved willingness to conduct destructive cyber operations on critical energy infrastructure of US allies",
+    "signalType": "Included"
+  },
+  {
+    "id": "bb020004-0000-4000-8000-220000000004",
+    "eventId": "aa050004-0000-4000-8000-500000000004",
+    "eventType": "Historical",
+    "indicatorId": "22222222-2222-4222-8222-222222222222",
+    "rawDelta": 12.0,
+    "adjustedDelta": 12.0,
+    "reason": "Iranian hackers penetrated US power grid and dam control systems: first confirmed IRGC-linked attacks on US critical national infrastructure, elevated threat level for homeland security",
+    "signalType": "Included"
+  },
+  {
+    "id": "bb020005-0000-4000-8000-220000000005",
+    "eventId": "aa050005-0000-4000-8000-500000000005",
+    "eventType": "Historical",
+    "indicatorId": "22222222-2222-4222-8222-222222222222",
+    "rawDelta": 14.0,
+    "adjustedDelta": 14.0,
+    "reason": "MuddyWater compromised 50+ US government networks: persistent pre-positioning in federal networks signals preparation for destructive operations during crisis escalation",
+    "signalType": "Included"
+  },
+  {
+    "id": "bb020006-0000-4000-8000-220000000006",
+    "eventId": "aa050006-0000-4000-8000-500000000006",
+    "eventType": "Historical",
+    "indicatorId": "22222222-2222-4222-8222-222222222222",
+    "rawDelta": 12.0,
+    "adjustedDelta": 12.0,
+    "reason": "2024 Iran cyber surge against US/Israel: expanded offensive toolkit with custom wiper malware and election interference capabilities signals Iran preparing full-spectrum cyber deterrence",
+    "signalType": "Included"
+  },
+  {
+    "id": "bb020007-0000-4000-8000-220000000007",
+    "eventId": "aa050007-0000-4000-8000-500000000007",
+    "eventType": "Historical",
+    "indicatorId": "22222222-2222-4222-8222-222222222222",
+    "rawDelta": 7.0,
+    "adjustedDelta": 7.0,
+    "reason": "Gonjeshke Darande attacked Iranian steel and rail: first confirmed destructive attacks on Iranian heavy industry, demonstrated the cyber conflict is bilateral and symmetric, escalating overall operational tempo",
     "signalType": "Included"
   },
   {
@@ -80,6 +160,46 @@
     "signalType": "Included"
   },
   {
+    "id": "bb030004-0000-4000-8000-330000000004",
+    "eventId": "aa010004-0000-4000-8000-100000000004",
+    "eventType": "Historical",
+    "indicatorId": "33333333-3333-4333-8333-333333333333",
+    "rawDelta": 14.0,
+    "adjustedDelta": 14.0,
+    "reason": "December 2017 protests: first time 'Death to Khamenei' chanted openly across 80+ cities; crossed threshold from policy criticism to direct regime-rejection, signaling erosion of Khamenei's personal legitimacy",
+    "signalType": "Included"
+  },
+  {
+    "id": "bb030005-0000-4000-8000-330000000005",
+    "eventId": "aa010005-0000-4000-8000-100000000005",
+    "eventType": "Historical",
+    "indicatorId": "33333333-3333-4333-8333-333333333333",
+    "rawDelta": 12.0,
+    "adjustedDelta": 12.0,
+    "reason": "Khuzestan water protests: Arab-Iranian minority protest over environmental mismanagement signals ethnic dimensions of regime legitimacy crisis and multi-front unrest risk",
+    "signalType": "Included"
+  },
+  {
+    "id": "bb030006-0000-4000-8000-330000000006",
+    "eventId": "aa010006-0000-4000-8000-100000000006",
+    "eventType": "Historical",
+    "indicatorId": "33333333-3333-4333-8333-333333333333",
+    "rawDelta": 12.0,
+    "adjustedDelta": 12.0,
+    "reason": "Teachers and workers strikes 2018-2019: organized labor strikes across multiple sectors demonstrate regime's inability to co-opt economic middle class; coordination signals emerging civil society infrastructure capable of sustained pressure",
+    "signalType": "Included"
+  },
+  {
+    "id": "bb030007-0000-4000-8000-330000000007",
+    "eventId": "aa010007-0000-4000-8000-100000000007",
+    "eventType": "Historical",
+    "indicatorId": "33333333-3333-4333-8333-333333333333",
+    "rawDelta": 8.0,
+    "adjustedDelta": 8.0,
+    "reason": "2024 protest wave: continued street unrest despite reformist election shows structural dissatisfaction transcending electoral politics; boycott movement signals withdrawal of consent for Islamic Republic itself",
+    "signalType": "Included"
+  },
+  {
     "id": "bb040001-0000-4000-8000-440000000001",
     "eventId": "aa030001-0000-4000-8000-300000000001",
     "eventType": "Historical",
@@ -107,6 +227,46 @@
     "rawDelta": 8.0,
     "adjustedDelta": 8.0,
     "reason": "84% enrichment: one step from weapons-grade threshold, IAEA monitoring compromised, breakout window now measured in weeks not months",
+    "signalType": "Included"
+  },
+  {
+    "id": "bb040004-0000-4000-8000-440000000004",
+    "eventId": "aa030004-0000-4000-8000-300000000004",
+    "eventType": "Historical",
+    "indicatorId": "44444444-4444-4444-8444-444444444444",
+    "rawDelta": 12.0,
+    "adjustedDelta": 12.0,
+    "reason": "Iran begins industrial enrichment 2006: transition from research to industrial scale marks point of no return for nuclear program; established Iran as de-facto enriching state in defiance of UNSC",
+    "signalType": "Included"
+  },
+  {
+    "id": "bb040005-0000-4000-8000-440000000005",
+    "eventId": "aa030005-0000-4000-8000-300000000005",
+    "eventType": "Historical",
+    "indicatorId": "44444444-4444-4444-8444-444444444444",
+    "rawDelta": 12.0,
+    "adjustedDelta": 12.0,
+    "reason": "Natanz sabotage triggered IR-6 installation: sabotage response accelerated advanced centrifuge deployment 10x faster than IR-1, net result was faster program advancement not delay, demonstrating resilience of Iran's nuclear infrastructure",
+    "signalType": "Included"
+  },
+  {
+    "id": "bb040006-0000-4000-8000-440000000006",
+    "eventId": "aa030006-0000-4000-8000-300000000006",
+    "eventType": "Historical",
+    "indicatorId": "44444444-4444-4444-8444-444444444444",
+    "rawDelta": 14.0,
+    "adjustedDelta": 14.0,
+    "reason": "128kg of 60% uranium accumulated: sufficient material for 2 nuclear weapons with further enrichment; combined with IAEA monitoring gaps and 84% particle detection, Iran is a threshold nuclear state in practice",
+    "signalType": "Included"
+  },
+  {
+    "id": "bb040007-0000-4000-8000-440000000007",
+    "eventId": "aa030007-0000-4000-8000-300000000007",
+    "eventType": "Historical",
+    "indicatorId": "44444444-4444-4444-8444-444444444444",
+    "rawDelta": 13.0,
+    "adjustedDelta": 13.0,
+    "reason": "IR-6 centrifuges at Fordow: deeply buried Fordow site immune to conventional strikes, hardening program against military options; IR-6 enriches 6x faster than IR-1, dramatically cuts breakout timeline",
     "signalType": "Included"
   },
   {
@@ -140,6 +300,56 @@
     "signalType": "Included"
   },
   {
+    "id": "bb050004-0000-4000-8000-550000000004",
+    "eventId": "aa080004-0000-4000-8000-800000000004",
+    "eventType": "Historical",
+    "indicatorId": "55555555-5555-4555-8555-555555555555",
+    "rawDelta": 15.0,
+    "adjustedDelta": 15.0,
+    "reason": "Iran oil exports collapse from 2.5mbd to 300kbpd: $200 billion lost over 4 years; Iran's primary revenue source effectively strangled, forcing budget cuts to social programs that historically trigger political instability",
+    "signalType": "Included"
+  },
+  {
+    "id": "bb050005-0000-4000-8000-550000000005",
+    "eventId": "aa080005-0000-4000-8000-800000000005",
+    "eventType": "Historical",
+    "indicatorId": "55555555-5555-4555-8555-555555555555",
+    "rawDelta": 14.0,
+    "adjustedDelta": 14.0,
+    "reason": "60% poverty rate 2023: majority of population below absolute poverty threshold, up from 25% in 2010; 150k skilled professionals emigrating annually represents structural collapse of human capital, correlates historically with pre-revolutionary conditions",
+    "signalType": "Included"
+  },
+  {
+    "id": "bb050006-0000-4000-8000-550000000006",
+    "eventId": "aa080006-0000-4000-8000-800000000006",
+    "eventType": "Historical",
+    "indicatorId": "55555555-5555-4555-8555-555555555555",
+    "rawDelta": 12.0,
+    "adjustedDelta": 12.0,
+    "reason": "2022 budget deficit crisis: government forced to print money, accelerating inflation to 52%; foreign exchange reserves insufficient for 3 months imports signals state fiscal insolvency risk",
+    "signalType": "Included"
+  },
+  {
+    "id": "bb050007-0000-4000-8000-550000000007",
+    "eventId": "aa030001-0000-4000-8000-300000000001",
+    "eventType": "Historical",
+    "indicatorId": "55555555-5555-4555-8555-555555555555",
+    "rawDelta": 8.0,
+    "adjustedDelta": 8.0,
+    "reason": "JCPOA collapse economic dimension: immediate reimposition of oil and banking sanctions triggered immediate rial devaluation and inflation surge; economic impact preceded any nuclear escalation and accelerated structural decline",
+    "signalType": "Included"
+  },
+  {
+    "id": "bb050008-0000-4000-8000-550000000008",
+    "eventId": "aa060001-0000-4000-8000-600000000001",
+    "eventType": "Historical",
+    "indicatorId": "55555555-5555-4555-8555-555555555555",
+    "rawDelta": 8.0,
+    "adjustedDelta": 8.0,
+    "reason": "Soleimani assassination economic shock: killed at moment of peak oil price volatility; Iranian oil infrastructure placed on immediate threat footing, foreign investors accelerated exit from any Iran-adjacent exposure",
+    "signalType": "Included"
+  },
+  {
     "id": "bb060001-0000-4000-8000-660000000001",
     "eventId": "aa020001-0000-4000-8000-200000000001",
     "eventType": "Historical",
@@ -167,6 +377,46 @@
     "rawDelta": 6.0,
     "adjustedDelta": 6.0,
     "reason": "Bloody November 2019: estimated 1,500 killed in 6 days, scale of lethal repression indicates regime assessed existential threat from economic protest wave",
+    "signalType": "Included"
+  },
+  {
+    "id": "bb060004-0000-4000-8000-660000000004",
+    "eventId": "aa020004-0000-4000-8000-200000000004",
+    "eventType": "Historical",
+    "indicatorId": "66666666-6666-4666-8666-666666666666",
+    "rawDelta": 14.0,
+    "adjustedDelta": 14.0,
+    "reason": "First execution of Mahsa Amini protesters: regime crossed threshold from imprisonment to judicial execution of protesters, signaling it will use maximum repression regardless of international condemnation",
+    "signalType": "Included"
+  },
+  {
+    "id": "bb060005-0000-4000-8000-660000000005",
+    "eventId": "aa020005-0000-4000-8000-200000000005",
+    "eventType": "Historical",
+    "indicatorId": "66666666-6666-4666-8666-666666666666",
+    "rawDelta": 12.0,
+    "adjustedDelta": 12.0,
+    "reason": "700+ executions in 2024: accelerating pace under nominal reformist president confirms executions are Khamenei-directed policy, not presidential; domestic terror as primary social control mechanism now fully institutionalized",
+    "signalType": "Included"
+  },
+  {
+    "id": "bb060006-0000-4000-8000-660000000006",
+    "eventId": "aa020006-0000-4000-8000-200000000006",
+    "eventType": "Historical",
+    "indicatorId": "66666666-6666-4666-8666-666666666666",
+    "rawDelta": 10.0,
+    "adjustedDelta": 10.0,
+    "reason": "2009 Kahrizak torture and executions: systematic torture and rape of detainees including student protesters established pattern of extrajudicial regime violence that intensified through 2022",
+    "signalType": "Included"
+  },
+  {
+    "id": "bb060007-0000-4000-8000-660000000007",
+    "eventId": "aa010001-0000-4000-8000-100000000001",
+    "eventType": "Historical",
+    "indicatorId": "66666666-6666-4666-8666-666666666666",
+    "rawDelta": 8.0,
+    "adjustedDelta": 8.0,
+    "reason": "Mahsa Amini protests enabled mass repression: scale of protests (160+ cities) provided regime pretext for largest peacetime wave of executions since 1988; link between civil unrest and escalating judicial executions is now firmly established",
     "signalType": "Included"
   },
   {
@@ -200,6 +450,46 @@
     "signalType": "Included"
   },
   {
+    "id": "bb070004-0000-4000-8000-770000000004",
+    "eventId": "aa040004-0000-4000-8000-400000000004",
+    "eventType": "Historical",
+    "indicatorId": "77777777-7777-4777-8777-777777777777",
+    "rawDelta": 14.0,
+    "adjustedDelta": 14.0,
+    "reason": "Mercer Street drone attack killed Western crew: first Iran drone attack killing Western nationals on commercial vessel; established Iran's willingness to kill non-combatant civilians at sea to escalate maritime pressure campaign",
+    "signalType": "Included"
+  },
+  {
+    "id": "bb070005-0000-4000-8000-770000000005",
+    "eventId": "aa040005-0000-4000-8000-400000000005",
+    "eventType": "Historical",
+    "indicatorId": "77777777-7777-4777-8777-777777777777",
+    "rawDelta": 14.0,
+    "adjustedDelta": 14.0,
+    "reason": "MSC Aries seizure 2024: largest commercial vessel seized by Iran, holding 25 crew; simultaneous with Operation True Promise I demonstrated Iran's ability to wage multi-domain escalation campaign; threatened $14 trillion in annual container shipping",
+    "signalType": "Included"
+  },
+  {
+    "id": "bb070006-0000-4000-8000-770000000006",
+    "eventId": "aa040006-0000-4000-8000-400000000006",
+    "eventType": "Historical",
+    "indicatorId": "77777777-7777-4777-8777-777777777777",
+    "rawDelta": 12.0,
+    "adjustedDelta": 12.0,
+    "reason": "HMS Montrose intercept attempt: IRGC attempted to board British vessel in Hormuz even with Royal Navy escort present, demonstrating Iran's willingness to confront Western navies directly in contested waters",
+    "signalType": "Included"
+  },
+  {
+    "id": "bb070007-0000-4000-8000-770000000007",
+    "eventId": "aa040007-0000-4000-8000-400000000007",
+    "eventType": "Historical",
+    "indicatorId": "77777777-7777-4777-8777-777777777777",
+    "rawDelta": 8.0,
+    "adjustedDelta": 8.0,
+    "reason": "Iran gulf mining campaign: pre-positioned naval mines near international shipping lanes as coercive deterrent; CENTCOM surveillance documented pattern of mine-laying that could instantly close Hormuz chokepoint on command",
+    "signalType": "Included"
+  },
+  {
     "id": "bb080001-0000-4000-8000-880000000001",
     "eventId": "aa070001-0000-4000-8000-700000000001",
     "eventType": "Historical",
@@ -227,6 +517,56 @@
     "rawDelta": 8.0,
     "adjustedDelta": 8.0,
     "reason": "JCPOA collapse political dimension: removed diplomatic engagement framework, forced Iran into isolation track that historically correlates with military escalation",
+    "signalType": "Included"
+  },
+  {
+    "id": "bb080004-0000-4000-8000-880000000004",
+    "eventId": "aa070003-0000-4000-8000-700000000003",
+    "eventType": "Historical",
+    "indicatorId": "88888888-8888-4888-8888-888888888888",
+    "rawDelta": 12.0,
+    "adjustedDelta": 12.0,
+    "reason": "Ahmadinejad election 2005: ended Khatami reform era and diplomatic opening; Ahmadinejad's Holocaust denial and nuclear defiance locked Iran into adversarial posture that triggered the sanctions architecture still in effect today",
+    "signalType": "Included"
+  },
+  {
+    "id": "bb080005-0000-4000-8000-880000000005",
+    "eventId": "aa070004-0000-4000-8000-700000000004",
+    "eventType": "Historical",
+    "indicatorId": "88888888-8888-4888-8888-888888888888",
+    "rawDelta": 13.0,
+    "adjustedDelta": 13.0,
+    "reason": "JCPOA revival talks collapse 2022: final closure of diplomatic track for nuclear resolution; with all negotiating frameworks exhausted, only military or regime-change options remain to prevent Iranian nuclear breakout",
+    "signalType": "Included"
+  },
+  {
+    "id": "bb080006-0000-4000-8000-880000000006",
+    "eventId": "aa070005-0000-4000-8000-700000000005",
+    "eventType": "Historical",
+    "indicatorId": "88888888-8888-4888-8888-888888888888",
+    "rawDelta": 10.0,
+    "adjustedDelta": 10.0,
+    "reason": "Raisi death accelerates succession crisis: Khamenei aged 85 is now sole decisive authority; succession instability risk elevated with hardliner factions competing for post-Khamenei positioning, increasing risk of factional conflict or preemptive military moves",
+    "signalType": "Included"
+  },
+  {
+    "id": "bb080007-0000-4000-8000-880000000007",
+    "eventId": "aa070006-0000-4000-8000-700000000006",
+    "eventType": "Historical",
+    "indicatorId": "88888888-8888-4888-8888-888888888888",
+    "rawDelta": 13.0,
+    "adjustedDelta": 13.0,
+    "reason": "Iran-Russia strategic axis: 20-year partnership provides Iran with diplomatic cover at UNSC, Russian air defense technology, and revenue from drone sales; fundamentally shifts regional deterrence calculus against Western intervention",
+    "signalType": "Included"
+  },
+  {
+    "id": "bb080008-0000-4000-8000-880000000008",
+    "eventId": "aa070007-0000-4000-8000-700000000007",
+    "eventType": "Historical",
+    "indicatorId": "88888888-8888-4888-8888-888888888888",
+    "rawDelta": 14.0,
+    "adjustedDelta": 14.0,
+    "reason": "Nuclear fatwa review signals weaponization consideration: public debate about reversing Khamenei's religious prohibition on nuclear weapons is itself a political signal; indicates regime now seriously weighing weapons option as deterrent against perceived existential threats",
     "signalType": "Included"
   }
 ]

@@ -60,7 +60,7 @@ namespace IranRiskTracker.Tests.Phase1
         [Fact]
         public void RiskCalculator_ShouldProduceExpectedSeedScore()
         {
-            // Arrange: enriched seed with 22 Iran historical events (2009-2024), 24 event impacts
+            // Arrange: enriched seed with 53 Iran historical events (2000-2026), 58 event impacts calibrated to ~90% baseline
             var basePath = FindSeedDataPath();
             var seed = new JsonSeedDataProvider(basePath);
             var liveStore = new IranRiskTracker.Infrastructure.Storage.InMemoryLiveEventStore();
@@ -76,10 +76,10 @@ namespace IranRiskTracker.Tests.Phase1
             var military = result.Contributions.Single(c => c.IndicatorKey == "military_activity");
 
             // Expected base scores from event_impacts.json sums (no live events)
-            // cyber: Stuxnet(15) + fuel attack(9) = 24
-            // military: Soleimani(18) + Al-Assad missiles(16) + Israel attack(10) = 44
-            cyber.BaseScore.Should().Be(24.0);
-            military.BaseScore.Should().Be(44.0);
+            // cyber: 15+9+14+12+14+12+7 = 83
+            // military: 18+16+10+10+10+11 = 75
+            cyber.BaseScore.Should().Be(83.0);
+            military.BaseScore.Should().Be(75.0);
 
             // WeightedContribution uses severity-adjusted base score
             var cyberSeverity = 1.05;
@@ -92,7 +92,7 @@ namespace IranRiskTracker.Tests.Phase1
             var totalWeighted = result.Contributions.Sum(c => c.WeightedContribution);
             var expected = Math.Clamp(Math.Round(totalWeighted, 2), 1.0, 100.0);
             result.Score.Should().BeApproximately(expected, 0.001);
-            result.Level.Should().Be(Domain.Enums.RiskLevel.Medium);
+            result.Level.Should().Be(Domain.Enums.RiskLevel.Critical);
         }
 
         [Fact]

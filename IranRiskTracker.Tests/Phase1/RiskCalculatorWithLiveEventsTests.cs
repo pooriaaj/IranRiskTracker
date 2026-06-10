@@ -73,9 +73,17 @@ namespace IranRiskTracker.Tests.Phase1
             var after = calc.GetCurrentRiskAsync().GetAwaiter().GetResult();
             var militaryAfter = after.Contributions.Single(c => c.IndicatorKey == "military_activity");
 
-            // Source 's' is not in seed data, default credibility 0.5 applies -> effective urgency = 17.5
-            // Category severity multiplier for Military = 1.30 -> effective increase = 17.5 * 1.30 * 0.15
-            var expectedIncrease = 17.5 * 1.30 * 0.15; // 3.4125
+            // Source 's' not in seed: default credibility 0.5, recency 1.0 -> live urgency = 35*0.5 = 17.5
+            // Historical base = 75, combined = 75+17.5 = 92.5
+            // Severity-adjusted = clamp(92.5*1.30, 0, 100) = clamp(120.25, 0, 100) = 100 -> weighted = 100*0.15 = 15.0
+            // Before: clamp(75*1.30, 0, 100) = 97.5 -> 97.5*0.15 = 14.625
+            // Expected increase = 15.0 - 14.625 = 0.375
+            var historicalBase = 75.0;
+            var liveUrgency = 17.5;
+            var combined = Math.Min(historicalBase + liveUrgency, 100.0);
+            var severityAfter = Math.Min(combined * 1.30, 100.0);
+            var severityBefore = Math.Min(historicalBase * 1.30, 100.0);
+            var expectedIncrease = (severityAfter - severityBefore) * 0.15;
             (militaryAfter.WeightedContribution - military.WeightedContribution).Should().BeApproximately(expectedIncrease, 0.0001);
         }
 
