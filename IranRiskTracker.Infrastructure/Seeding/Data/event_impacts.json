@@ -778,5 +778,55 @@
     "adjustedDelta": -10.0,
     "reason": "April 8 ceasefire halted active US-Iran-Israel hostilities for 58 days: the only verified pause in kinetic military operations during the 2026 conflict; establishes that military escalation is not fully continuous and that diplomatic pressure can produce temporary de-escalation even under extreme conditions — the ceasefire's subsequent collapse makes it a data point for both de-escalation potential and its fragility",
     "signalType": "Included"
+  },
+  {
+    "id": "bb080016-0000-4000-8000-880000000016",
+    "eventId": "aa070014-0000-4000-8000-700000000014",
+    "eventType": "Historical",
+    "indicatorId": "88888888-8888-4888-8888-888888888888",
+    "rawDelta": 8.0,
+    "adjustedDelta": 8.0,
+    "reason": "Larijani assassination March 17: Israel eliminated Iran's de facto post-Khamenei leader just 17 days after Khamenei's death, completing the decapitation of both Iran's supreme authority and its designated successor figure; combined with the Basij commander killed the same night, the Islamic Republic has now lost its top three command authority figures in under three weeks — a pace of leadership elimination with no modern precedent",
+    "signalType": "Included"
+  },
+  {
+    "id": "bb070010-0000-4000-8000-770000000010",
+    "eventId": "aa040010-0000-4000-8000-400000000010",
+    "eventType": "Historical",
+    "indicatorId": "77777777-7777-4777-8777-777777777777",
+    "rawDelta": 8.0,
+    "adjustedDelta": 8.0,
+    "reason": "Formal Hormuz closure June 11: Iran's joint military command declared a shoot-on-sight order for any vessel attempting passage — this is no longer a threat but an active military interdiction of the world's most critical oil chokepoint; any ship transiting now faces direct IRGC engagement, making insurance and passage effectively impossible",
+    "signalType": "Included"
+  },
+  {
+    "id": "bb050012-0000-4000-8000-550000000012",
+    "eventId": "aa040010-0000-4000-8000-400000000010",
+    "eventType": "Historical",
+    "indicatorId": "55555555-5555-4555-8555-555555555555",
+    "rawDelta": 10.0,
+    "adjustedDelta": 10.0,
+    "reason": "Hormuz closure economic impact: blocking 20% of global oil and LNG supply is the single largest deliberate energy disruption in history; oil price spike beyond the 80% already recorded, combined with frozen SWIFT access and 35%+ GDP contraction, pushes Iran's economic collapse indicators to their maximum value — no functioning economy remains",
+    "signalType": "Included"
+  },
+  {
+    "id": "bb010011-0000-4000-8000-110000000011",
+    "eventId": "aa060011-0000-4000-8000-600000000011",
+    "eventType": "Historical",
+    "indicatorId": "11111111-1111-4111-8111-111111111111",
+    "rawDelta": 8.0,
+    "adjustedDelta": 8.0,
+    "reason": "US 49 Tomahawks + Iran attacks US bases June 11: single highest-intensity day of direct US-Iran exchanges in the war; US strikes on Tehran suburbs, Bandar Abbas, and Kharg Island simultaneously with Iran striking US bases in Kuwait, Bahrain, and Jordan marks the war's geographic footprint expanding to its widest extent and direct combat reaching its highest operational tempo",
+    "signalType": "Included"
+  },
+  {
+    "id": "bb010012-0000-4000-8000-110000000012",
+    "eventId": "aa070015-0000-4000-8000-700000000015",
+    "eventType": "Historical",
+    "indicatorId": "11111111-1111-4111-8111-111111111111",
+    "rawDelta": -8.0,
+    "adjustedDelta": -8.0,
+    "reason": "Trump cancels planned strikes June 11: the first time since the war began that the US has canceled a scheduled military operation against Iran in response to diplomatic signals; even with Iran denying any deal, the cancellation demonstrates a US off-ramp exists and that political pressure can halt kinetic escalation — the net military signal for June 11 is therefore ambiguous: maximum single-day escalation followed by immediate US restraint",
+    "signalType": "Included"
   }
 ]

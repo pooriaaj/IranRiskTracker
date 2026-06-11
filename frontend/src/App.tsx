@@ -187,7 +187,7 @@ export default function App() {
 
               {/* 7-of-8 badge */}
               <div style={{ fontSize: 10, letterSpacing: 2, color: '#884444', marginBottom: 16, textTransform: 'uppercase', fontWeight: 700 }}>
-                7 of 8 indicators at maximum contribution
+                6 of 8 indicators at maximum contribution
               </div>
 
               {/* Trend row */}

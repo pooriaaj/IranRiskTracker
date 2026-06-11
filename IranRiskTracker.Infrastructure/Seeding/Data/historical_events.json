@@ -740,6 +740,46 @@
     "isBaseline": true
   },
   {
+    "id": "aa070014-0000-4000-8000-700000000014",
+    "title": "Israel Assassinates Ali Larijani — Iran's De Facto Post-Khamenei Leader",
+    "description": "On March 17, 2026, Israel assassinated Ali Larijani, Secretary of Iran's Supreme National Security Council, in an airstrike on the outskirts of eastern Tehran. His son Morteza and the head of his office Alireza Bayat were also killed. Larijani had been appointed by President Pezeshkian in August 2025 and was widely described by international media as the most powerful man in Iran and its de facto leader after Khamenei's assassination. On the same night, Basij commander Gholamreza Soleimani was killed in a separate Israeli airstrike. The back-to-back eliminations — Khamenei (Feb 28) and Larijani (Mar 17) — decapitated Iran's two most senior leadership figures within 17 days, leaving the IRGC military council as the only functioning authority.",
+    "occurredAt": "2026-03-17T00:00:00Z",
+    "category": 7,
+    "regionTag": "Tehran",
+    "verifiedAt": "2026-03-17T00:00:00Z",
+    "isBaseline": true
+  },
+  {
+    "id": "aa040010-0000-4000-8000-400000000010",
+    "title": "Iran Formally Closes Strait of Hormuz to All Shipping — Day 104 of War",
+    "description": "On June 11, 2026 (Day 104 of the war), Iran's joint military command formally declared the complete closure of the Strait of Hormuz to all oil tankers and commercial ships, stating that any vessel attempting passage would be shot at. The closure came in direct response to the US firing 49 Tomahawk missiles at Iranian targets including military surveillance systems, communications, and air defense sites, with explosions reported in Tehran suburbs, Bandar Abbas, Qeshm, and Kharg Island. Since February 28, Iran had been intermittently allowing passage for fees reportedly as high as $2 million per vessel. The formal permanent closure blockades 20% of global oil and LNG supply, the single largest disruption to global energy markets in modern history. Iran's IRGC also claimed attacks on US military bases in Kuwait, Bahrain, and Jordan in response.",
+    "occurredAt": "2026-06-11T00:00:00Z",
+    "category": 4,
+    "regionTag": "Strait of Hormuz",
+    "verifiedAt": "2026-06-11T00:00:00Z",
+    "isBaseline": true
+  },
+  {
+    "id": "aa060011-0000-4000-8000-600000000011",
+    "title": "US Fires 49 Tomahawk Missiles at Iran; Iran Attacks US Bases Across Four Countries",
+    "description": "On June 11, 2026, US Central Command fired 49 Tomahawk cruise missiles at Iranian military targets including surveillance systems, communication networks, and air defense sites. Explosions were reported in Tehran suburbs (Abyek, Qarchak, Nazarabad, Karaj), Bandar Abbas, Qeshm, and Kharg Island. In retaliation, Iran's IRGC claimed strikes against US military installations in Kuwait, Bahrain, and Jordan. The exchange marked the single most intense day of direct US-Iran kinetic combat since Operation Epic Fury began. Trump had warned earlier in the day that he would hit Iran 'VERY HARD' and threatened to seize Iran's oil and gas sectors.",
+    "occurredAt": "2026-06-11T00:00:00Z",
+    "category": 6,
+    "regionTag": "Iran, Kuwait, Bahrain, Jordan",
+    "verifiedAt": "2026-06-11T00:00:00Z",
+    "isBaseline": true
+  },
+  {
+    "id": "aa070015-0000-4000-8000-700000000015",
+    "title": "Trump Cancels Planned Iran Strikes, Claims Deal 'Approved' — Iran Denies",
+    "description": "Hours after vowing to hit Iran 'VERY HARD,' President Trump abruptly canceled military strikes planned for the evening of June 11, 2026, claiming that 'discussions have been brought to the highest level of Iranian leadership' and that a deal's 'time and place of signing will be announced shortly.' Stock markets soared and oil prices fell sharply on the announcement. However, Iranian state media reported that Tehran had not approved any text for an initial memorandum of understanding, and Iranian officials stated they viewed any negotiations as a continuation of the battlefield. Multiple analysts noted Trump had made similar claims of an imminent deal in March and May with no agreement emerging. The episode represents a genuine but contested de-escalation signal — the first time the US has canceled a scheduled military operation against Iran since the war began.",
+    "occurredAt": "2026-06-11T00:00:00Z",
+    "category": 7,
+    "regionTag": "Washington DC / Diplomatic",
+    "verifiedAt": "2026-06-11T00:00:00Z",
+    "isBaseline": true
+  },
+  {
     "id": "aa010009-0000-4000-8000-100000000009",
     "title": "Khamenei Orders Massacre of Protesters — 30,000–40,000 Killed in Two Days",
     "description": "On January 9, 2026, Supreme Leader Ali Khamenei ordered security forces to kill protesters and show no mercy. Over January 8–9, IRGC and Basij forces opened fire on crowds across Iran, killing an estimated 30,000–36,500 people in two days according to The Guardian, Time, and Iran International citing local health officials. HRANA confirmed over 7,000 deaths with 11,744 additional cases under review. The massacre was the deadliest state violence in Iran since the 1988 prison executions. Rather than ending the opposition, the slaughter galvanized Reza Pahlavi's international campaign to bring US and Israeli military intervention, directly preceding Operation Epic Fury.",
