@@ -36,7 +36,7 @@ function formatTrend(trend: string): string {
 function trendColor(trend: string) {
   if (trend === 'Increased') return '#ff4444'
   if (trend === 'Decreased') return '#5599bb'
-  return '#555555'
+  return '#aaaaaa'
 }
 
 // ── Score ring ───────────────────────────────────────────────────────────────
@@ -146,7 +146,7 @@ function CollapseCondition({ name, detail }: { name: string; detail: string }) {
           {name}
         </span>
         {'  '}
-        <span style={{ color: '#666666', fontSize: 11, lineHeight: 1.8 }}>{detail}</span>
+        <span style={{ color: '#999999', fontSize: 11, lineHeight: 1.8 }}>{detail}</span>
       </div>
     </div>
   )
@@ -230,7 +230,7 @@ export default function App() {
           <h2 style={{ fontSize: 14, fontWeight: 300, letterSpacing: 10, color: '#882222', margin: '0 0 4px', textTransform: 'uppercase' }}>
             Probability Index
           </h2>
-          <div style={{ fontSize: 10, letterSpacing: 4, color: '#441111', fontWeight: 600, marginBottom: 44, textTransform: 'uppercase' }}>
+          <div style={{ fontSize: 10, letterSpacing: 4, color: '#776666', fontWeight: 600, marginBottom: 44, textTransform: 'uppercase' }}>
             12-Month Forward Assessment · June 2026
           </div>
 
@@ -268,16 +268,16 @@ export default function App() {
 
               {/* Meta row */}
               <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', gap: 20, flexWrap: 'wrap' }}>
-                <span style={{ fontSize: 11, color: '#444444', letterSpacing: 1 }}>
-                  Score <strong style={{ color: '#888888', fontFamily: 'monospace' }}>{data.score?.toFixed(2)}</strong>
+                <span style={{ fontSize: 11, color: '#777777', letterSpacing: 1 }}>
+                  Score <strong style={{ color: '#bbbbbb', fontFamily: 'monospace' }}>{data.score?.toFixed(2)}</strong>
                 </span>
-                <span style={{ color: '#220000' }}>·</span>
-                <span style={{ fontSize: 10, letterSpacing: 2, color: '#662222', fontWeight: 700, textTransform: 'uppercase' }}>
+                <span style={{ color: '#440000' }}>·</span>
+                <span style={{ fontSize: 10, letterSpacing: 2, color: '#aa5555', fontWeight: 700, textTransform: 'uppercase' }}>
                   6 of 8 indicators at max
                 </span>
-                <span style={{ color: '#220000' }}>·</span>
-                <span style={{ fontSize: 11, color: '#444444' }}>
-                  Updated <strong style={{ color: '#777777' }}>{formatTimestamp(data.timestamp)}</strong>
+                <span style={{ color: '#440000' }}>·</span>
+                <span style={{ fontSize: 11, color: '#777777' }}>
+                  Updated <strong style={{ color: '#bbbbbb' }}>{formatTimestamp(data.timestamp)}</strong>
                 </span>
               </div>
             </>
@@ -307,7 +307,7 @@ export default function App() {
               name="External Decapitation Complete"
               detail="900+ strikes (Feb 28) destroyed military infrastructure, nuclear program, and IRGC command. US fired 49 Tomahawks Jun 11. Trump canceled further strikes the same evening — signaling a deal is possible but contested."
             />
-            <div style={{ marginTop: 8, paddingLeft: 28, fontSize: 10, color: '#2a2a2a', fontStyle: 'italic', lineHeight: 2.0 }}>
+            <div style={{ marginTop: 8, paddingLeft: 28, fontSize: 10, color: '#666666', fontStyle: 'italic', lineHeight: 2.0 }}>
               In modern authoritarian collapse cases — Iran 1979, Romania 1989, Iraq 2003, Libya 2011 — none recorded more than 2–3 of these conditions simultaneously. All 5 are currently active.
             </div>
           </Section>
@@ -332,7 +332,7 @@ export default function App() {
                   border: row.current ? '1px solid #2a0000' : '1px solid transparent',
                 }}>
                   <span style={{
-                    color: row.current ? '#cc3333' : '#3a3a3a',
+                    color: row.current ? '#cc3333' : '#888888',
                     fontSize: row.current ? 11 : 10, fontWeight: 700, letterSpacing: 0.5,
                     minWidth: 68, flexShrink: 0, textAlign: 'right',
                   }}>
@@ -341,20 +341,20 @@ export default function App() {
                   <div style={{ flex: 1, position: 'relative', height: row.current ? 8 : 4, background: '#0e0000', borderRadius: 2 }}>
                     <div style={{
                       width: `${Math.min(row.pct, 100)}%`, height: '100%', borderRadius: 2,
-                      background: row.current ? 'linear-gradient(90deg, #770000, #dd0000)' : '#1e0606',
+                      background: row.current ? 'linear-gradient(90deg, #770000, #dd0000)' : '#442222',
                       boxShadow: row.current ? '0 0 14px #aa000055' : 'none',
                       transition: 'width 0.8s ease',
                     }} />
                   </div>
                   <span style={{
-                    color: row.current ? '#ff4444' : '#444444',
+                    color: row.current ? '#ff4444' : '#888888',
                     fontSize: row.current ? 12 : 10,
                     fontFamily: 'monospace', fontWeight: 700, minWidth: 36, flexShrink: 0,
                   }}>
                     {row.pct}%
                   </span>
                   <span style={{
-                    color: row.current ? '#bb3333' : '#303030',
+                    color: row.current ? '#ff4444' : '#888888',
                     fontSize: row.current ? 11 : 10,
                     letterSpacing: 0.3, minWidth: 160, flexShrink: 0,
                     fontWeight: row.current ? 700 : 400,
@@ -364,7 +364,7 @@ export default function App() {
                 </div>
               ))}
             </div>
-            <div style={{ marginTop: 14, fontSize: 10, color: '#2a2a2a', fontStyle: 'italic', lineHeight: 1.9 }}>
+            <div style={{ marginTop: 14, fontSize: 10, color: '#666666', fontStyle: 'italic', lineHeight: 1.9 }}>
               Historical values are approximate scores from the subset of events active at each date.
             </div>
           </Section>
@@ -387,8 +387,8 @@ export default function App() {
         {/* ── Methodology ── */}
         {data && (
           <div style={{ marginTop: 8, padding: '0 4px' }}>
-            <div style={{ fontSize: 11, color: '#333333', lineHeight: 2.0, letterSpacing: 0.4 }}>
-              <span style={{ color: '#661111', fontWeight: 700, letterSpacing: 3, textTransform: 'uppercase', fontSize: 10 }}>
+            <div style={{ fontSize: 11, color: '#777777', lineHeight: 2.0, letterSpacing: 0.4 }}>
+              <span style={{ color: '#aa4444', fontWeight: 700, letterSpacing: 3, textTransform: 'uppercase', fontSize: 10 }}>
                 Methodology
               </span>
               {'  ·  '}
