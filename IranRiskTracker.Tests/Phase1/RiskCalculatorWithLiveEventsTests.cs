@@ -46,10 +46,14 @@ namespace IranRiskTracker.Tests.Phase1
             var after = calc.GetCurrentRiskAsync().GetAwaiter().GetResult();
             var cyberAfter = after.Contributions.Single(c => c.IndicatorKey == "cyber_incidents");
 
-            // Historical base score unchanged; live base score should add LiveUrgencyHigh (20.0) multiplied by indicator weight 0.10
-            // Source 's' is not in seed data, default credibility 0.5 applies -> effective urgency = 10.0
-            // Category severity multiplier for Cyber = 1.05 -> effective increase = 10.0 * 1.05 * 0.10
-            var expectedIncrease = 10.0 * 1.05 * 0.10; // 1.05
+            // Cyber historical base = 90. Live adds 10 (High urgency 20 * default credibility 0.5).
+            // Combined = clamp(90+10, 0, 100) = 100. SeverityAdj before = min(90*1.05,100) = 94.5
+            // SeverityAdj after = min(100*1.05,100) = 100.0. Expected increase = (100.0-94.5)*0.10 = 0.55
+            var cyberBase = 90.0;
+            var liveScore = 10.0;
+            var sevBefore = Math.Min(cyberBase * 1.05, 100.0);
+            var sevAfter = Math.Min(Math.Min(cyberBase + liveScore, 100.0) * 1.05, 100.0);
+            var expectedIncrease = (sevAfter - sevBefore) * 0.10;
             (cyberAfter.WeightedContribution - cyber.WeightedContribution).Should().BeApproximately(expectedIncrease, 0.0001);
         }
 
@@ -74,11 +78,11 @@ namespace IranRiskTracker.Tests.Phase1
             var militaryAfter = after.Contributions.Single(c => c.IndicatorKey == "military_activity");
 
             // Source 's' not in seed: default credibility 0.5, recency 1.0 -> live urgency = 35*0.5 = 17.5
-            // Historical base = 75, combined = 75+17.5 = 92.5
-            // Severity-adjusted = clamp(92.5*1.30, 0, 100) = clamp(120.25, 0, 100) = 100 -> weighted = 100*0.15 = 15.0
-            // Before: clamp(75*1.30, 0, 100) = 97.5 -> 97.5*0.15 = 14.625
-            // Expected increase = 15.0 - 14.625 = 0.375
-            var historicalBase = 75.0;
+            // Historical base = 100 (clamped from sum of 103). Combined = clamp(100+17.5, 0, 100) = 100.
+            // SeverityAdj before = clamp(100*1.30, 0, 100) = 100 -> weighted = 100*0.15 = 15.0
+            // SeverityAdj after  = clamp(100*1.30, 0, 100) = 100 -> weighted = 100*0.15 = 15.0
+            // Expected increase = 0.0 (already clamped at 100 before live event)
+            var historicalBase = 100.0;
             var liveUrgency = 17.5;
             var combined = Math.Min(historicalBase + liveUrgency, 100.0);
             var severityAfter = Math.Min(combined * 1.30, 100.0);

@@ -528,5 +528,155 @@
     "regionTag": "Iran",
     "verifiedAt": "2022-04-01T00:00:00Z",
     "isBaseline": true
+  },
+  {
+    "id": "aa060007-0000-4000-8000-600000000007",
+    "title": "Operation Epic Fury: US-Israel Launch 900 Strikes Against Iran in 12 Hours",
+    "description": "US and Israeli forces launched nearly 900 joint strikes in the first 12 hours of Operation Epic Fury on February 28, 2026, targeting Iranian missile arsenals, air defense systems, IRGC military infrastructure, leadership compounds, and nuclear program sites. Supreme Leader Ali Khamenei was killed in an Israeli air strike. Operation ran from February 28 to May 5, 2026.",
+    "occurredAt": "2026-02-28T00:00:00Z",
+    "category": 6,
+    "regionTag": "Iran (nationwide)",
+    "verifiedAt": "2026-03-01T00:00:00Z",
+    "isBaseline": true
+  },
+  {
+    "id": "aa060008-0000-4000-8000-600000000008",
+    "title": "Iran Operation True Promise IV: Retaliates Across 7 Countries",
+    "description": "Iran launched Operation True Promise IV in immediate retaliation for Operation Epic Fury, extending the war's geographic footprint to Bahrain, Jordan, Kuwait, Qatar, Saudi Arabia, the UAE, and Iraq within 48 hours. Ballistic missiles, cruise missiles, and drones struck US military installations and allied infrastructure across the region.",
+    "occurredAt": "2026-03-01T00:00:00Z",
+    "category": 6,
+    "regionTag": "Middle East (7 countries)",
+    "verifiedAt": "2026-03-02T00:00:00Z",
+    "isBaseline": true
+  },
+  {
+    "id": "aa060009-0000-4000-8000-600000000009",
+    "title": "Iran Breaks April Ceasefire, Fires 30 Ballistic Missiles at Israel",
+    "description": "Iran broke the Pakistan-brokered April 8 ceasefire by firing approximately 30 ballistic missiles at northern Israel on June 6-8, 2026, in retaliation for Israeli strikes on Beirut. First direct Iranian missile attack since the ceasefire. Trump warned Netanyahu 'you'll be on your own' if attacks on Iran continue. Israel and Iran paused operations following the exchange.",
+    "occurredAt": "2026-06-06T00:00:00Z",
+    "category": 6,
+    "regionTag": "Iran to Israel",
+    "verifiedAt": "2026-06-08T00:00:00Z",
+    "isBaseline": true
+  },
+  {
+    "id": "aa070008-0000-4000-8000-700000000008",
+    "title": "Supreme Leader Ali Khamenei Assassinated in Israeli Air Strike",
+    "description": "Ali Khamenei, Supreme Leader of the Islamic Republic since 1989, was killed in an Israeli air strike on February 28, 2026, as part of Operation Epic Fury. Iranian state media announced his death on March 1. His daughter, son-in-law, grandchild, and daughter-in-law were also killed. Eliminated the singular authority figure of the Islamic Republic and triggered acute succession crisis.",
+    "occurredAt": "2026-02-28T00:00:00Z",
+    "category": 7,
+    "regionTag": "Tehran",
+    "verifiedAt": "2026-03-01T00:00:00Z",
+    "isBaseline": true
+  },
+  {
+    "id": "aa070009-0000-4000-8000-700000000009",
+    "title": "Ceasefire Collapses, Trump-Netanyahu Rift, Negotiations Stalled",
+    "description": "The April 8 ceasefire collapsed in early June 2026 as Israel resumed strikes on Beirut and Iran retaliated with ballistic missiles. Trump reportedly called Netanyahu 'f***ing crazy' during a phone call and warned he would be 'on your own.' Iran's Foreign Minister said no significant progress in negotiations. Pakistan brokering further talks with no agreement.",
+    "occurredAt": "2026-06-09T00:00:00Z",
+    "category": 7,
+    "regionTag": "Diplomatic",
+    "verifiedAt": "2026-06-10T00:00:00Z",
+    "isBaseline": true
+  },
+  {
+    "id": "aa030008-0000-4000-8000-300000000008",
+    "title": "US-Israel Strikes Destroy Iran Nuclear Infrastructure at Natanz, Fordow, Parchin",
+    "description": "Operation Epic Fury specifically targeted Iran's nuclear infrastructure including the Natanz enrichment facility, the deeply buried Fordow site, the Parchin explosive research facility, and the Atomic Energy Organization of Iran headquarters. Despite extensive damage, Iran retains approximately 400 kg of 60% enriched uranium whose location remains unknown, creating acute proliferation risk.",
+    "occurredAt": "2026-02-28T00:00:00Z",
+    "category": 3,
+    "regionTag": "Natanz, Fordow, Parchin, Tehran",
+    "verifiedAt": "2026-03-05T00:00:00Z",
+    "isBaseline": true
+  },
+  {
+    "id": "aa010008-0000-4000-8000-100000000008",
+    "title": "Internal Iran Protests Surge Amid War and Regime Decapitation",
+    "description": "Following Khamenei's assassination and Operation Epic Fury strikes, protests erupted across Iranian cities with demonstrators expressing support for regime change. However, opposition leader Reza Pahlavi called on Iranians to 'stay home' and await his signal before rising. IRGC responded with mass arrests. Civil society organizations began coordinating in anticipation of regime collapse.",
+    "occurredAt": "2026-03-02T00:00:00Z",
+    "category": 1,
+    "regionTag": "Tehran, Isfahan, Shiraz, Nationwide",
+    "verifiedAt": "2026-03-05T00:00:00Z",
+    "isBaseline": true
+  },
+  {
+    "id": "aa020007-0000-4000-8000-200000000007",
+    "title": "Iran Mass Executions and Arrests During War Footing",
+    "description": "Iran's judiciary accelerated executions of political prisoners, dissidents, and protest-linked detainees during the war period, framing them as 'traitors collaborating with the enemy.' IRGC conducted sweeping arrests of civil society figures, journalists, and dual nationals. International monitors documented dozens of executions under 'spreading corruption' charges.",
+    "occurredAt": "2026-03-10T00:00:00Z",
+    "category": 2,
+    "regionTag": "Evin Prison, Nationwide",
+    "verifiedAt": "2026-03-15T00:00:00Z",
+    "isBaseline": true
+  },
+  {
+    "id": "aa040008-0000-4000-8000-400000000008",
+    "title": "Iran Threatens Strait of Hormuz Closure, Naval Skirmishes Erupt",
+    "description": "IRGC Navy conducted aggressive maneuvers and threatened to close the Strait of Hormuz during Operation Epic Fury. Deployed fast attack boats and submarines. Oil prices spiked over 80% within days. Multiple naval skirmishes with US 5th Fleet. Iran briefly seized two oil tankers before being forced to release them under US naval pressure.",
+    "occurredAt": "2026-03-01T00:00:00Z",
+    "category": 4,
+    "regionTag": "Strait of Hormuz, Persian Gulf",
+    "verifiedAt": "2026-03-03T00:00:00Z",
+    "isBaseline": true
+  },
+  {
+    "id": "aa080007-0000-4000-8000-800000000007",
+    "title": "Iran Oil Production Collapses Under War, Global Oil Spikes 80%",
+    "description": "Operation Epic Fury strikes targeted Iranian oil infrastructure, effectively halting exports. Oil prices spiked over 80% globally within days, threatening recession. Iran's budget, already in crisis, collapsed entirely. IMF projected Iran's GDP to contract 35% in 2026. Barter economy emerged in major cities as banking system froze under maximum sanctions.",
+    "occurredAt": "2026-03-01T00:00:00Z",
+    "category": 8,
+    "regionTag": "Iran, Global markets",
+    "verifiedAt": "2026-03-10T00:00:00Z",
+    "isBaseline": true
+  },
+  {
+    "id": "aa050008-0000-4000-8000-500000000008",
+    "title": "IRGC Cyber Units Launch Unprecedented Attacks on US Infrastructure During War",
+    "description": "Iranian IRGC cyber units launched the largest coordinated cyberattack campaign in history against US critical infrastructure during Operation Epic Fury, targeting power grids, water systems, financial networks, and hospital systems. CISA issued emergency directives. Several US power utilities reported outages. FBI attributed attacks to IRGC Cyber Command and its civilian contractors.",
+    "occurredAt": "2026-03-02T00:00:00Z",
+    "category": 5,
+    "regionTag": "United States",
+    "verifiedAt": "2026-03-05T00:00:00Z",
+    "isBaseline": true
+  },
+  {
+    "id": "aa060010-0000-4000-8000-600000000010",
+    "title": "US Launches Second Wave of Strikes on Multiple Targets in Southern Iran",
+    "description": "US Central Command launched a second consecutive day of strikes on 'multiple targets in Iran' on June 9-10, 2026, citing Iran's 'unwarranted and continued aggression.' A GBU-39 precision-guided munition struck water reservoirs in the Bamani district of southern Iran, destroying two concrete reservoirs serving over 20,000 civilians. The strikes came after Iran downed a US Army attack helicopter near the Strait of Hormuz. Trump and Defense Secretary Hegseth had warned Tehran of severe consequences. War's 100th-day milestone passed amid active escalation.",
+    "occurredAt": "2026-06-09T00:00:00Z",
+    "category": 6,
+    "regionTag": "Southern Iran, Bamani district",
+    "verifiedAt": "2026-06-10T00:00:00Z",
+    "isBaseline": true
+  },
+  {
+    "id": "aa040009-0000-4000-8000-400000000009",
+    "title": "Iran Shoots Down US Army Attack Helicopter Near Strait of Hormuz",
+    "description": "An Iranian drone collided with a US Army attack helicopter near the Strait of Hormuz on June 9, 2026, causing it to crash. US officials confirmed the downing. CENTCOM said the attack triggered the new wave of US strikes on Iran. The incident demonstrated Iran retains operational drone capability to threaten US military assets in the world's most critical oil chokepoint even as the broader war continues.",
+    "occurredAt": "2026-06-09T00:00:00Z",
+    "category": 4,
+    "regionTag": "Strait of Hormuz",
+    "verifiedAt": "2026-06-09T00:00:00Z",
+    "isBaseline": true
+  },
+  {
+    "id": "aa080008-0000-4000-8000-800000000008",
+    "title": "Southern Iran Strikes Deepen Economic Collapse, Global Oil Markets Rocked",
+    "description": "US precision strikes on southern Iranian infrastructure on June 9-10, 2026, including water and industrial facilities in Hormuz province, compounded Iran's already catastrophic wartime economic collapse. Iranian GDP contraction projections were revised upward. Global oil markets responded with further price spikes as Hormuz traffic disruption intensified. Iran's banking system remained frozen under maximum sanctions with no functioning SWIFT access.",
+    "occurredAt": "2026-06-10T00:00:00Z",
+    "category": 8,
+    "regionTag": "Southern Iran, Global markets",
+    "verifiedAt": "2026-06-10T00:00:00Z",
+    "isBaseline": true
+  },
+  {
+    "id": "aa010009-0000-4000-8000-100000000009",
+    "title": "War's 100th Day: Anti-Regime Protests Intensify Across Iranian Cities",
+    "description": "As the 2026 Iran war passed its 100th day in early June 2026, anti-regime protests intensified in Tehran, Isfahan, Ahvaz, and Mashhad, with demonstrators calling for an end to the Islamic Republic. Reza Pahlavi issued fresh statements urging Iranians to organize. IRGC units were stretched thin between external front and domestic suppression. US strikes on southern Iran and the visible deterioration of daily life accelerated public anger against the regime.",
+    "occurredAt": "2026-06-09T00:00:00Z",
+    "category": 1,
+    "regionTag": "Tehran, Isfahan, Ahvaz, Mashhad",
+    "verifiedAt": "2026-06-10T00:00:00Z",
+    "isBaseline": true
   }
 ]

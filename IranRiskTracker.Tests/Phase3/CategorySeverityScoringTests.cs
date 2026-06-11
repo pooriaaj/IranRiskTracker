@@ -125,7 +125,9 @@ namespace IranRiskTracker.Tests.Phase3
 
             var after = calc.GetCurrentRiskAsync().GetAwaiter().GetResult();
 
-            (after.Score - before.Score).Should().BeApproximately((after.BaseScoreBeforeOverrides - before.BaseScoreBeforeOverrides) + 5.0, 0.0001);
+            var rawExpected = (after.BaseScoreBeforeOverrides - before.BaseScoreBeforeOverrides) + 5.0;
+            var cappedExpected = Math.Min(before.Score + rawExpected, 100.0) - before.Score;
+            (after.Score - before.Score).Should().BeApproximately(cappedExpected, 0.0001);
         }
 
         [Fact]

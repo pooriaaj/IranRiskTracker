@@ -568,5 +568,145 @@
     "adjustedDelta": 14.0,
     "reason": "Nuclear fatwa review signals weaponization consideration: public debate about reversing Khamenei's religious prohibition on nuclear weapons is itself a political signal; indicates regime now seriously weighing weapons option as deterrent against perceived existential threats",
     "signalType": "Included"
+  },
+  {
+    "id": "bb010007-0000-4000-8000-110000000007",
+    "eventId": "aa060007-0000-4000-8000-600000000007",
+    "eventType": "Historical",
+    "indicatorId": "11111111-1111-4111-8111-111111111111",
+    "rawDelta": 15.0,
+    "adjustedDelta": 15.0,
+    "reason": "Operation Epic Fury: 900 US-Israeli strikes in 12 hours represent the largest combined military operation against a nation-state since Gulf War II; destroyed Iran's integrated air defense, ballistic missile arsenals, and eliminated IRGC senior command — qualitative break from all prior proxy/shadow conflict",
+    "signalType": "Included"
+  },
+  {
+    "id": "bb010008-0000-4000-8000-110000000008",
+    "eventId": "aa060008-0000-4000-8000-600000000008",
+    "eventType": "Historical",
+    "indicatorId": "11111111-1111-4111-8111-111111111111",
+    "rawDelta": 13.0,
+    "adjustedDelta": 13.0,
+    "reason": "Iran True Promise IV across 7 countries: widest geographic scope of Iranian military retaliation ever; demonstrated Iran retains significant offensive missile capability even after 900 incoming strikes, and is prepared to draw the entire Gulf region into direct conflict",
+    "signalType": "Included"
+  },
+  {
+    "id": "bb080009-0000-4000-8000-880000000009",
+    "eventId": "aa070008-0000-4000-8000-700000000008",
+    "eventType": "Historical",
+    "indicatorId": "88888888-8888-4888-8888-888888888888",
+    "rawDelta": 20.0,
+    "adjustedDelta": 20.0,
+    "reason": "Khamenei assassination: elimination of the Islamic Republic's supreme decision-making authority after 36 years triggers acute succession crisis; no constitutionally legitimate successor was prepared; IRGC factional competition for control poses acute instability and risk of regime fragmentation",
+    "signalType": "Included"
+  },
+  {
+    "id": "bb080010-0000-4000-8000-880000000010",
+    "eventId": "aa070009-0000-4000-8000-700000000009",
+    "eventType": "Historical",
+    "indicatorId": "88888888-8888-4888-8888-888888888888",
+    "rawDelta": 10.0,
+    "adjustedDelta": 10.0,
+    "reason": "Ceasefire collapse June 2026: breakdown of Pakistan-brokered ceasefire with renewed Iranian missile salvos and Trump-Netanyahu rift removes US as effective restraining force on Israeli escalation; both sides reverting to military solutions signals diplomatic track exhausted",
+    "signalType": "Included"
+  },
+  {
+    "id": "bb040008-0000-4000-8000-440000000008",
+    "eventId": "aa030008-0000-4000-8000-300000000008",
+    "eventType": "Historical",
+    "indicatorId": "44444444-4444-4444-8444-444444444444",
+    "rawDelta": 11.0,
+    "adjustedDelta": 11.0,
+    "reason": "US-Israel struck Natanz, Fordow, Parchin: most comprehensive attack on Iran's nuclear program in history; despite destruction, Iran retains 400kg of 60% enriched uranium at unknown locations — the weapons material survived and poses proliferation risk to non-state actors if regime collapses",
+    "signalType": "Included"
+  },
+  {
+    "id": "bb030008-0000-4000-8000-330000000008",
+    "eventId": "aa010008-0000-4000-8000-100000000008",
+    "eventType": "Historical",
+    "indicatorId": "33333333-3333-4333-8333-333333333333",
+    "rawDelta": 6.0,
+    "adjustedDelta": 6.0,
+    "reason": "War protests 2026: public protests following Khamenei assassination demonstrate regime's domestic legitimacy has not survived the military confrontation; Reza Pahlavi's 'stay home' instruction reveals opposition coordination capability previously unseen",
+    "signalType": "Included"
+  },
+  {
+    "id": "bb060008-0000-4000-8000-660000000008",
+    "eventId": "aa020007-0000-4000-8000-200000000007",
+    "eventType": "Historical",
+    "indicatorId": "66666666-6666-4666-8666-666666666666",
+    "rawDelta": 8.0,
+    "adjustedDelta": 8.0,
+    "reason": "Wartime executions 2026: accelerated execution of political prisoners during existential conflict signals regime applying maximum repression as survival strategy; framing dissidents as enemy collaborators lowers threshold for mass executions if regime feels its survival is threatened",
+    "signalType": "Included"
+  },
+  {
+    "id": "bb070008-0000-4000-8000-770000000008",
+    "eventId": "aa040008-0000-4000-8000-400000000008",
+    "eventType": "Historical",
+    "indicatorId": "77777777-7777-4777-8777-777777777777",
+    "rawDelta": 14.0,
+    "adjustedDelta": 14.0,
+    "reason": "Hormuz closure threat and naval skirmishes 2026: Iran demonstrated capacity to threaten closure of 20% of global oil supply during active conflict; oil spike above 80% triggered global economic stress and showed Iran retains asymmetric leverage even with degraded conventional military",
+    "signalType": "Included"
+  },
+  {
+    "id": "bb050009-0000-4000-8000-550000000009",
+    "eventId": "aa080007-0000-4000-8000-800000000007",
+    "eventType": "Historical",
+    "indicatorId": "55555555-5555-4555-8555-555555555555",
+    "rawDelta": 7.0,
+    "adjustedDelta": 7.0,
+    "reason": "Iran oil collapse and 35% GDP contraction 2026: complete halt of oil exports under wartime conditions destroyed Iran's last significant revenue source; IMF-projected 35% GDP contraction is the threshold that historically triggers state collapse and social breakdown",
+    "signalType": "Included"
+  },
+  {
+    "id": "bb020008-0000-4000-8000-220000000008",
+    "eventId": "aa050008-0000-4000-8000-500000000008",
+    "eventType": "Historical",
+    "indicatorId": "22222222-2222-4222-8222-222222222222",
+    "rawDelta": 7.0,
+    "adjustedDelta": 7.0,
+    "reason": "IRGC wartime cyber campaign against US infrastructure: largest coordinated Iran cyberattack campaign in history targeting power grids, water, hospitals simultaneously; demonstrated Iran's cyber offensive capability survived conventional military degradation and remains a first-tier strategic threat",
+    "signalType": "Included"
+  },
+  {
+    "id": "bb010009-0000-4000-8000-110000000009",
+    "eventId": "aa060010-0000-4000-8000-600000000010",
+    "eventType": "Historical",
+    "indicatorId": "11111111-1111-4111-8111-111111111111",
+    "rawDelta": 5.0,
+    "adjustedDelta": 5.0,
+    "reason": "US Day 2 strikes on southern Iran June 9-10: US military's second consecutive day of strikes against Iran, including civilian water infrastructure, demonstrates sustained military campaign with no off-ramp; war's 100th day passed with active escalation rather than de-escalation",
+    "signalType": "Included"
+  },
+  {
+    "id": "bb070009-0000-4000-8000-770000000009",
+    "eventId": "aa040009-0000-4000-8000-400000000009",
+    "eventType": "Historical",
+    "indicatorId": "77777777-7777-4777-8777-777777777777",
+    "rawDelta": 5.0,
+    "adjustedDelta": 5.0,
+    "reason": "Iran downs US helicopter near Hormuz: Iran retained drone capability to shoot down US military aircraft in the Strait of Hormuz despite months of degradation; directly triggered renewed US strikes and demonstrated Iran's ability to draw the US into escalation cycles in the world's most critical maritime chokepoint",
+    "signalType": "Included"
+  },
+  {
+    "id": "bb050010-0000-4000-8000-550000000010",
+    "eventId": "aa080008-0000-4000-8000-800000000008",
+    "eventType": "Historical",
+    "indicatorId": "55555555-5555-4555-8555-555555555555",
+    "rawDelta": 8.0,
+    "adjustedDelta": 8.0,
+    "reason": "Southern Iran infrastructure strikes June 10: US strikes on water and industrial facilities in Hormuz province accelerate Iran's economic implosion; no functioning SWIFT access, GDP contraction revised beyond 35%, and Hormuz traffic disruption driving global oil spike signal economic conditions historically associated with state collapse rather than adaptation",
+    "signalType": "Included"
+  },
+  {
+    "id": "bb030009-0000-4000-8000-330000000009",
+    "eventId": "aa010009-0000-4000-8000-100000000009",
+    "eventType": "Historical",
+    "indicatorId": "33333333-3333-4333-8333-333333333333",
+    "rawDelta": 8.0,
+    "adjustedDelta": 8.0,
+    "reason": "100th day anti-regime protests June 2026: sustained protests past war's 100-day mark despite IRGC crackdown signals regime cannot suppress domestic opposition even under existential external threat; Reza Pahlavi's public organizing calls and IRGC overstretch between external front and domestic suppression represent compounding structural failure",
+    "signalType": "Included"
   }
 ]

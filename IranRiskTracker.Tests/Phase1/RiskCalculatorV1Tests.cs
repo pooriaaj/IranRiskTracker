@@ -60,7 +60,7 @@ namespace IranRiskTracker.Tests.Phase1
         [Fact]
         public void RiskCalculator_ShouldProduceExpectedSeedScore()
         {
-            // Arrange: enriched seed with 53 Iran historical events (2000-2026), 58 event impacts calibrated to ~90% baseline
+            // Arrange: 68 Iran historical events (2000-2026 incl. Jun 9-10 US southern Iran strikes), 72 event impacts calibrated to ~97.85% baseline
             var basePath = FindSeedDataPath();
             var seed = new JsonSeedDataProvider(basePath);
             var liveStore = new IranRiskTracker.Infrastructure.Storage.InMemoryLiveEventStore();
@@ -76,19 +76,20 @@ namespace IranRiskTracker.Tests.Phase1
             var military = result.Contributions.Single(c => c.IndicatorKey == "military_activity");
 
             // Expected base scores from event_impacts.json sums (no live events)
-            // cyber: 15+9+14+12+14+12+7 = 83
-            // military: 18+16+10+10+10+11 = 75
-            cyber.BaseScore.Should().Be(83.0);
-            military.BaseScore.Should().Be(75.0);
+            // cyber: 15+9+14+12+14+12+7+7 = 90 (no clamp: 90*1.05=94.5 < 100)
+            // military: 18+16+10+10+10+11+15+13 = 103 -> clamped to 100
+            cyber.BaseScore.Should().Be(90.0);
+            military.BaseScore.Should().Be(100.0);
 
-            // WeightedContribution uses severity-adjusted base score
             var cyberSeverity = 1.05;
             var militarySeverity = 1.30;
 
+            // Cyber: no clamping (94.5 < 100)
             cyber.WeightedContribution.Should().BeApproximately(cyber.BaseScore * cyberSeverity * (double)cyber.Weight, 0.0001);
-            military.WeightedContribution.Should().BeApproximately(military.BaseScore * militarySeverity * (double)military.Weight, 0.0001);
+            // Military: severity-adjusted = min(100*1.30, 100) = 100 -> weighted = 100*0.15 = 15.0
+            military.WeightedContribution.Should().BeApproximately(Math.Min(military.BaseScore * militarySeverity, 100.0) * (double)military.Weight, 0.0001);
 
-            // The calculator rounds the total to 2 decimal places and clamps to [1,100]
+            // Total rounds to 2dp and clamps to [1,100]
             var totalWeighted = result.Contributions.Sum(c => c.WeightedContribution);
             var expected = Math.Clamp(Math.Round(totalWeighted, 2), 1.0, 100.0);
             result.Score.Should().BeApproximately(expected, 0.001);

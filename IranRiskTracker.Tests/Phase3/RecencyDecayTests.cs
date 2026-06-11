@@ -122,10 +122,12 @@ namespace IranRiskTracker.Tests.Phase3
             var after = calc.GetCurrentRiskAsync().GetAwaiter().GetResult();
             var cyberAfter = after.Contributions.Single(c => c.IndicatorKey == "cyber_incidents");
 
-            // Ensure override reflected in final score difference
+            // Ensure override reflected in final score difference (capped at 100)
             var baseBefore = before.BaseScoreBeforeOverrides;
             var baseAfter = after.BaseScoreBeforeOverrides;
-            (after.Score - before.Score).Should().BeApproximately((baseAfter - baseBefore) + 5.0, 0.0001);
+            var rawExpected = (baseAfter - baseBefore) + 5.0;
+            var cappedExpected = Math.Min(before.Score + rawExpected, 100.0) - before.Score;
+            (after.Score - before.Score).Should().BeApproximately(cappedExpected, 0.0001);
         }
 
         [Fact]
