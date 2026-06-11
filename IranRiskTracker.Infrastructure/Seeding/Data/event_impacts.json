@@ -670,6 +670,36 @@
     "signalType": "Included"
   },
   {
+    "id": "bb080013-0000-4000-8000-880000000013",
+    "eventId": "aa070010-0000-4000-8000-700000000010",
+    "eventType": "Historical",
+    "indicatorId": "88888888-8888-4888-8888-888888888888",
+    "rawDelta": 5.0,
+    "adjustedDelta": 5.0,
+    "reason": "Reza Pahlavi transition plan published: first time in Islamic Republic history that an organized, internationally-backed alternative government with detailed institutional blueprints exists simultaneously with regime existential threat — eliminates the 'no viable alternative' obstacle that has historically preserved authoritarian regimes through crisis",
+    "signalType": "Included"
+  },
+  {
+    "id": "bb080014-0000-4000-8000-880000000014",
+    "eventId": "aa070011-0000-4000-8000-700000000011",
+    "eventType": "Historical",
+    "indicatorId": "88888888-8888-4888-8888-888888888888",
+    "rawDelta": 5.0,
+    "adjustedDelta": 5.0,
+    "reason": "IRGC silent coup April 2026: formal civilian governance has ended; the IRGC military council now operates entirely outside Iran's constitutional framework — this is not a strongman consolidation but a headless military junta with no institutional legitimacy, no succession mechanism, and active factionalism among commanders",
+    "signalType": "Included"
+  },
+  {
+    "id": "bb080015-0000-4000-8000-880000000015",
+    "eventId": "aa070012-0000-4000-8000-700000000012",
+    "eventType": "Historical",
+    "indicatorId": "88888888-8888-4888-8888-888888888888",
+    "rawDelta": 5.0,
+    "adjustedDelta": 5.0,
+    "reason": "Presidential resignation May 31 2026: the office of the president has been rendered ceremonial under IRGC occupation — the complete collapse of civilian governance removes the last constitutional legitimacy buffer; a state where the elected executive publicly acknowledges he has been cut out of all decisions is a state in terminal institutional failure",
+    "signalType": "Included"
+  },
+  {
     "id": "bb010009-0000-4000-8000-110000000009",
     "eventId": "aa060010-0000-4000-8000-600000000010",
     "eventType": "Historical",
