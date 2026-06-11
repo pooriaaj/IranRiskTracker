@@ -4,8 +4,16 @@ using IranRiskTracker.Infrastructure.Seeding;
 
 var builder = WebApplication.CreateBuilder(args);
 
+// Listen on Railway's PORT env var (defaults to 8080 for Docker)
+var port = Environment.GetEnvironmentVariable("PORT") ?? "8080";
+builder.WebHost.UseUrls($"http://+:{port}");
+
 builder.Services.AddControllers();
 builder.Services.AddOpenApi();
+
+// Open CORS — public read-only API, no auth
+builder.Services.AddCors(options =>
+    options.AddDefaultPolicy(p => p.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod()));
 
 var seedDataPath = Path.Combine(AppContext.BaseDirectory, "Seeding", "Data");
 builder.Services.AddSingleton<ISeedDataProvider>(_ => new JsonSeedDataProvider(seedDataPath));
@@ -25,7 +33,7 @@ if (app.Environment.IsDevelopment())
     app.MapOpenApi();
 }
 
-app.UseHttpsRedirection();
+app.UseCors();
 
 app.UseAuthorization();
 

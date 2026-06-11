@@ -1,19 +1,23 @@
 import type { DashboardSummaryDto, LiveEventDto, LiveEventCreateRequest } from './types'
 
+// In dev: BASE is '' so /api/... is proxied by Vite to localhost:5132
+// In production: set VITE_API_URL=https://your-railway-url.up.railway.app
+const BASE = import.meta.env.VITE_API_URL ?? ''
+
 export async function getDashboardSummary(): Promise<DashboardSummaryDto> {
-  const res = await fetch('/api/dashboard/summary')
+  const res = await fetch(`${BASE}/api/dashboard/summary`)
   if (!res.ok) throw new Error(`API error ${res.status}`)
   return res.json()
 }
 
 export async function getLiveEvents(): Promise<LiveEventDto[]> {
-  const res = await fetch('/api/events/live')
+  const res = await fetch(`${BASE}/api/events/live`)
   if (!res.ok) throw new Error(`API error ${res.status}`)
   return res.json()
 }
 
 export async function postLiveEvent(req: LiveEventCreateRequest): Promise<LiveEventDto> {
-  const res = await fetch('/api/events/live', {
+  const res = await fetch(`${BASE}/api/events/live`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(req),

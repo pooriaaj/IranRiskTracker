@@ -1,0 +1,9 @@
+**/.git
+**/obj
+**/bin
+frontend/
+**/*.user
+**/*.suo
+.vs/
+.vscode/
+IranRiskTracker.Tests/
