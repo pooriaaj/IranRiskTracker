@@ -591,12 +591,12 @@
   },
   {
     "id": "aa010008-0000-4000-8000-100000000008",
-    "title": "Internal Iran Protests Surge Amid War and Regime Decapitation",
-    "description": "Following Khamenei's assassination and Operation Epic Fury strikes, protests erupted across Iranian cities with demonstrators expressing support for regime change. However, opposition leader Reza Pahlavi called on Iranians to 'stay home' and await his signal before rising. IRGC responded with mass arrests. Civil society organizations began coordinating in anticipation of regime collapse.",
-    "occurredAt": "2026-03-02T00:00:00Z",
+    "title": "Nationwide Protests Erupt Across Iran — Largest Since 1979 Revolution",
+    "description": "Sparked by economic collapse and currency freefall, mass protests began December 28, 2025, spreading to over 200 cities within days. Reza Pahlavi called for coordinated simultaneous protests at 8:00 PM on January 8-9, 2026. Millions responded. The protests quickly became explicitly anti-regime, calling for an end to the Islamic Republic. Security forces and internet shutdowns failed to contain the uprising, setting the stage for the January massacre.",
+    "occurredAt": "2025-12-28T00:00:00Z",
     "category": 1,
-    "regionTag": "Tehran, Isfahan, Shiraz, Nationwide",
-    "verifiedAt": "2026-03-05T00:00:00Z",
+    "regionTag": "Nationwide (200+ cities)",
+    "verifiedAt": "2026-01-05T00:00:00Z",
     "isBaseline": true
   },
   {
@@ -640,6 +640,16 @@
     "isBaseline": true
   },
   {
+    "id": "aa030009-0000-4000-8000-300000000009",
+    "title": "US and Israel Discuss Special Forces Raid to Seize Iran's Nuclear Uranium Stockpile",
+    "description": "Axios (March 8) and CNN (March 9, 2026) reported that US and Israeli officials were actively discussing deploying special forces into Iran to secure and seize an estimated 400 kg of 60%-enriched uranium believed to be stored in underground tunnels at Isfahan — tunnels too deep for conventional airstrikes. Capturing the stockpile would require a significant ground force beyond a small special operations footprint. The White House said ground operations are 'not part of the plan right now' but Trump was keeping options open. The discussions reflect active US planning for physical control of Iran's nuclear material in a post-regime-collapse scenario.",
+    "occurredAt": "2026-03-08T00:00:00Z",
+    "category": 3,
+    "regionTag": "Isfahan (underground nuclear tunnels)",
+    "verifiedAt": "2026-03-09T00:00:00Z",
+    "isBaseline": true
+  },
+  {
     "id": "aa060010-0000-4000-8000-600000000010",
     "title": "US Launches Second Wave of Strikes on Multiple Targets in Southern Iran",
     "description": "US Central Command launched a second consecutive day of strikes on 'multiple targets in Iran' on June 9-10, 2026, citing Iran's 'unwarranted and continued aggression.' A GBU-39 precision-guided munition struck water reservoirs in the Bamani district of southern Iran, destroying two concrete reservoirs serving over 20,000 civilians. The strikes came after Iran downed a US Army attack helicopter near the Strait of Hormuz. Trump and Defense Secretary Hegseth had warned Tehran of severe consequences. War's 100th-day milestone passed amid active escalation.",
@@ -671,12 +681,12 @@
   },
   {
     "id": "aa010009-0000-4000-8000-100000000009",
-    "title": "War's 100th Day: Anti-Regime Protests Intensify Across Iranian Cities",
-    "description": "As the 2026 Iran war passed its 100th day in early June 2026, anti-regime protests intensified in Tehran, Isfahan, Ahvaz, and Mashhad, with demonstrators calling for an end to the Islamic Republic. Reza Pahlavi issued fresh statements urging Iranians to organize. IRGC units were stretched thin between external front and domestic suppression. US strikes on southern Iran and the visible deterioration of daily life accelerated public anger against the regime.",
-    "occurredAt": "2026-06-09T00:00:00Z",
+    "title": "Khamenei Orders Massacre of Protesters — 30,000–40,000 Killed in Two Days",
+    "description": "On January 9, 2026, Supreme Leader Ali Khamenei ordered security forces to kill protesters and show no mercy. Over January 8–9, IRGC and Basij forces opened fire on crowds across Iran, killing an estimated 30,000–36,500 people in two days according to The Guardian, Time, and Iran International citing local health officials. HRANA confirmed over 7,000 deaths with 11,744 additional cases under review. The massacre was the deadliest state violence in Iran since the 1988 prison executions. Rather than ending the opposition, the slaughter galvanized Reza Pahlavi's international campaign to bring US and Israeli military intervention, directly preceding Operation Epic Fury.",
+    "occurredAt": "2026-01-09T00:00:00Z",
     "category": 1,
-    "regionTag": "Tehran, Isfahan, Ahvaz, Mashhad",
-    "verifiedAt": "2026-06-10T00:00:00Z",
+    "regionTag": "Nationwide",
+    "verifiedAt": "2026-01-15T00:00:00Z",
     "isBaseline": true
   }
 ]

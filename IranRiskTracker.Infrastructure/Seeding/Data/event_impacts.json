@@ -626,7 +626,7 @@
     "indicatorId": "33333333-3333-4333-8333-333333333333",
     "rawDelta": 6.0,
     "adjustedDelta": 6.0,
-    "reason": "War protests 2026: public protests following Khamenei assassination demonstrate regime's domestic legitimacy has not survived the military confrontation; Reza Pahlavi's 'stay home' instruction reveals opposition coordination capability previously unseen",
+    "reason": "Dec 2025 nationwide protests: largest protests since 1979 Revolution, spreading to 200+ cities within days; Reza Pahlavi's coordinated 8PM call-to-action on Jan 8-9 demonstrates organized transnational opposition infrastructure capable of mass mobilization — structural precondition for regime change",
     "signalType": "Included"
   },
   {
@@ -706,7 +706,17 @@
     "indicatorId": "33333333-3333-4333-8333-333333333333",
     "rawDelta": 8.0,
     "adjustedDelta": 8.0,
-    "reason": "100th day anti-regime protests June 2026: sustained protests past war's 100-day mark despite IRGC crackdown signals regime cannot suppress domestic opposition even under existential external threat; Reza Pahlavi's public organizing calls and IRGC overstretch between external front and domestic suppression represent compounding structural failure",
+    "reason": "January 8-9 massacre 2026: Khamenei's order to kill 30,000-40,000+ protesters in two days is the deadliest regime crackdown since 1988; the scale of killing demonstrates the regime is operating in existential-survival mode and has abandoned all pretense of legitimacy — historically, state massacres of this magnitude either consolidate regimes or accelerate their collapse within 12 months",
+    "signalType": "Included"
+  },
+  {
+    "id": "bb040009-0000-4000-8000-440000000009",
+    "eventId": "aa030009-0000-4000-8000-300000000009",
+    "eventType": "Historical",
+    "indicatorId": "44444444-4444-4444-8444-444444444444",
+    "rawDelta": 4.0,
+    "adjustedDelta": 4.0,
+    "reason": "US/Israel special forces contingency for Isfahan nuclear tunnels: active US-Israeli planning to deploy ground forces to seize 400kg of 60%-enriched uranium at Isfahan — too deep for airstrikes — signals the nuclear material is ungoverned and potentially in play; a failed or delayed ground mission risks proliferation to non-state actors in a post-collapse Iran scenario",
     "signalType": "Included"
   }
 ]

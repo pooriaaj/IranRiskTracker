@@ -60,7 +60,7 @@ namespace IranRiskTracker.Tests.Phase1
         [Fact]
         public void RiskCalculator_ShouldProduceExpectedSeedScore()
         {
-            // Arrange: 68 Iran historical events (2000-2026 incl. Jun 9-10 US southern Iran strikes), 72 event impacts calibrated to ~97.85% baseline
+            // Arrange: 69 Iran historical events (2000-2026 incl. Jan massacre, Jun 9-10 US strikes, US nuclear ground option), 73 event impacts calibrated to ~98.45% baseline
             var basePath = FindSeedDataPath();
             var seed = new JsonSeedDataProvider(basePath);
             var liveStore = new IranRiskTracker.Infrastructure.Storage.InMemoryLiveEventStore();
