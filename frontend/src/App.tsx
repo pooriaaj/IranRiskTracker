@@ -28,50 +28,79 @@ function formatTrend(trend: string): string {
   switch (trend) {
     case 'Increased': return '▲ RISING'
     case 'Decreased': return '▼ FALLING'
-    case 'Unchanged': return '→ STABLE'
+    case 'Unchanged': return '— STABLE'
     case 'NoPreviousSnapshot': return 'LIVE READING'
     default: return trend || '—'
   }
 }
 function trendColor(trend: string) {
-  if (trend === 'Increased') return '#ff3333'
-  if (trend === 'Decreased') return '#66aacc'
-  if (trend === 'NoPreviousSnapshot') return '#cc4444'
-  return '#888888'
-}
-function scoreToRingColor(pct: number) {
-  if (pct >= 75) return '#cc0000'
-  if (pct >= 50) return '#ff4400'
-  if (pct >= 25) return '#ff8800'
-  return '#888'
+  if (trend === 'Increased') return '#ff4444'
+  if (trend === 'Decreased') return '#5599bb'
+  return '#555555'
 }
 
 // ── Score ring ───────────────────────────────────────────────────────────────
 
 function ScoreRing({ pct, level }: { pct: number; level: number | string }) {
-  const r = 118, cx = 140, cy = 140, size = 280
+  const r = 130, cx = 150, cy = 150, size = 300
   const circ = 2 * Math.PI * r
   const offset = circ * (1 - Math.min(pct, 100) / 100)
-  const col = scoreToRingColor(pct)
+  const isCritical = pct >= 75
   return (
     <svg width={size} height={size} viewBox={`0 0 ${size} ${size}`}
-      style={{ filter: pct >= 75 ? 'drop-shadow(0 0 28px #cc000088)' : 'none' }}>
-      <circle cx={cx} cy={cy} r={r} fill="none" stroke="#1a0000" strokeWidth="14" />
-      <circle cx={cx} cy={cy} r={r} fill="none" stroke={col} strokeWidth="14"
-        strokeLinecap="round" strokeDasharray={circ} strokeDashoffset={offset}
+      style={{ filter: isCritical ? 'drop-shadow(0 0 36px #cc000099)' : 'none' }}>
+      <defs>
+        <linearGradient id="ringGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+          <stop offset="0%" stopColor="#880000" />
+          <stop offset="100%" stopColor="#ff2222" />
+        </linearGradient>
+      </defs>
+      {/* Track */}
+      <circle cx={cx} cy={cy} r={r} fill="none" stroke="#160000" strokeWidth="16" />
+      {/* Progress */}
+      <circle cx={cx} cy={cy} r={r} fill="none"
+        stroke="url(#ringGrad)" strokeWidth="16"
+        strokeLinecap="round"
+        strokeDasharray={circ} strokeDashoffset={offset}
         transform={`rotate(-90 ${cx} ${cy})`}
-        style={{ transition: 'stroke-dashoffset 0.8s ease' }} />
-      <text x={cx} y={cy - 18} textAnchor="middle" dominantBaseline="middle"
-        fill="#ffffff" fontSize="60" fontWeight="900"
-        fontFamily="'Inter','Segoe UI',sans-serif" letterSpacing="-2">
+        style={{ transition: 'stroke-dashoffset 0.9s ease' }} />
+      {/* Score */}
+      <text x={cx} y={cy - 14} textAnchor="middle" dominantBaseline="middle"
+        fill="#ffffff" fontSize="68" fontWeight="900"
+        fontFamily="'Inter','Segoe UI',sans-serif" letterSpacing="-3">
         {pct}%
       </text>
-      <text x={cx} y={cy + 22} textAnchor="middle" dominantBaseline="middle"
-        fill={col} fontSize="13" fontWeight="800"
+      {/* Level badge */}
+      <rect x={cx - 44} y={cy + 20} width={88} height={22} rx={3} fill="#1a0000" />
+      <text x={cx} y={cy + 31} textAnchor="middle" dominantBaseline="middle"
+        fill="#ff3333" fontSize="11" fontWeight="800"
         fontFamily="'Inter','Segoe UI',sans-serif" letterSpacing="4">
         {formatRiskLevel(level).toUpperCase()}
       </text>
     </svg>
+  )
+}
+
+// ── Section wrapper ──────────────────────────────────────────────────────────
+
+function Section({ children, label }: { children: React.ReactNode; label: string }) {
+  return (
+    <div style={{
+      background: '#080000',
+      border: '1px solid #1e0000',
+      borderLeft: '3px solid #660000',
+      borderRadius: 4,
+      padding: '28px 32px',
+      marginBottom: 20,
+    }}>
+      <div style={{
+        fontSize: 10, letterSpacing: 5, color: '#cc3333',
+        fontWeight: 800, marginBottom: 24, textTransform: 'uppercase',
+      }}>
+        {label}
+      </div>
+      {children}
+    </div>
   )
 }
 
@@ -80,21 +109,20 @@ function ScoreRing({ pct, level }: { pct: number; level: number | string }) {
 function IndicatorBar({ name, val, max }: { name: string; val: number; max: number }) {
   const pct = max > 0 ? (val / max) * 100 : 0
   return (
-    <div style={{ marginBottom: 18 }}>
-      <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 6 }}>
-        <span style={{ color: '#cccccc', fontSize: 11, fontWeight: 700, letterSpacing: 1.5, textTransform: 'uppercase' }}>
+    <div style={{ marginBottom: 16 }}>
+      <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 5 }}>
+        <span style={{ color: '#bbbbbb', fontSize: 11, fontWeight: 700, letterSpacing: 1, textTransform: 'uppercase' }}>
           {name}
         </span>
         <span style={{ color: '#ff5555', fontSize: 11, fontWeight: 700, fontFamily: 'monospace' }}>
           +{val.toFixed(3)}
         </span>
       </div>
-      <div style={{ background: '#150000', borderRadius: 3, height: 6, overflow: 'hidden' }}>
+      <div style={{ background: '#0e0000', borderRadius: 3, height: 5, overflow: 'hidden' }}>
         <div style={{
           width: `${pct}%`, height: '100%', borderRadius: 3,
-          background: 'linear-gradient(90deg, #880000, #dd0000)',
-          transition: 'width 0.6s ease',
-          boxShadow: '0 0 10px #cc000066',
+          background: 'linear-gradient(90deg, #660000, #cc0000)',
+          transition: 'width 0.7s ease',
         }} />
       </div>
     </div>
@@ -105,13 +133,20 @@ function IndicatorBar({ name, val, max }: { name: string; val: number; max: numb
 
 function CollapseCondition({ name, detail }: { name: string; detail: string }) {
   return (
-    <div style={{ display: 'flex', gap: 14, marginBottom: 20, alignItems: 'flex-start' }}>
-      <span style={{ color: '#cc0000', fontWeight: 900, fontSize: 14, minWidth: 16, lineHeight: 1.4, flexShrink: 0, marginTop: 1 }}>✓</span>
-      <div style={{ lineHeight: 1.8 }}>
-        <span style={{ color: '#eeeeee', fontWeight: 700, fontSize: 11, letterSpacing: 1.5, textTransform: 'uppercase' }}>
+    <div style={{ display: 'flex', gap: 14, marginBottom: 22, alignItems: 'flex-start' }}>
+      <span style={{
+        color: '#ff3333', fontWeight: 900, fontSize: 13,
+        minWidth: 14, lineHeight: 1.6, flexShrink: 0, marginTop: 1,
+      }}>✓</span>
+      <div>
+        <span style={{
+          color: '#ffffff', fontWeight: 800, fontSize: 12,
+          letterSpacing: 1.5, textTransform: 'uppercase',
+        }}>
           {name}
         </span>
-        <span style={{ color: '#888888', fontSize: 11 }}>{'  ·  '}{detail}</span>
+        {'  '}
+        <span style={{ color: '#666666', fontSize: 11, lineHeight: 1.8 }}>{detail}</span>
       </div>
     </div>
   )
@@ -139,102 +174,119 @@ export default function App() {
   const maxContrib = data ? Math.max(...data.topContributors.map(t => t.weightedContribution), 0.01) : 1
 
   return (
-    <div style={{ minHeight: '100vh', background: '#050505', color: '#f5f5f5', fontFamily: "'Inter','Segoe UI',sans-serif", display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+    <div style={{
+      minHeight: '100vh',
+      background: '#000000',
+      color: '#f5f5f5',
+      fontFamily: "'Inter','Segoe UI',sans-serif",
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'center',
+    }}>
 
       {/* ── Header bar ── */}
-      <div style={{ width: '100%', borderBottom: '1px solid #220000', background: '#080000', padding: '13px 28px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', boxSizing: 'border-box' }}>
+      <div style={{
+        width: '100%',
+        borderBottom: '1px solid #1a0000',
+        background: '#050000',
+        padding: '12px 32px',
+        display: 'flex',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        boxSizing: 'border-box',
+      }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-          <div style={{ width: 8, height: 8, borderRadius: '50%', background: '#cc0000', boxShadow: '0 0 10px #cc0000', animation: 'pulse 2s infinite' }} />
-          <span style={{ fontSize: 11, fontWeight: 800, letterSpacing: 5, color: '#dd3333', textTransform: 'uppercase' }}>
+          <div style={{
+            width: 7, height: 7, borderRadius: '50%',
+            background: '#dd0000', boxShadow: '0 0 8px #dd0000',
+            animation: 'pulse 2s infinite',
+          }} />
+          <span style={{ fontSize: 11, fontWeight: 800, letterSpacing: 4, color: '#cc2222', textTransform: 'uppercase' }}>
             Iran Risk Tracker
           </span>
         </div>
-        <span style={{ fontSize: 10, color: '#555555', letterSpacing: 1.5, textTransform: 'uppercase' }}>
+        <span style={{ fontSize: 10, color: '#444444', letterSpacing: 1.5, textTransform: 'uppercase' }}>
           {formatTimestamp(refreshedAt.toISOString())}
         </span>
       </div>
 
-      <div style={{ width: '100%', maxWidth: 840, padding: '48px 28px 60px', boxSizing: 'border-box' }}>
+      <div style={{ width: '100%', maxWidth: 820, padding: '52px 28px 64px', boxSizing: 'border-box' }}>
 
         {/* ── Hero ── */}
-        <div style={{ textAlign: 'center', marginBottom: 56 }}>
-          <div style={{ fontSize: 10, letterSpacing: 6, color: '#cc3333', fontWeight: 700, marginBottom: 14, textTransform: 'uppercase' }}>
+        <div style={{ textAlign: 'center', marginBottom: 36, position: 'relative' }}>
+          {/* Background glow */}
+          <div style={{
+            position: 'absolute', top: -40, left: '50%', transform: 'translateX(-50%)',
+            width: 600, height: 320, pointerEvents: 'none',
+            background: 'radial-gradient(ellipse at center, #22000040 0%, transparent 70%)',
+          }} />
+
+          <div style={{ fontSize: 10, letterSpacing: 6, color: '#882222', fontWeight: 700, marginBottom: 12, textTransform: 'uppercase' }}>
             Intelligence Assessment — Islamic Republic of Iran
           </div>
-          <h1 style={{ fontSize: 30, fontWeight: 900, letterSpacing: 6, color: '#ffffff', margin: '0 0 6px', textTransform: 'uppercase' }}>
+          <h1 style={{ fontSize: 36, fontWeight: 900, letterSpacing: 8, color: '#ffffff', margin: '0 0 4px', textTransform: 'uppercase' }}>
             Regime Collapse
           </h1>
-          <h2 style={{ fontSize: 14, fontWeight: 400, letterSpacing: 8, color: '#aa3333', margin: '0 0 6px', textTransform: 'uppercase' }}>
+          <h2 style={{ fontSize: 14, fontWeight: 300, letterSpacing: 10, color: '#882222', margin: '0 0 4px', textTransform: 'uppercase' }}>
             Probability Index
           </h2>
-          <div style={{ fontSize: 10, letterSpacing: 4, color: '#553333', fontWeight: 600, marginBottom: 40, textTransform: 'uppercase' }}>
+          <div style={{ fontSize: 10, letterSpacing: 4, color: '#441111', fontWeight: 600, marginBottom: 44, textTransform: 'uppercase' }}>
             12-Month Forward Assessment · June 2026
           </div>
 
           {loading && !data && (
-            <div style={{ color: '#555', fontSize: 12, letterSpacing: 3, textTransform: 'uppercase' }}>Loading…</div>
+            <div style={{ color: '#444', fontSize: 12, letterSpacing: 3, textTransform: 'uppercase' }}>Loading…</div>
           )}
           {err && (
-            <div style={{ color: '#ff5555', fontSize: 12, background: '#110000', padding: '12px 20px', borderRadius: 4, border: '1px solid #330000' }}>
+            <div style={{ color: '#ff5555', fontSize: 12, background: '#0d0000', padding: '12px 20px', borderRadius: 4, border: '1px solid #2a0000' }}>
               Error: {err}
             </div>
           )}
 
           {data && (
             <>
-              {/* Radial glow behind ring */}
-              <div style={{ position: 'relative', display: 'inline-block', marginBottom: 16 }}>
+              <div style={{ position: 'relative', display: 'inline-block', marginBottom: 20 }}>
                 <div style={{
-                  position: 'absolute', inset: -40,
-                  background: 'radial-gradient(ellipse at center, #33000033 0%, transparent 70%)',
-                  pointerEvents: 'none',
+                  position: 'absolute', inset: -50, pointerEvents: 'none',
+                  background: 'radial-gradient(ellipse at center, #33000044 0%, transparent 65%)',
                 }} />
                 <ScoreRing pct={pct} level={data.level} />
               </div>
 
               {/* Trend */}
-              <div style={{ fontSize: 13, fontWeight: 800, letterSpacing: 4, color: trendColor(data.scoreTrend), marginBottom: 10, textTransform: 'uppercase' }}>
+              <div style={{
+                fontSize: 12, fontWeight: 700, letterSpacing: 5,
+                color: trendColor(data.scoreTrend), marginBottom: 14, textTransform: 'uppercase',
+              }}>
                 {formatTrend(data.scoreTrend)}
-                {data.scoreTrend === 'Increased' && (
-                  <span style={{ marginLeft: 10, fontFamily: 'monospace', fontSize: 12, opacity: 0.8 }}>
-                    {formatScoreChange(data.scoreChange)}
-                  </span>
-                )}
-                {data.scoreTrend === 'Decreased' && (
-                  <span style={{ marginLeft: 10, fontFamily: 'monospace', fontSize: 12, opacity: 0.8 }}>
+                {(data.scoreTrend === 'Increased' || data.scoreTrend === 'Decreased') && (
+                  <span style={{ marginLeft: 10, fontFamily: 'monospace', fontSize: 11, opacity: 0.8 }}>
                     {formatScoreChange(data.scoreChange)}
                   </span>
                 )}
               </div>
 
-              {/* Score + badge row */}
-              <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', gap: 24, marginBottom: 8 }}>
-                <span style={{ fontSize: 11, color: '#666666', letterSpacing: 1.5, textTransform: 'uppercase' }}>
-                  Score <strong style={{ color: '#cccccc', fontFamily: 'monospace' }}>{data.score?.toFixed(2)}</strong>
+              {/* Meta row */}
+              <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', gap: 20, flexWrap: 'wrap' }}>
+                <span style={{ fontSize: 11, color: '#444444', letterSpacing: 1 }}>
+                  Score <strong style={{ color: '#888888', fontFamily: 'monospace' }}>{data.score?.toFixed(2)}</strong>
                 </span>
-                <span style={{ color: '#330000', fontSize: 11 }}>·</span>
-                <span style={{ fontSize: 10, letterSpacing: 2, color: '#773333', fontWeight: 700, textTransform: 'uppercase' }}>
+                <span style={{ color: '#220000' }}>·</span>
+                <span style={{ fontSize: 10, letterSpacing: 2, color: '#662222', fontWeight: 700, textTransform: 'uppercase' }}>
                   6 of 8 indicators at max
                 </span>
-                <span style={{ color: '#330000', fontSize: 11 }}>·</span>
-                <span style={{ fontSize: 11, color: '#666666', letterSpacing: 1, textTransform: 'uppercase' }}>
-                  Updated <strong style={{ color: '#aaaaaa' }}>{formatTimestamp(data.timestamp)}</strong>
+                <span style={{ color: '#220000' }}>·</span>
+                <span style={{ fontSize: 11, color: '#444444' }}>
+                  Updated <strong style={{ color: '#777777' }}>{formatTimestamp(data.timestamp)}</strong>
                 </span>
               </div>
             </>
           )}
         </div>
 
-        {/* ── Divider ── */}
-        {data && <div style={{ borderTop: '1px solid #220000', marginBottom: 40 }} />}
-
         {/* ── Regime Collapse Framework ── */}
         {data && (
-          <div style={{ marginBottom: 44 }}>
-            <div style={{ fontSize: 10, letterSpacing: 5, color: '#cc3333', fontWeight: 700, marginBottom: 26, textTransform: 'uppercase' }}>
-              Regime Collapse Conditions — 5 of 5 Met
-            </div>
-
+          <Section label="Regime Collapse Conditions — 5 of 5 Met">
             <CollapseCondition
               name="Authority Vacuum"
               detail="Khamenei assassinated Feb 28, 2026. Larijani (de facto successor) assassinated Mar 17. No constitutionally legitimate authority remains. IRGC factions competing with no unifying command."
@@ -255,92 +307,72 @@ export default function App() {
               name="External Decapitation Complete"
               detail="900+ strikes (Feb 28) destroyed military infrastructure, nuclear program, and IRGC command. US fired 49 Tomahawks Jun 11. Trump canceled further strikes the same evening — signaling a deal is possible but contested."
             />
-
-            <div style={{ marginTop: 14, paddingLeft: 30, fontSize: 10, color: '#3a3a3a', fontStyle: 'italic', letterSpacing: 0.3, lineHeight: 2.0 }}>
+            <div style={{ marginTop: 8, paddingLeft: 28, fontSize: 10, color: '#2a2a2a', fontStyle: 'italic', lineHeight: 2.0 }}>
               In modern authoritarian collapse cases — Iran 1979, Romania 1989, Iraq 2003, Libya 2011 — none recorded more than 2–3 of these conditions simultaneously. All 5 are currently active.
             </div>
-          </div>
+          </Section>
         )}
-
-        {data && <div style={{ borderTop: '1px solid #220000', marginBottom: 40 }} />}
 
         {/* ── Score Trajectory ── */}
         {data && (
-          <div style={{ marginBottom: 44 }}>
-            <div style={{ fontSize: 10, letterSpacing: 5, color: '#cc3333', fontWeight: 700, marginBottom: 26, textTransform: 'uppercase' }}>
-              Score Trajectory — 2009 to Present
-            </div>
-            <div style={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
+          <Section label="Score Trajectory — 2009 to Present">
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 3 }}>
               {[
-                { year: '2009', label: 'Green Movement', pct: 28, level: 'MEDIUM', current: false },
-                { year: '2019', label: 'Max Pressure / Soleimani', pct: 53, level: 'HIGH', current: false },
-                { year: '2022', label: 'Mahsa Amini / JCPOA Collapse', pct: 67, level: 'HIGH', current: false },
-                { year: 'Jan 2026', label: 'January Massacre', pct: 76, level: 'CRITICAL', current: false },
-                { year: 'Jun 2026', label: 'Current — Active Conflict', pct: pct, level: 'CRITICAL', current: true },
+                { year: '2009', label: 'Green Movement', pct: 28, current: false },
+                { year: '2019', label: 'Max Pressure / Soleimani', pct: 53, current: false },
+                { year: '2022', label: 'Mahsa Amini / JCPOA Collapse', pct: 67, current: false },
+                { year: 'Jan 2026', label: 'January Massacre', pct: 76, current: false },
+                { year: 'Jun 2026', label: 'Current — Active Conflict', pct: pct, current: true },
               ].map((row) => (
                 <div key={row.year} style={{
                   display: 'flex', alignItems: 'center', gap: 14,
-                  padding: row.current ? '10px 12px' : '6px 0',
-                  marginBottom: row.current ? 4 : 0,
+                  padding: row.current ? '9px 10px' : '5px 0',
                   background: row.current ? '#0d0000' : 'transparent',
-                  borderRadius: row.current ? 4 : 0,
+                  borderRadius: row.current ? 3 : 0,
                   border: row.current ? '1px solid #2a0000' : '1px solid transparent',
                 }}>
                   <span style={{
-                    color: row.current ? '#cc4444' : '#444444',
-                    fontSize: row.current ? 11 : 10,
-                    fontWeight: 700, letterSpacing: 1,
+                    color: row.current ? '#cc3333' : '#3a3a3a',
+                    fontSize: row.current ? 11 : 10, fontWeight: 700, letterSpacing: 0.5,
                     minWidth: 68, flexShrink: 0, textAlign: 'right',
                   }}>
                     {row.year}
                   </span>
-                  <div style={{ flex: 1, position: 'relative', height: row.current ? 8 : 5, background: '#0e0000', borderRadius: 3 }}>
+                  <div style={{ flex: 1, position: 'relative', height: row.current ? 8 : 4, background: '#0e0000', borderRadius: 2 }}>
                     <div style={{
-                      width: `${Math.min(row.pct, 100)}%`, height: '100%', borderRadius: 3,
-                      background: row.current ? 'linear-gradient(90deg, #880000, #dd0000)' : '#2d0f0f',
-                      boxShadow: row.current ? '0 0 12px #cc000055' : 'none',
+                      width: `${Math.min(row.pct, 100)}%`, height: '100%', borderRadius: 2,
+                      background: row.current ? 'linear-gradient(90deg, #770000, #dd0000)' : '#1e0606',
+                      boxShadow: row.current ? '0 0 14px #aa000055' : 'none',
                       transition: 'width 0.8s ease',
                     }} />
                   </div>
                   <span style={{
-                    color: row.current ? '#ff5555' : '#555555',
+                    color: row.current ? '#ff4444' : '#444444',
                     fontSize: row.current ? 12 : 10,
-                    fontFamily: 'monospace', fontWeight: 700, minWidth: 38, flexShrink: 0,
+                    fontFamily: 'monospace', fontWeight: 700, minWidth: 36, flexShrink: 0,
                   }}>
                     {row.pct}%
                   </span>
                   <span style={{
-                    color: row.current ? '#cc4444' : '#3a3a3a',
+                    color: row.current ? '#bb3333' : '#303030',
                     fontSize: row.current ? 11 : 10,
-                    letterSpacing: 0.5, minWidth: 140, flexShrink: 0,
-                    fontWeight: row.current ? 600 : 400,
+                    letterSpacing: 0.3, minWidth: 160, flexShrink: 0,
+                    fontWeight: row.current ? 700 : 400,
                   }}>
                     {row.label}
-                  </span>
-                  <span style={{
-                    color: row.current ? '#882222' : '#2a0a0a',
-                    fontSize: 9, letterSpacing: 2, fontWeight: 700, textTransform: 'uppercase',
-                    minWidth: 54, flexShrink: 0,
-                  }}>
-                    {row.level}
                   </span>
                 </div>
               ))}
             </div>
-            <div style={{ marginTop: 12, fontSize: 10, color: '#333333', fontStyle: 'italic', letterSpacing: 0.3, lineHeight: 1.9 }}>
-              Historical values are approximate scores from the subset of events active at each date. Current score is live from the model.
+            <div style={{ marginTop: 14, fontSize: 10, color: '#2a2a2a', fontStyle: 'italic', lineHeight: 1.9 }}>
+              Historical values are approximate scores from the subset of events active at each date.
             </div>
-          </div>
+          </Section>
         )}
-
-        {data && <div style={{ borderTop: '1px solid #220000', marginBottom: 40 }} />}
 
         {/* ── Threat indicators ── */}
         {data && data.topContributors.length > 0 && (
-          <div style={{ marginBottom: 44 }}>
-            <div style={{ fontSize: 10, letterSpacing: 5, color: '#cc3333', fontWeight: 700, marginBottom: 26, textTransform: 'uppercase' }}>
-              Threat Indicators
-            </div>
+          <Section label="Threat Indicators">
             {data.topContributors.map(t => (
               <IndicatorBar
                 key={t.indicatorKey}
@@ -349,53 +381,48 @@ export default function App() {
                 max={maxContrib}
               />
             ))}
-          </div>
+          </Section>
         )}
 
         {/* ── Methodology ── */}
         {data && (
-          <>
-            <div style={{ borderTop: '1px solid #220000', marginBottom: 24 }} />
-            <div style={{ fontSize: 11, color: '#555555', lineHeight: 2.0, letterSpacing: 0.5 }}>
-              <span style={{ color: '#cc3333', fontWeight: 700, letterSpacing: 3, textTransform: 'uppercase', fontSize: 10 }}>
+          <div style={{ marginTop: 8, padding: '0 4px' }}>
+            <div style={{ fontSize: 11, color: '#333333', lineHeight: 2.0, letterSpacing: 0.4 }}>
+              <span style={{ color: '#661111', fontWeight: 700, letterSpacing: 3, textTransform: 'uppercase', fontSize: 10 }}>
                 Methodology
               </span>
               {'  ·  '}
-              Deterministic weighted scoring model across 8 domains. Each domain aggregates verified historical event impacts — including de-escalation events (JCPOA 2015, sanctions relief 2016, April 2026 ceasefire) — into a [0–100] base score, amplified by category severity multipliers, then weighted into the composite. Score represents 12-month forward regime-collapse stress. A score of {data.score?.toFixed(2)} means every major domain is simultaneously at or near maximum historically calibrated stress — a configuration with no recorded precedent. Not a direct probability estimate. Critical threshold ≥75.
-              {' '}Calibrated against {data.summary?.match(/(\d+) historical/)?.[1] ?? '79'} verified events, 2000–2026, through June 11, 2026.
+              Deterministic weighted scoring across 8 domains. Events include de-escalation signals (JCPOA 2015, sanctions relief 2016, April 2026 ceasefire). Score represents 12-month forward regime-collapse stress calibrated against {data.summary?.match(/(\d+) historical/)?.[1] ?? '79'} verified events, 2000–2026.
             </div>
 
             <div style={{ marginTop: 28, display: 'flex', justifyContent: 'center' }}>
               <button onClick={fetch} disabled={loading} style={{
                 background: 'transparent',
-                border: '1px solid #660000',
-                color: loading ? '#333' : '#cc3333',
-                padding: '10px 36px',
-                fontSize: 10,
-                letterSpacing: 4,
+                border: '1px solid #550000',
+                color: loading ? '#2a2a2a' : '#882222',
+                padding: '10px 40px',
+                fontSize: 10, letterSpacing: 4,
                 cursor: loading ? 'default' : 'pointer',
-                textTransform: 'uppercase',
-                fontWeight: 700,
-                borderRadius: 2,
-                transition: 'border-color 0.2s, color 0.2s',
+                textTransform: 'uppercase', fontWeight: 700, borderRadius: 2,
+                transition: 'all 0.2s',
               }}
-                onMouseEnter={e => { if (!loading) { (e.target as HTMLButtonElement).style.borderColor = '#cc0000'; (e.target as HTMLButtonElement).style.color = '#ff4444' } }}
-                onMouseLeave={e => { (e.target as HTMLButtonElement).style.borderColor = '#660000'; (e.target as HTMLButtonElement).style.color = loading ? '#333' : '#cc3333' }}
+                onMouseEnter={e => { if (!loading) { (e.target as HTMLButtonElement).style.borderColor = '#aa0000'; (e.target as HTMLButtonElement).style.color = '#cc2222' } }}
+                onMouseLeave={e => { (e.target as HTMLButtonElement).style.borderColor = '#550000'; (e.target as HTMLButtonElement).style.color = loading ? '#2a2a2a' : '#882222' }}
               >
                 {loading ? 'Refreshing…' : '↻  Refresh'}
               </button>
             </div>
-          </>
+          </div>
         )}
       </div>
 
       <style>{`
         @keyframes pulse {
-          0%,100% { opacity:1; box-shadow:0 0 10px #cc0000; }
-          50% { opacity:0.3; box-shadow:0 0 3px #cc0000; }
+          0%,100% { opacity:1; box-shadow:0 0 8px #dd0000; }
+          50% { opacity:0.25; box-shadow:0 0 2px #dd0000; }
         }
-        * { box-sizing:border-box; }
-        body { margin:0; background:#050505; }
+        * { box-sizing:border-box; margin:0; padding:0; }
+        body { margin:0; background:#000000; }
       `}</style>
     </div>
   )
