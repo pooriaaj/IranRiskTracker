@@ -94,8 +94,8 @@ function Section({ children, label }: { children: React.ReactNode; label: string
       marginBottom: 20,
     }}>
       <div style={{
-        fontSize: 10, letterSpacing: 5, color: '#cc3333',
-        fontWeight: 800, marginBottom: 24, textTransform: 'uppercase',
+        fontSize: 12, letterSpacing: 4, color: '#cc3333',
+        fontWeight: 800, marginBottom: 28, textTransform: 'uppercase',
       }}>
         {label}
       </div>
@@ -111,14 +111,14 @@ function IndicatorBar({ name, val, max }: { name: string; val: number; max: numb
   return (
     <div style={{ marginBottom: 16 }}>
       <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 5 }}>
-        <span style={{ color: '#bbbbbb', fontSize: 11, fontWeight: 700, letterSpacing: 1, textTransform: 'uppercase' }}>
+        <span style={{ color: '#bbbbbb', fontSize: 13, fontWeight: 700, letterSpacing: 1, textTransform: 'uppercase' }}>
           {name}
         </span>
-        <span style={{ color: '#ff5555', fontSize: 11, fontWeight: 700, fontFamily: 'monospace' }}>
+        <span style={{ color: '#ff5555', fontSize: 13, fontWeight: 700, fontFamily: 'monospace' }}>
           +{val.toFixed(3)}
         </span>
       </div>
-      <div style={{ background: '#0e0000', borderRadius: 3, height: 5, overflow: 'hidden' }}>
+      <div style={{ background: '#0e0000', borderRadius: 3, height: 7, overflow: 'hidden' }}>
         <div style={{
           width: `${pct}%`, height: '100%', borderRadius: 3,
           background: 'linear-gradient(90deg, #660000, #cc0000)',
@@ -140,13 +140,13 @@ function CollapseCondition({ name, detail }: { name: string; detail: string }) {
       }}>✓</span>
       <div>
         <span style={{
-          color: '#ffffff', fontWeight: 800, fontSize: 12,
+          color: '#ffffff', fontWeight: 800, fontSize: 14,
           letterSpacing: 1.5, textTransform: 'uppercase',
         }}>
           {name}
         </span>
         {'  '}
-        <span style={{ color: '#999999', fontSize: 11, lineHeight: 1.8 }}>{detail}</span>
+        <span style={{ color: '#999999', fontSize: 13, lineHeight: 1.9 }}>{detail}</span>
       </div>
     </div>
   )
@@ -210,7 +210,7 @@ export default function App() {
         </span>
       </div>
 
-      <div style={{ width: '100%', maxWidth: 820, padding: '52px 28px 64px', boxSizing: 'border-box' }}>
+      <div style={{ width: '100%', maxWidth: 1080, padding: '52px 48px 64px', boxSizing: 'border-box' }}>
 
         {/* ── Hero ── */}
         <div style={{ textAlign: 'center', marginBottom: 36, position: 'relative' }}>
@@ -221,16 +221,16 @@ export default function App() {
             background: 'radial-gradient(ellipse at center, #22000040 0%, transparent 70%)',
           }} />
 
-          <div style={{ fontSize: 10, letterSpacing: 6, color: '#882222', fontWeight: 700, marginBottom: 12, textTransform: 'uppercase' }}>
+          <div style={{ fontSize: 12, letterSpacing: 6, color: '#882222', fontWeight: 700, marginBottom: 14, textTransform: 'uppercase' }}>
             Intelligence Assessment — Islamic Republic of Iran
           </div>
-          <h1 style={{ fontSize: 36, fontWeight: 900, letterSpacing: 8, color: '#ffffff', margin: '0 0 4px', textTransform: 'uppercase' }}>
+          <h1 style={{ fontSize: 52, fontWeight: 900, letterSpacing: 10, color: '#ffffff', margin: '0 0 6px', textTransform: 'uppercase' }}>
             Regime Collapse
           </h1>
-          <h2 style={{ fontSize: 14, fontWeight: 300, letterSpacing: 10, color: '#882222', margin: '0 0 4px', textTransform: 'uppercase' }}>
+          <h2 style={{ fontSize: 18, fontWeight: 300, letterSpacing: 12, color: '#882222', margin: '0 0 6px', textTransform: 'uppercase' }}>
             Probability Index
           </h2>
-          <div style={{ fontSize: 10, letterSpacing: 4, color: '#776666', fontWeight: 600, marginBottom: 44, textTransform: 'uppercase' }}>
+          <div style={{ fontSize: 12, letterSpacing: 4, color: '#776666', fontWeight: 600, marginBottom: 48, textTransform: 'uppercase' }}>
             12-Month Forward Assessment · June 2026
           </div>
 
@@ -268,15 +268,15 @@ export default function App() {
 
               {/* Meta row */}
               <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', gap: 20, flexWrap: 'wrap' }}>
-                <span style={{ fontSize: 11, color: '#777777', letterSpacing: 1 }}>
+                <span style={{ fontSize: 13, color: '#777777', letterSpacing: 1 }}>
                   Score <strong style={{ color: '#bbbbbb', fontFamily: 'monospace' }}>{data.score?.toFixed(2)}</strong>
                 </span>
-                <span style={{ color: '#440000' }}>·</span>
-                <span style={{ fontSize: 10, letterSpacing: 2, color: '#aa5555', fontWeight: 700, textTransform: 'uppercase' }}>
+                <span style={{ color: '#440000', fontSize: 14 }}>·</span>
+                <span style={{ fontSize: 12, letterSpacing: 2, color: '#aa5555', fontWeight: 700, textTransform: 'uppercase' }}>
                   6 of 8 indicators at max
                 </span>
-                <span style={{ color: '#440000' }}>·</span>
-                <span style={{ fontSize: 11, color: '#777777' }}>
+                <span style={{ color: '#440000', fontSize: 14 }}>·</span>
+                <span style={{ fontSize: 13, color: '#777777' }}>
                   Updated <strong style={{ color: '#bbbbbb' }}>{formatTimestamp(data.timestamp)}</strong>
                 </span>
               </div>
@@ -307,7 +307,7 @@ export default function App() {
               name="External Decapitation Complete"
               detail="900+ strikes (Feb 28) destroyed military infrastructure, nuclear program, and IRGC command. US fired 49 Tomahawks Jun 11. Trump canceled further strikes the same evening — signaling a deal is possible but contested."
             />
-            <div style={{ marginTop: 8, paddingLeft: 28, fontSize: 10, color: '#666666', fontStyle: 'italic', lineHeight: 2.0 }}>
+            <div style={{ marginTop: 8, paddingLeft: 28, fontSize: 12, color: '#666666', fontStyle: 'italic', lineHeight: 2.0 }}>
               In modern authoritarian collapse cases — Iran 1979, Romania 1989, Iraq 2003, Libya 2011 — none recorded more than 2–3 of these conditions simultaneously. All 5 are currently active.
             </div>
           </Section>
@@ -333,12 +333,12 @@ export default function App() {
                 }}>
                   <span style={{
                     color: row.current ? '#cc3333' : '#888888',
-                    fontSize: row.current ? 11 : 10, fontWeight: 700, letterSpacing: 0.5,
-                    minWidth: 68, flexShrink: 0, textAlign: 'right',
+                    fontSize: row.current ? 14 : 13, fontWeight: 700, letterSpacing: 0.5,
+                    minWidth: 80, flexShrink: 0, textAlign: 'right',
                   }}>
                     {row.year}
                   </span>
-                  <div style={{ flex: 1, position: 'relative', height: row.current ? 8 : 4, background: '#0e0000', borderRadius: 2 }}>
+                  <div style={{ flex: 1, position: 'relative', height: row.current ? 10 : 6, background: '#0e0000', borderRadius: 2 }}>
                     <div style={{
                       width: `${Math.min(row.pct, 100)}%`, height: '100%', borderRadius: 2,
                       background: row.current ? 'linear-gradient(90deg, #770000, #dd0000)' : '#442222',
@@ -348,15 +348,15 @@ export default function App() {
                   </div>
                   <span style={{
                     color: row.current ? '#ff4444' : '#888888',
-                    fontSize: row.current ? 12 : 10,
-                    fontFamily: 'monospace', fontWeight: 700, minWidth: 36, flexShrink: 0,
+                    fontSize: row.current ? 15 : 13,
+                    fontFamily: 'monospace', fontWeight: 700, minWidth: 44, flexShrink: 0,
                   }}>
                     {row.pct}%
                   </span>
                   <span style={{
                     color: row.current ? '#ff4444' : '#888888',
-                    fontSize: row.current ? 11 : 10,
-                    letterSpacing: 0.3, minWidth: 160, flexShrink: 0,
+                    fontSize: row.current ? 14 : 13,
+                    letterSpacing: 0.3, minWidth: 200, flexShrink: 0,
                     fontWeight: row.current ? 700 : 400,
                   }}>
                     {row.label}
@@ -364,7 +364,7 @@ export default function App() {
                 </div>
               ))}
             </div>
-            <div style={{ marginTop: 14, fontSize: 10, color: '#666666', fontStyle: 'italic', lineHeight: 1.9 }}>
+            <div style={{ marginTop: 14, fontSize: 12, color: '#666666', fontStyle: 'italic', lineHeight: 1.9 }}>
               Historical values are approximate scores from the subset of events active at each date.
             </div>
           </Section>
@@ -387,8 +387,8 @@ export default function App() {
         {/* ── Methodology ── */}
         {data && (
           <div style={{ marginTop: 8, padding: '0 4px' }}>
-            <div style={{ fontSize: 11, color: '#777777', lineHeight: 2.0, letterSpacing: 0.4 }}>
-              <span style={{ color: '#aa4444', fontWeight: 700, letterSpacing: 3, textTransform: 'uppercase', fontSize: 10 }}>
+            <div style={{ fontSize: 13, color: '#777777', lineHeight: 2.0, letterSpacing: 0.4 }}>
+              <span style={{ color: '#aa4444', fontWeight: 700, letterSpacing: 3, textTransform: 'uppercase', fontSize: 12 }}>
                 Methodology
               </span>
               {'  ·  '}
