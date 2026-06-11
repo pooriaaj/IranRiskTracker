@@ -78,11 +78,11 @@ namespace IranRiskTracker.Tests.Phase1
             var militaryAfter = after.Contributions.Single(c => c.IndicatorKey == "military_activity");
 
             // Source 's' not in seed: default credibility 0.5, recency 1.0 -> live urgency = 35*0.5 = 17.5
-            // Historical base = 100 (clamped from sum of 103). Combined = clamp(100+17.5, 0, 100) = 100.
-            // SeverityAdj before = clamp(100*1.30, 0, 100) = 100 -> weighted = 100*0.15 = 15.0
+            // Historical base = 98 (108 delta sum minus -10 ceasefire). Combined = clamp(98+17.5, 0, 100) = 100.
+            // SeverityAdj before = clamp(98*1.30, 0, 100) = 100 -> weighted = 100*0.15 = 15.0
             // SeverityAdj after  = clamp(100*1.30, 0, 100) = 100 -> weighted = 100*0.15 = 15.0
-            // Expected increase = 0.0 (already clamped at 100 before live event)
-            var historicalBase = 100.0;
+            // Expected increase = 0.0 (severity still clamped at 100 after live event)
+            var historicalBase = 98.0;
             var liveUrgency = 17.5;
             var combined = Math.Min(historicalBase + liveUrgency, 100.0);
             var severityAfter = Math.Min(combined * 1.30, 100.0);

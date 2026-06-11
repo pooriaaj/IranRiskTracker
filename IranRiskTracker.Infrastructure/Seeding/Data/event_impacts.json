@@ -748,5 +748,35 @@
     "adjustedDelta": 4.0,
     "reason": "US/Israel special forces contingency for Isfahan nuclear tunnels: active US-Israeli planning to deploy ground forces to seize 400kg of 60%-enriched uranium at Isfahan — too deep for airstrikes — signals the nuclear material is ungoverned and potentially in play; a failed or delayed ground mission risks proliferation to non-state actors in a post-collapse Iran scenario",
     "signalType": "Included"
+  },
+  {
+    "id": "bb040010-0000-4000-8000-440000000010",
+    "eventId": "aa030010-0000-4000-8000-300000000010",
+    "eventType": "Historical",
+    "indicatorId": "44444444-4444-4444-8444-444444444444",
+    "rawDelta": -12.0,
+    "adjustedDelta": -12.0,
+    "reason": "JCPOA 2015 agreement: Iran accepted enrichment cap at 3.67%, two-thirds centrifuge reduction, and full IAEA camera access — effectively froze the nuclear program below weapons-relevant thresholds for three years; represents the only verified period of nuclear risk reduction in the 2006-2026 timeline and establishes the counterfactual baseline for what diplomatic constraint looks like",
+    "signalType": "Included"
+  },
+  {
+    "id": "bb050011-0000-4000-8000-550000000011",
+    "eventId": "aa080009-0000-4000-8000-800000000009",
+    "eventType": "Historical",
+    "indicatorId": "55555555-5555-4555-8555-555555555555",
+    "rawDelta": -10.0,
+    "adjustedDelta": -10.0,
+    "reason": "JCPOA sanctions relief 2016-2018: oil exports restored to 2.5 mbd, rial stabilized, inflation fell to under 10%, GDP grew 12.5% in 2016 — the only multi-year period of genuine economic recovery in the post-2012 sanctions era; shows economic stress is partially reversible under diplomatic engagement, providing the counterfactual floor for the economic indicator",
+    "signalType": "Included"
+  },
+  {
+    "id": "bb010010-0000-4000-8000-110000000010",
+    "eventId": "aa070013-0000-4000-8000-700000000013",
+    "eventType": "Historical",
+    "indicatorId": "11111111-1111-4111-8111-111111111111",
+    "rawDelta": -10.0,
+    "adjustedDelta": -10.0,
+    "reason": "April 8 ceasefire halted active US-Iran-Israel hostilities for 58 days: the only verified pause in kinetic military operations during the 2026 conflict; establishes that military escalation is not fully continuous and that diplomatic pressure can produce temporary de-escalation even under extreme conditions — the ceasefire's subsequent collapse makes it a data point for both de-escalation potential and its fragility",
+    "signalType": "Included"
   }
 ]

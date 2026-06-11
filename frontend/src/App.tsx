@@ -163,9 +163,12 @@ export default function App() {
           <h1 style={{ fontSize: 24, fontWeight: 900, letterSpacing: 4, color: '#ffffff', margin: '0 0 4px', textTransform: 'uppercase' }}>
             Regime Collapse
           </h1>
-          <h2 style={{ fontSize: 13, fontWeight: 500, letterSpacing: 7, color: '#bb4444', margin: '0 0 36px', textTransform: 'uppercase' }}>
+          <h2 style={{ fontSize: 13, fontWeight: 500, letterSpacing: 7, color: '#bb4444', margin: '0 0 4px', textTransform: 'uppercase' }}>
             Probability Index
           </h2>
+          <div style={{ fontSize: 10, letterSpacing: 4, color: '#664444', fontWeight: 600, marginBottom: 36, textTransform: 'uppercase' }}>
+            12-Month Forward Assessment · June 2026
+          </div>
 
           {loading && !data && (
             <div style={{ color: '#777', fontSize: 13, letterSpacing: 2 }}>LOADING…</div>
@@ -248,6 +251,52 @@ export default function App() {
 
         {data && <div style={{ borderTop: '1px solid #1a0000', marginBottom: 36 }} />}
 
+        {/* ── Score Trajectory ── */}
+        {data && (
+          <div style={{ marginBottom: 40 }}>
+            <div style={{ fontSize: 10, letterSpacing: 5, color: '#cc4444', fontWeight: 700, marginBottom: 22, textTransform: 'uppercase' }}>
+              Score Trajectory — 2009 to Present
+            </div>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 0 }}>
+              {[
+                { year: '2009', label: 'Green Movement', pct: 28, level: 'MEDIUM' },
+                { year: '2019', label: 'Max Pressure / Soleimani', pct: 53, level: 'HIGH' },
+                { year: '2022', label: 'Mahsa Amini / JCPOA Collapse', pct: 67, level: 'HIGH' },
+                { year: 'Jan 2026', label: 'January Massacre', pct: 76, level: 'CRITICAL' },
+                { year: 'Jun 2026', label: 'Current (Active Conflict)', pct: pct, level: 'CRITICAL', current: true },
+              ].map((row) => (
+                <div key={row.year} style={{ display: 'flex', alignItems: 'center', gap: 14, marginBottom: 12 }}>
+                  <span style={{ color: '#555555', fontSize: 10, fontWeight: 700, letterSpacing: 1, minWidth: 64, flexShrink: 0, textAlign: 'right' }}>
+                    {row.year}
+                  </span>
+                  <div style={{ flex: 1, position: 'relative', height: 4, background: '#0e0000', borderRadius: 2 }}>
+                    <div style={{
+                      width: `${Math.min(row.pct, 100)}%`, height: '100%', borderRadius: 2,
+                      background: row.current ? 'linear-gradient(90deg, #7a0000, #cc0000)' : '#3a1111',
+                      boxShadow: row.current ? '0 0 8px #cc000066' : 'none',
+                      transition: 'width 0.6s ease',
+                    }} />
+                  </div>
+                  <span style={{ color: row.current ? '#ff6666' : '#444444', fontSize: 10, fontFamily: 'monospace', fontWeight: 700, minWidth: 36, flexShrink: 0 }}>
+                    {row.pct}%
+                  </span>
+                  <span style={{ color: row.current ? '#cc4444' : '#333333', fontSize: 10, letterSpacing: 0.5, minWidth: 130, flexShrink: 0 }}>
+                    {row.label}
+                  </span>
+                  <span style={{ color: row.current ? '#882222' : '#2a1111', fontSize: 9, letterSpacing: 1.5, fontWeight: 700, textTransform: 'uppercase' }}>
+                    {row.level}
+                  </span>
+                </div>
+              ))}
+            </div>
+            <div style={{ marginTop: 8, fontSize: 10, color: '#333333', fontStyle: 'italic', letterSpacing: 0.3, lineHeight: 1.8 }}>
+              Historical values are approximate scores computed from the subset of events active at each date. Current score is live from the model.
+            </div>
+          </div>
+        )}
+
+        {data && <div style={{ borderTop: '1px solid #1a0000', marginBottom: 36 }} />}
+
         {/* ── Threat indicators ── */}
         {data && data.topContributors.length > 0 && (
           <div style={{ marginBottom: 40 }}>
@@ -274,8 +323,8 @@ export default function App() {
                 Methodology
               </span>
               {'  ·  '}
-              Deterministic weighted scoring model across 8 domains. Each domain aggregates verified historical event impacts into a [0–100] base score, amplified by category severity multipliers, then weighted into the composite. Score 1–100: a score of {data.score?.toFixed(2)} means every major domain is simultaneously at or near maximum historically calibrated stress — a configuration with no recorded precedent. Not a direct probability estimate. Critical threshold ≥75.
-              {' '}Calibrated against {data.summary?.match(/(\d+) historical/)?.[1] ?? '72'} verified historical events, 2000–2026, including active conflict data through June 10, 2026.
+              Deterministic weighted scoring model across 8 domains. Each domain aggregates verified historical event impacts — including de-escalation events — into a [0–100] base score, amplified by category severity multipliers, then weighted into the composite. The score represents 12-month forward regime-collapse stress: a score of {data.score?.toFixed(2)} means every major domain is simultaneously at or near maximum historically calibrated stress — a configuration with no recorded precedent. Not a direct probability estimate. Critical threshold ≥75.
+              {' '}Calibrated against {data.summary?.match(/(\d+) historical/)?.[1] ?? '75'} verified historical events, 2000–2026, including de-escalation events (JCPOA 2015, sanctions relief 2016, April 2026 ceasefire) and active conflict data through June 10, 2026.
             </div>
 
             <div style={{ marginTop: 24, display: 'flex', justifyContent: 'center' }}>

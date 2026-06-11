@@ -143,8 +143,8 @@ namespace IranRiskTracker.Tests.Phase3
                 i.EventId.Should().NotBeEmpty();
                 Enum.IsDefined(typeof(IranRiskTracker.Domain.Enums.EventType), i.EventType).Should().BeTrue();
                 i.IndicatorId.Should().NotBeEmpty();
-                ((double)i.RawDelta).Should().BeInRange(0.0, 100.0);
-                ((double)i.AdjustedDelta).Should().BeInRange(0.0, 100.0);
+                ((double)i.RawDelta).Should().BeInRange(-100.0, 100.0);
+                ((double)i.AdjustedDelta).Should().BeInRange(-100.0, 100.0);
                 i.Reason.Should().NotBeNullOrWhiteSpace();
             }
         }

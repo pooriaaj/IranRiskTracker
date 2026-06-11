@@ -60,7 +60,7 @@ namespace IranRiskTracker.Tests.Phase1
         [Fact]
         public void RiskCalculator_ShouldProduceExpectedSeedScore()
         {
-            // Arrange: 72 Iran historical events (2000-2026 incl. Jan massacre, IRGC coup, Pahlavi plan, US strikes), 76 event impacts calibrated to ~98.45% baseline
+            // Arrange: 75 Iran historical events (2000-2026 incl. Jan massacre, IRGC coup, ceasefire, JCPOA), 82 event impacts calibrated to ~95.65% baseline
             var basePath = FindSeedDataPath();
             var seed = new JsonSeedDataProvider(basePath);
             var liveStore = new IranRiskTracker.Infrastructure.Storage.InMemoryLiveEventStore();
@@ -77,9 +77,9 @@ namespace IranRiskTracker.Tests.Phase1
 
             // Expected base scores from event_impacts.json sums (no live events)
             // cyber: 15+9+14+12+14+12+7+7 = 90 (no clamp: 90*1.05=94.5 < 100)
-            // military: 18+16+10+10+10+11+15+13 = 103 -> clamped to 100
+            // military: 18+16+10+10+10+11+15+13+5-10 = 98 (ceasefire decrease applied, no clamp)
             cyber.BaseScore.Should().Be(90.0);
-            military.BaseScore.Should().Be(100.0);
+            military.BaseScore.Should().Be(98.0);
 
             var cyberSeverity = 1.05;
             var militarySeverity = 1.30;

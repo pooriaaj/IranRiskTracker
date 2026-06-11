@@ -710,6 +710,36 @@
     "isBaseline": true
   },
   {
+    "id": "aa030010-0000-4000-8000-300000000010",
+    "title": "JCPOA Nuclear Agreement Signed — Iran Accepts Enrichment Limits",
+    "description": "Iran and the P5+1 (US, UK, France, Germany, Russia, China) signed the Joint Comprehensive Plan of Action on July 14, 2015. Iran agreed to cap uranium enrichment at 3.67%, reduce its centrifuge count by two-thirds, redesign the Arak reactor to prevent weapons-grade plutonium production, and accept intrusive IAEA monitoring. In exchange, most international sanctions were lifted. For approximately three years the deal froze Iran's nuclear program at sub-weapons-grade levels and restored IAEA camera access to all declared sites.",
+    "occurredAt": "2015-07-14T00:00:00Z",
+    "category": 3,
+    "regionTag": "Vienna",
+    "verifiedAt": "2015-07-14T00:00:00Z",
+    "isBaseline": true
+  },
+  {
+    "id": "aa080009-0000-4000-8000-800000000009",
+    "title": "Iran Receives Sanctions Relief Under JCPOA — Oil Exports Partially Restored",
+    "description": "Following JCPOA implementation in January 2016, the EU and US lifted nuclear-related sanctions. Iran's oil exports rose from under 1 million bpd to approximately 2.5 million bpd by mid-2017. The rial briefly stabilized, inflation fell from 40% to under 10%, and GDP grew 12.5% in 2016 (IMF). The partial economic normalization lasted until the US reimposed sanctions in May 2018 following Trump's JCPOA withdrawal.",
+    "occurredAt": "2016-01-16T00:00:00Z",
+    "category": 8,
+    "regionTag": "Iran, International",
+    "verifiedAt": "2016-01-16T00:00:00Z",
+    "isBaseline": true
+  },
+  {
+    "id": "aa070013-0000-4000-8000-700000000013",
+    "title": "Pakistan-Brokered Ceasefire Halts Active US-Iran-Israel Hostilities",
+    "description": "Pakistani Prime Minister Shehbaz Sharif brokered a ceasefire agreement on April 8, 2026, halting active US-Iran-Israel hostilities after 38 days of Operation Epic Fury. Iran agreed to freeze offensive missile launches; the US paused strikes on Iranian territory; Israel suspended strikes on Iranian territory pending parallel Lebanon negotiations. The ceasefire held through late May before collapsing when Israel resumed strikes on Beirut and Iran retaliated with 30 ballistic missiles on June 6-8, 2026.",
+    "occurredAt": "2026-04-08T00:00:00Z",
+    "category": 7,
+    "regionTag": "Diplomatic / Pakistan mediation",
+    "verifiedAt": "2026-04-08T00:00:00Z",
+    "isBaseline": true
+  },
+  {
     "id": "aa010009-0000-4000-8000-100000000009",
     "title": "Khamenei Orders Massacre of Protesters — 30,000–40,000 Killed in Two Days",
     "description": "On January 9, 2026, Supreme Leader Ali Khamenei ordered security forces to kill protesters and show no mercy. Over January 8–9, IRGC and Basij forces opened fire on crowds across Iran, killing an estimated 30,000–36,500 people in two days according to The Guardian, Time, and Iran International citing local health officials. HRANA confirmed over 7,000 deaths with 11,744 additional cases under review. The massacre was the deadliest state violence in Iran since the 1988 prison executions. Rather than ending the opposition, the slaughter galvanized Reza Pahlavi's international campaign to bring US and Israeli military intervention, directly preceding Operation Epic Fury.",
