@@ -828,5 +828,45 @@
     "adjustedDelta": -8.0,
     "reason": "Trump cancels planned strikes June 11: the first time since the war began that the US has canceled a scheduled military operation against Iran in response to diplomatic signals; even with Iran denying any deal, the cancellation demonstrates a US off-ramp exists and that political pressure can halt kinetic escalation — the net military signal for June 11 is therefore ambiguous: maximum single-day escalation followed by immediate US restraint",
     "signalType": "Included"
+  },
+  {
+    "id": "bb030010-0000-4000-8000-330000000010",
+    "eventId": "aa010010-0000-4000-8000-100000000010",
+    "eventType": "Historical",
+    "indicatorId": "33333333-3333-4333-8333-333333333333",
+    "rawDelta": 4.0,
+    "adjustedDelta": 4.0,
+    "reason": "Regime hardliner protests against deal June 12: the regime's own loyalist base (IRGC families, Basij, hardline clerics) publicly protesting the diplomatic track signals fragmentation within the loyalist coalition — a split between pragmatic IRGC commanders and ideological hardliners that historically precedes either internal coups or deal collapse; a regime whose core support base protests against its own foreign policy is exhibiting terminal cohesion failure",
+    "signalType": "Included"
+  },
+  {
+    "id": "bb080017-0000-4000-8000-880000000017",
+    "eventId": "aa070016-0000-4000-8000-700000000016",
+    "eventType": "Historical",
+    "indicatorId": "88888888-8888-4888-8888-888888888888",
+    "rawDelta": -12.0,
+    "adjustedDelta": -12.0,
+    "reason": "Trump announces deal Sunday + Pakistan PM confirms final text June 12: strongest diplomatic signal since war began; Pakistan's direct third-party confirmation of a final agreed text distinguishes this from prior Trump deal claims that lacked independent verification — 80-85% US confidence estimate and named signing venue represent genuine progress toward war termination",
+    "signalType": "Included"
+  },
+  {
+    "id": "bb080018-0000-4000-8000-880000000018",
+    "eventId": "aa070017-0000-4000-8000-700000000017",
+    "eventType": "Historical",
+    "indicatorId": "88888888-8888-4888-8888-888888888888",
+    "rawDelta": 8.0,
+    "adjustedDelta": 8.0,
+    "reason": "Iran FM 'mere speculation' contradicts Trump and Pakistan PM June 12: Iran publicly denying a deal exists despite Pakistan's confirmation signals either (a) internal division between IRGC negotiators and political leadership, or (b) deliberate ambiguity to preserve leverage; either interpretation confirms institutional fracture — a state that cannot speak with one voice on an existential war-ending decision is in terminal governance failure",
+    "signalType": "Included"
+  },
+  {
+    "id": "bb040011-0000-4000-8000-440000000011",
+    "eventId": "aa030011-0000-4000-8000-300000000011",
+    "eventType": "Historical",
+    "indicatorId": "44444444-4444-4444-8444-444444444444",
+    "rawDelta": -10.0,
+    "adjustedDelta": -10.0,
+    "reason": "Deal framework requires uranium surrender + program dismantlement June 12: if the MoU is finalized, Iran surrenders its 60%-enriched stockpile and dismantles centrifuge networks under US supervision — nuclear risk reduction exceeding the 2015 JCPOA; applied at partial weight given Iran FM's denial of a final text; represents the first credible nuclear de-escalation signal since Operation Epic Fury destroyed Iran's declared facilities in February 2026",
+    "signalType": "Included"
   }
 ]

@@ -788,5 +788,45 @@
     "regionTag": "Nationwide",
     "verifiedAt": "2026-01-15T00:00:00Z",
     "isBaseline": true
+  },
+  {
+    "id": "aa010010-0000-4000-8000-100000000010",
+    "title": "Regime Hardliners Protest in Tehran Against US Deal: 'Why Negotiate With Khamenei's Killers?'",
+    "description": "Hundreds of IRGC-aligned hardliners, Basij members, and regime loyalists staged demonstrations in Tehran on June 12, 2026, against the Iranian government's ongoing nuclear negotiations with the United States. Protesters chanted 'Why are you negotiating with the killers of our Supreme Leader?' and 'Death to the Deal.' The protests reflect a deep rift within the regime itself: pragmatic IRGC commanders seeking an exit from the war through diplomacy versus hardline ideologues who view any deal as a betrayal of Khamenei's legacy. Iran International noted that hardliners 'want to kill the deal.' The internal protest movement signals that even if IRGC leadership signs an agreement, it will face organized resistance from within the regime's own support base — a historically destabilizing dynamic.",
+    "occurredAt": "2026-06-12T00:00:00Z",
+    "category": 1,
+    "regionTag": "Tehran",
+    "verifiedAt": "2026-06-12T00:00:00Z",
+    "isBaseline": true
+  },
+  {
+    "id": "aa070016-0000-4000-8000-700000000016",
+    "title": "Trump: Iran Deal to Be Signed This Sunday; Pakistan PM Confirms 'Final Agreed Text'",
+    "description": "On June 12, 2026, President Trump announced the US-Iran peace deal would be signed 'this Sunday' (June 14-15) at a European venue with VP JD Vance attending. Pakistan's PM Shehbaz Sharif, acting as mediator, confirmed a 'final, agreed upon text' had been reached. A senior US official estimated 80-85% confidence the deal would be signed, noting Iran's system is 'very complicated.' The deal would formalize a ceasefire, reopen the Strait of Hormuz, and launch 60 days of formal nuclear negotiations. Trump had previously made similar claims in March and May with no agreement emerging, but Pakistan's direct third-party confirmation distinguishes this episode from prior false starts.",
+    "occurredAt": "2026-06-12T00:00:00Z",
+    "category": 7,
+    "regionTag": "Washington DC / Islamabad",
+    "verifiedAt": "2026-06-12T00:00:00Z",
+    "isBaseline": true
+  },
+  {
+    "id": "aa070017-0000-4000-8000-700000000017",
+    "title": "Iran Foreign Ministry: Deal Reports 'Mere Speculation,' No Final Decision Made",
+    "description": "Hours after Trump announced a deal this Sunday, Iran's Foreign Ministry spokesman Esmaeil Baghaei told state media that reports of a finalized agreement were 'mere speculation' and Tehran had made 'no final decision on any deal.' Baghaei stated the US 'repeatedly changed its positions during talks.' The statement directly contradicted Pakistan's PM Sharif. The contradiction between Trump/Pakistan and Iran's Foreign Ministry reflects genuine internal disagreement within Iran: IRGC commanders in the negotiating channel willing to deal versus hardline political figures who view any agreement as capitulation to the forces that killed Khamenei. A state unable to speak with one voice on an existential war-ending decision is institutionally fractured.",
+    "occurredAt": "2026-06-12T00:00:00Z",
+    "category": 7,
+    "regionTag": "Tehran",
+    "verifiedAt": "2026-06-12T00:00:00Z",
+    "isBaseline": true
+  },
+  {
+    "id": "aa030011-0000-4000-8000-300000000011",
+    "title": "US-Iran Deal Framework: Iran to Surrender Enriched Uranium and Dismantle Nuclear Program",
+    "description": "According to US officials and Pakistan's mediation team, the tentative MoU finalized June 12, 2026 would require Iran to: surrender all highly enriched uranium above 5% (including the contested 400kg of 60%-enriched stockpile) to the United States; shut down and dismantle remaining centrifuge networks; accept immediate continuous IAEA inspection access; and enter 60 days of binding nuclear negotiations. The terms exceed the 2015 JCPOA in scope — effectively ending Iran's nuclear program under US-supervised dismantlement. Iran's Foreign Ministry formally denied any final text exists. If verified and signed, this would represent the largest nuclear concession by any state since Libya's 2003 disarmament. The contested status means this is a partial de-escalation signal pending confirmation.",
+    "occurredAt": "2026-06-12T00:00:00Z",
+    "category": 3,
+    "regionTag": "Diplomatic / International",
+    "verifiedAt": "2026-06-12T00:00:00Z",
+    "isBaseline": true
   }
 ]
