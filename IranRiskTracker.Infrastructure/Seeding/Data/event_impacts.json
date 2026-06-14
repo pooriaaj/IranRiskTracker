@@ -868,5 +868,55 @@
     "adjustedDelta": -10.0,
     "reason": "Deal framework requires uranium surrender + program dismantlement June 12: if the MoU is finalized, Iran surrenders its 60%-enriched stockpile and dismantles centrifuge networks under US supervision — nuclear risk reduction exceeding the 2015 JCPOA; applied at partial weight given Iran FM's denial of a final text; represents the first credible nuclear de-escalation signal since Operation Epic Fury destroyed Iran's declared facilities in February 2026",
     "signalType": "Included"
+  },
+  {
+    "id": "bb080019-0000-4000-8000-880000000019",
+    "eventId": "aa070018-0000-4000-8000-700000000018",
+    "eventType": "Historical",
+    "indicatorId": "88888888-8888-4888-8888-888888888888",
+    "rawDelta": 6.0,
+    "adjustedDelta": 6.0,
+    "reason": "IRGC rejects Sunday timeline June 13: IRGC's public criticism of Trump's deal announcement timeline — combined with Iran FM walking back the Sunday signing — demonstrates Iran's negotiating chain operates on different political timescales than US announcements; the persistent gap between US deal claims and Iranian confirmation has been the war's most consistent source of escalation risk and this episode repeats the pattern",
+    "signalType": "Included"
+  },
+  {
+    "id": "bb080020-0000-4000-8000-880000000020",
+    "eventId": "aa070019-0000-4000-8000-700000000019",
+    "eventType": "Historical",
+    "indicatorId": "88888888-8888-4888-8888-888888888888",
+    "rawDelta": -60.0,
+    "adjustedDelta": -60.0,
+    "reason": "Islamabad Declaration June 14: Trump-Pakistan-Iran tripartite announcement of a permanent ceasefire is the single largest de-escalation event of the 2026 war; backed by Pakistan PM announcement minutes before Trump's post and broadcast by Iranian state media — unlike prior Trump deal claims, this carries third-party multilateral validation and named logistics; permanent cessation on all fronts, 60-day nuclear negotiation window, and Hormuz reopening signal a structural transition from active war toward negotiated settlement beginning Day 107 of the conflict",
+    "signalType": "Included"
+  },
+  {
+    "id": "bb070011-0000-4000-8000-770000000011",
+    "eventId": "aa040011-0000-4000-8000-400000000011",
+    "eventType": "Historical",
+    "indicatorId": "77777777-7777-4777-8777-777777777777",
+    "rawDelta": -20.0,
+    "adjustedDelta": -20.0,
+    "reason": "Strait of Hormuz reopening committed June 14: the world's most critical maritime chokepoint transitions from a shoot-on-sight military closure to a committed commercial reopening within 30 days; US naval blockade lifting removes the dual maritime stranglehold simultaneously; the reversal of the formal June 11 closure — the largest deliberate maritime disruption in recorded history — represents unprecedented de-escalation in scope; scored as significant reduction pending verified IRGC stand-down from active interdiction posture",
+    "signalType": "Included"
+  },
+  {
+    "id": "bb040012-0000-4000-8000-440000000012",
+    "eventId": "aa030012-0000-4000-8000-300000000012",
+    "eventType": "Historical",
+    "indicatorId": "44444444-4444-4444-8444-444444444444",
+    "rawDelta": -8.0,
+    "adjustedDelta": -8.0,
+    "reason": "Nuclear never-acquire commitment June 14: Iran's formal MoU commitment to never acquire a nuclear weapon and negotiate enrichment suspension is the first public nuclear constraint accepted since JCPOA withdrawal in 2018; however, the 440kg of 60%-enriched uranium remains in Tehran throughout the 60-day window with no removal or verification mechanism — the weapons-material proliferation risk persists unmitigated; scored as partial de-escalation weighting the political commitment against the absence of physical safeguards",
+    "signalType": "Included"
+  },
+  {
+    "id": "bb080021-0000-4000-8000-880000000021",
+    "eventId": "aa070020-0000-4000-8000-700000000020",
+    "eventType": "Historical",
+    "indicatorId": "88888888-8888-4888-8888-888888888888",
+    "rawDelta": 8.0,
+    "adjustedDelta": 8.0,
+    "reason": "Contradictory deal texts June 14: Iran and US circulating structurally different versions of the Islamabad Declaration — diverging on sanctions lifting, ceasefire geography, nuclear verification, and failure conditions — means the 60-day negotiation window begins with irreconcilable interpretations of the agreement that initiated it; historical precedent (Oslo II, Camp David II) shows text divergence of this magnitude produces high probability of framework collapse within the agreed window, partially offsetting the de-escalation signal of the announcement itself",
+    "signalType": "Included"
   }
 ]

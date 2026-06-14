@@ -828,5 +828,55 @@
     "regionTag": "Diplomatic / International",
     "verifiedAt": "2026-06-12T00:00:00Z",
     "isBaseline": true
+  },
+  {
+    "id": "aa070018-0000-4000-8000-700000000018",
+    "title": "IRGC Rejects Sunday Deal Timeline; Iran FM Says Signing 'Not Tomorrow'",
+    "description": "On June 13, 2026, Iran's Islamic Revolutionary Guard Corps issued a statement criticizing President Trump's 'unusual insistence' on a Sunday signing date for the peace deal, warning that the tight timeline risked derailing negotiations. Hours later, Iran's Foreign Ministry spokesman Esmaeil Baghaei stated that the signing 'will not be tomorrow' but that 'the possibility it will happen in the coming days is not ruled out.' Officials confirmed that a virtual signing was being planned because an in-person meeting presented logistical challenges. The dual statements reflect the structural fracture in Iran's negotiating chain: IRGC commanders willing to deal on military terms versus political and ideological figures viewing any agreement as capitulation. Qatar dispatched negotiators to Tehran in a last-minute push to finalize the text.",
+    "occurredAt": "2026-06-13T00:00:00Z",
+    "category": 7,
+    "regionTag": "Tehran / Diplomatic",
+    "verifiedAt": "2026-06-13T00:00:00Z",
+    "isBaseline": true
+  },
+  {
+    "id": "aa070019-0000-4000-8000-700000000019",
+    "title": "Trump Declares 'Deal with Iran Now Complete' — Islamabad Declaration Announced",
+    "description": "On June 14, 2026, President Trump posted on Truth Social: 'The Deal with the Islamic Republic of Iran is now complete.' Pakistani Prime Minister Shehbaz Sharif made a parallel announcement minutes before Trump's statement, and Iranian state media broadcast the declaration. The Islamabad Declaration commits both sides to an immediate and permanent cessation of war on all fronts, including in Lebanon, and prohibits either party from initiating future hostilities. Immediately after signing, the US will begin lifting its maritime blockade, with Hormuz reaching full commercial capacity within 30 days. Iran and the US will hold negotiations and reach a final agreement within 60 days. The agreement represents the first formal termination of active hostilities since Operation Epic Fury began on February 28, 2026 — 107 days earlier.",
+    "occurredAt": "2026-06-14T00:00:00Z",
+    "category": 7,
+    "regionTag": "Washington DC / Islamabad",
+    "verifiedAt": "2026-06-14T00:00:00Z",
+    "isBaseline": true
+  },
+  {
+    "id": "aa040011-0000-4000-8000-400000000011",
+    "title": "Strait of Hormuz to Reopen; US Naval Blockade Lifted Under Islamabad Declaration",
+    "description": "A core term of the June 14 Islamabad Declaration commits Iran to immediately open the Strait of Hormuz to commercial shipping while the United States simultaneously lifts its naval blockade of Iranian ports. The US commits to bringing Hormuz shipping to full commercial capacity within a maximum of 30 days. Iran's formal closure of the Strait on June 11 — with a shoot-on-sight order for any transiting vessel — had constituted the single largest deliberate disruption of global energy markets in modern history, blocking 20% of global oil and LNG supply. The reopening requires Iran's joint military command to stand down from active maritime interdiction. Full implementation is contingent on both governments ratifying the Islamabad Declaration.",
+    "occurredAt": "2026-06-14T00:00:00Z",
+    "category": 4,
+    "regionTag": "Strait of Hormuz",
+    "verifiedAt": "2026-06-14T00:00:00Z",
+    "isBaseline": true
+  },
+  {
+    "id": "aa030012-0000-4000-8000-300000000012",
+    "title": "Iran Commits to 'Never Acquire Nuclear Weapons'; 440kg Stockpile Stays in Tehran During 60-Day Talks",
+    "description": "The Islamabad Declaration's nuclear annex commits Iran to never acquiring a nuclear weapon and initiates a 60-day negotiation period on the full disposition of Iran's nuclear program, including suspension of uranium enrichment and the eventual removal of its highly enriched uranium stockpile. However, a critical limitation confirmed by the Axios draft text and official US and Iranian statements: Iran's existing 440 kilograms of uranium enriched to 60 percent purity — a level the IAEA has flagged as having no credible civilian justification — remains in Tehran's possession throughout the entire 60-day period. The MoU names no verification mechanism, inspection protocol, or requirement to move or secure the enriched material before signing. This means the weapons-material proliferation risk persists unmitigated throughout the negotiation window.",
+    "occurredAt": "2026-06-14T00:00:00Z",
+    "category": 3,
+    "regionTag": "Tehran / International",
+    "verifiedAt": "2026-06-14T00:00:00Z",
+    "isBaseline": true
+  },
+  {
+    "id": "aa070020-0000-4000-8000-700000000020",
+    "title": "Iran and US Hold Contradictory Versions of Islamabad Declaration Text",
+    "description": "Fortune reported on June 14, 2026, that Iran and the United States were promoting fundamentally different versions of the Islamabad Declaration. The Persian-language draft circulated inside Iran differed significantly from the English version presented by the US side on key provisions: sanctions lifting terms (Iran's draft required full lifting; US draft staged relief by compliance milestone), the geographic scope of the ceasefire commitment, the mechanism for verifying Iran's nuclear freeze, and the threshold conditions under which the 60-day negotiation window would be considered to have failed. Iranian officials described the MoU as a 'declaration of intent' rather than a binding agreement, while US officials characterized it as a 'signed framework.' The divergence suggests both parties agreed to sign structurally different documents to satisfy domestic audiences — a pattern historically associated with high-probability framework collapse within the agreed negotiation window.",
+    "occurredAt": "2026-06-14T00:00:00Z",
+    "category": 7,
+    "regionTag": "Washington DC / Tehran",
+    "verifiedAt": "2026-06-14T00:00:00Z",
+    "isBaseline": true
   }
 ]

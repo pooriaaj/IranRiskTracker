@@ -392,7 +392,7 @@ export default function App() {
                 Methodology
               </span>
               {'  ·  '}
-              Deterministic weighted scoring across 8 domains. Events include de-escalation signals (JCPOA 2015, sanctions relief 2016, April 2026 ceasefire). Score represents 12-month forward regime-collapse stress calibrated against {data.summary?.match(/(\d+) historical/)?.[1] ?? '79'} verified events, 2000–2026.
+              Deterministic weighted scoring across 8 domains. Events include de-escalation signals (JCPOA 2015, sanctions relief 2016, April 2026 ceasefire). Score represents 12-month forward regime-collapse stress calibrated against {data.summary?.match(/(\d+) historical/)?.[1] ?? '88'} verified events, 2000–2026.
             </div>
 
             <div style={{ marginTop: 28, display: 'flex', justifyContent: 'center' }}>
